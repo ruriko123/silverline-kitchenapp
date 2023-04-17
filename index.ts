@@ -8,7 +8,7 @@ const http = require('http');
 const {Server} = require("socket.io");
 var bodyparser = require('body-parser');
 var urlencodedParser = bodyparser.urlencoded({extended: false});
-
+import {createOutletHash} from "@controllers/Socket/socketJoinToken";
 myDataSource
     .initialize()
     .then(() => {
@@ -40,9 +40,21 @@ server.listen(process.env.PORT, async() => {
 });
 
 
-
 io.on('connection', function (socket : any) {
         console.log("Socket connected", socket);
+        socket.on("join",(data:any)=>{
+            let jsonData= JSON.parse(data);
+            if(!("outletName" in jsonData)){
+                return;
+            }
+            let hash = createOutletHash(jsonData["outletName"]);
+            if(!hash){
+                socket.emit("error","error")
+            }
+            else{
+                socket.emit("message",{"update_endpoint":hash})
+            }
+        })
     });
 
 export {io, app};

@@ -22,6 +22,7 @@ const http = require('http');
 const { Server } = require("socket.io");
 var bodyparser = require('body-parser');
 var urlencodedParser = bodyparser.urlencoded({ extended: false });
+const socketJoinToken_1 = require("./Components/Controllers/Socket/socketJoinToken");
 app_data_source_1.default
     .initialize()
     .then(() => {
@@ -48,4 +49,17 @@ server.listen(process.env.PORT, () => __awaiter(void 0, void 0, void 0, function
 }));
 io.on('connection', function (socket) {
     console.log("Socket connected", socket);
+    socket.on("join", (data) => {
+        let jsonData = JSON.parse(data);
+        if (!("outletName" in jsonData)) {
+            return;
+        }
+        let hash = (0, socketJoinToken_1.createOutletHash)(jsonData["outletName"]);
+        if (!hash) {
+            socket.emit("error", "error");
+        }
+        else {
+            socket.emit("message", { "update_endpoint": hash });
+        }
+    });
 });
