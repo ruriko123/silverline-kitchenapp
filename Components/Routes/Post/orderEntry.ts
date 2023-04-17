@@ -4,7 +4,9 @@ const router = express.Router();
 
 
 router.post("/orderEntry", async(req, res) => {
-    console.log("a")
+    var path = require('path');
+    var scriptName = path.basename(__filename);
+    console.log(scriptName);
     try {
         // const {username, email, password} = req?.body;
 
@@ -16,3 +18,5 @@ router.post("/orderEntry", async(req, res) => {
         return;
     }
 })
+
+export { router };

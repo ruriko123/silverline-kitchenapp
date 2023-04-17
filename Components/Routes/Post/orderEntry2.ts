@@ -15,3 +15,5 @@ router.post("/orderEntry2", async(req, res) => {
         return;
     }
 })
+
+export { router };
