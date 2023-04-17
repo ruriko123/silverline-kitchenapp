@@ -16,6 +16,7 @@ exports.saveOrder = void 0;
 const Tblordertracker_1 = require("../../ORM/entities/Tblordertracker");
 const Tblordertrackerdetails_1 = require("../../ORM/entities/Tblordertrackerdetails");
 const app_data_source_1 = __importDefault(require("../../ORM/app-data-source"));
+const EmitOrder_1 = require("../Controllers/Socket/EmitOrder");
 const saveOrder = (orderObject) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         let order = orderObject;
@@ -33,7 +34,7 @@ const saveOrder = (orderObject) => __awaiter(void 0, void 0, void 0, function* (
             .manager
             .save(orderTracker);
         let primarykey = orderTracker.id;
-        order["id"] = primarykey;
+        order["Id"] = primarykey;
         let orderDetails = order["OrderItemDetailsList"];
         for (let x = 0; x < orderDetails.length; x++) {
             let orderTrackerDetails = new Tblordertrackerdetails_1.Tblordertrackerdetails();
@@ -56,6 +57,7 @@ const saveOrder = (orderObject) => __awaiter(void 0, void 0, void 0, function* (
                 order["OrderItemDetailsList"][x]["idtblordertracker_details"] = orderTrackerDetails.idtblordertrackerDetails;
             });
         }
+        (0, EmitOrder_1.emitOrder)(order.outletName, orderObject);
         let successdata = { "success": orderObject };
         return successdata;
     }
