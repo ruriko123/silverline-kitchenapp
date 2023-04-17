@@ -1,8 +1,12 @@
 import { io } from "@base/index";
 import {orderHistory} from "@reqtypes/orderHistory";
+import { createOutletHash } from '@controllers/Socket/socketJoinToken';
+const emitOrder=async(outletName:string,orderObject:orderHistory)=>{
+    let outletHash=await createOutletHash(outletName);
+    console.log(outletHash);
 
-const emitOrder=async(eventName:String,orderObject:orderHistory)=>{
-    io.emit(`${eventName}`,orderObject);
+    io.emit(`${outletHash}`,orderObject);
+    return;
 };
 
 

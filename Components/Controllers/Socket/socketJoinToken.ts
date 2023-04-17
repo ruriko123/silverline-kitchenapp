@@ -7,7 +7,7 @@ const createOutletHash = async(outletName : string) => {
             .createHash('sha256')
             .update(`${outletName}`, 'binary')
             .digest('hex');
-        return outletHash.substring(0,7);
+        return outletHash.substring(0,8);
     } catch (error) {
         return false;
     }

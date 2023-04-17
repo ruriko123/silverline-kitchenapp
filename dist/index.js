@@ -48,18 +48,21 @@ server.listen(process.env.PORT, () => __awaiter(void 0, void 0, void 0, function
     app.use("/", allPostRoutes);
 }));
 io.on('connection', function (socket) {
-    console.log("Socket connected", socket);
-    socket.on("join", (data) => {
-        let jsonData = JSON.parse(data);
-        if (!("outletName" in jsonData)) {
-            return;
-        }
-        let hash = (0, socketJoinToken_1.createOutletHash)(jsonData["outletName"]);
-        if (!hash) {
-            socket.emit("error", "error");
-        }
-        else {
-            socket.emit("message", { "update_endpoint": hash });
-        }
+    return __awaiter(this, void 0, void 0, function* () {
+        console.log("Socket connected");
+        socket.on("join", (data) => __awaiter(this, void 0, void 0, function* () {
+            console.log(data);
+            let jsonData = data;
+            if (!("outletName" in jsonData)) {
+                return;
+            }
+            let hash = yield (0, socketJoinToken_1.createOutletHash)(jsonData["outletName"]);
+            if (!hash) {
+                socket.emit("error", "error");
+            }
+            else {
+                socket.emit("message", { "update_endpoint": hash });
+            }
+        }));
     });
 });

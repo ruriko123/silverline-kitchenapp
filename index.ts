@@ -40,14 +40,16 @@ server.listen(process.env.PORT, async() => {
 });
 
 
-io.on('connection', function (socket : any) {
-        console.log("Socket connected", socket);
-        socket.on("join",(data:any)=>{
-            let jsonData= JSON.parse(data);
+io.on('connection', async function (socket : any) {
+        console.log("Socket connected");
+        socket.on("join",async (data:any)=>{
+            console.log(data);
+
+            let jsonData=data;
             if(!("outletName" in jsonData)){
                 return;
             }
-            let hash = createOutletHash(jsonData["outletName"]);
+            let hash = await createOutletHash(jsonData["outletName"]);
             if(!hash){
                 socket.emit("error","error")
             }

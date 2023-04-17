@@ -11,7 +11,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.emitOrder = void 0;
 const index_1 = require("../../../index");
-const emitOrder = (eventName, orderObject) => __awaiter(void 0, void 0, void 0, function* () {
-    index_1.io.emit(`${eventName}`, orderObject);
+const socketJoinToken_1 = require("../Socket/socketJoinToken");
+const emitOrder = (outletName, orderObject) => __awaiter(void 0, void 0, void 0, function* () {
+    let outletHash = yield (0, socketJoinToken_1.createOutletHash)(outletName);
+    console.log(outletHash);
+    index_1.io.emit(`${outletHash}`, orderObject);
+    return;
 });
 exports.emitOrder = emitOrder;
