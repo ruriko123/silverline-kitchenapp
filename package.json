@@ -4,9 +4,10 @@
   "description": "silverline kitchen app",
   "main": "index.ts",
   "scripts": {
-    "build": "npx tsc",
+    "build": "npx tsc && tsc-alias",
     "start": "node dist/index.js",
-    "dev": "concurrently \"npx tsc --watch\" \"nodemon -q dist/index.js\"",
+    "dev": "concurrently \"npx tsc && tsc-alias --watch\" \"nodemon -q dist/index.js\"",
+    "build:watch": "concurrently --kill-others \"tsc -w\" \"tsc-alias -w\"",
     "migration": "typeorm-model-generator -h localhost -p 3306 -d kitchenDB -u root -x password -e mariadb -o .",
     "dbbackup": "typeorm-model-generator -h localhost -p 3306 -d kitchenDB -u root -x password -e mariadb -o ./backup/dbbackup"
   },
@@ -33,6 +34,8 @@
     "@types/node": "^18.15.11",
     "concurrently": "^8.0.1",
     "nodemon": "^2.0.22",
+    "tsc-alias": "^1.8.5",
+    "tsconfig-paths": "^4.2.0",
     "typescript": "^5.0.4"
   }
 }

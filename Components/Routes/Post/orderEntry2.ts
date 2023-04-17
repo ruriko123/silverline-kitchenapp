@@ -1,9 +1,9 @@
 import express from 'express';
 const router = express.Router();
+var path = require('path');
+var scriptName = path.basename(__filename).replace(/\.[^.]*$/,'');
 
-
-router.post("/orderEntry2", async(req, res) => {
-    console.log("a")
+router.post(`/${scriptName}`, async(req, res) => {
     try {
         // const {username, email, password} = req?.body;
 

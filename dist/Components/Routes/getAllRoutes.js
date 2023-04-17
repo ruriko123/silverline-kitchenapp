@@ -36,7 +36,7 @@ const express_1 = require("express");
 const fs = __importStar(require("fs"));
 const path = __importStar(require("path"));
 const router = (0, express_1.Router)();
-let routeArray = [];
+let PostrouteArray = [];
 function getPostRoutes() {
     return __awaiter(this, void 0, void 0, function* () {
         fs.readdirSync(path.join(__dirname, "./Post")).forEach((file) => __awaiter(this, void 0, void 0, function* () {
@@ -44,12 +44,11 @@ function getPostRoutes() {
                 let routename = file.replace(".ts", "");
                 routename = file.replace(".js", "");
                 var { router } = require(__dirname + "/Post/" + routename);
-                routeArray.push(router);
+                PostrouteArray.push(router);
             }
         }));
-        routeArray.forEach((route) => router.use("/", route));
-        console.log(routeArray);
-        return routeArray;
+        PostrouteArray.forEach((route) => router.use("/", route));
+        return PostrouteArray;
     });
 }
 exports.default = getPostRoutes;

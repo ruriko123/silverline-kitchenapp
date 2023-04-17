@@ -16,8 +16,9 @@ exports.router = void 0;
 const express_1 = __importDefault(require("express"));
 const router = express_1.default.Router();
 exports.router = router;
-router.post("/orderEntry2", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log("a");
+var path = require('path');
+var scriptName = path.basename(__filename).replace(/\.[^.]*$/, '');
+router.post(`/${scriptName}`, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         // const {username, email, password} = req?.body;
         res.status(200).json({ "success": "orderEntry2" });
