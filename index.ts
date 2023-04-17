@@ -15,7 +15,6 @@ myDataSource
 const app : Express = express();
 const port = process.env.PORT;
 app.use(express.json());
-const router = express.Router();
 
 
 
@@ -25,9 +24,8 @@ app.get('/', (req : Request, res : Response) => {
     res.send('Express + TypeScript Server');
 });
 
+
+
 app.listen(port, () => {
     console.log(`⚡️[server]: Server is running at http://localhost:${port}`);
 });
-
-import {Tblordertracker} from "@model/Tblordertracker";
-import {Tblordertrackerdetails} from '@model/Tblordertrackerdetails';
