@@ -6,7 +6,7 @@
   "scripts": {
     "build": "npx tsc && tsc-alias",
     "start": "node dist/index.js",
-    "dev": "concurrently \"npx tsc && tsc-alias --watch\" \"nodemon -q dist/index.js\"",
+    "dev": "concurrently  \"npx tsc && tsc-alias\"  \"npx tsc && tsc-alias --watch\" \"nodemon -q dist/index.js\"",
     "build:watch": "concurrently --kill-others \"tsc -w\" \"tsc-alias -w\"",
     "migration": "typeorm-model-generator -h localhost -p 3306 -d kitchenDB -u root -x password -e mariadb -o .",
     "dbbackup": "typeorm-model-generator -h localhost -p 3306 -d kitchenDB -u root -x password -e mariadb -o ./backup/dbbackup"
@@ -27,6 +27,7 @@
     "express": "^4.18.2",
     "mysql": "^2.18.1",
     "reflect-metadata": "^0.1.13",
+    "socket.io": "^4.6.1",
     "typeorm": "^0.3.15"
   },
   "devDependencies": {
@@ -37,5 +38,9 @@
     "tsc-alias": "^1.8.5",
     "tsconfig-paths": "^4.2.0",
     "typescript": "^5.0.4"
+  },
+  "optionalDependencies": {
+    "bufferutil": "^4.0.7",
+    "utf-8-validate": "^6.0.3"
   }
 }

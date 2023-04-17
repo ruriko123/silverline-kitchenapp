@@ -1,5 +1,5 @@
 export interface orderHistory {
-    id:number|null|string;
+    Id:number|null|string;
     outlet_orderid: number;
     kotid: string|null;
     orderedat:string;

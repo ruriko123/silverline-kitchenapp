@@ -6,6 +6,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const typeorm_1 = require("typeorm");
 const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
+require("reflect-metadata");
+const Tblordertracker_1 = require("./entities/Tblordertracker");
+const Tblordertrackerdetails_1 = require("./entities/Tblordertrackerdetails");
 const myDataSource = new typeorm_1.DataSource({
     type: "mysql",
     host: "localhost",
@@ -13,8 +16,8 @@ const myDataSource = new typeorm_1.DataSource({
     username: process.env.DB_USERNAME,
     password: process.env.DB_PASSWORD,
     database: process.env.DB_NAME,
-    entities: ["entities/*.js"],
-    logging: true,
+    entities: [Tblordertracker_1.Tblordertracker, Tblordertrackerdetails_1.Tblordertrackerdetails],
+    logging: false,
     synchronize: true,
     migrations: [],
 });
