@@ -10,6 +10,8 @@
     "build:watch": "concurrently --kill-others \"tsc -w\" \"tsc-alias -w\"",
     "migration": "typeorm-model-generator -h localhost -p 3306 -d kitchenDB -u root -x password -e mariadb -o .",
     "dbbackup": "typeorm-model-generator -h localhost -p 3306 -d kitchenDB -u root -x password -e mariadb -o ./backup/dbbackup"
+  }, "nodemonConfig": {
+    "ignore": [".vscode", ".git","./dist/*","./node_modules"]
   },
   "repository": {
     "type": "git",
