@@ -45,14 +45,13 @@ const saveOrder = async(orderObject : orderHistory) => {
                 .manager
                 .save(orderTrackerDetails).then((e)=>{
                     order["OrderItemDetailsList"][x]["idtblordertracker_details"] = orderTrackerDetails.idtblordertrackerDetails;
-                })
-        }
-        emitOrder(order.outletName,orderObject)
-        let successdata = {"success":orderObject}
+                });
+        };
+        emitOrder(order.outletName,orderObject);
+        let successdata = {"success":orderObject};
         return successdata;
-
     } catch (err) {
-        let errordata = {"error":`${err}`}
+        let errordata = {"error":`${err}`};
         return errordata;
     }
 

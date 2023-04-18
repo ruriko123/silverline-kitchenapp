@@ -49,7 +49,9 @@ server.listen(process.env.PORT, () => __awaiter(void 0, void 0, void 0, function
 }));
 io.on('connection', function (socket) {
     return __awaiter(this, void 0, void 0, function* () {
-        console.log("Socket connected");
+        let d = new Date();
+        let ank = d.toLocaleString('en-US', { timeZone: 'Asia/Kathmandu' });
+        console.log(`${ank}`, `-> Socket connected`);
         socket.on("join", (data) => __awaiter(this, void 0, void 0, function* () {
             console.log(data);
             let jsonData = data;
@@ -61,6 +63,7 @@ io.on('connection', function (socket) {
                 socket.emit("error", "error");
             }
             else {
+                console.log(`Initial join hash ${hash}`);
                 socket.emit("message", { "update_endpoint": hash });
             }
         }));

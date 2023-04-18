@@ -2,7 +2,6 @@ import express, {Express, Request, Response} from 'express';
 import dotenv from 'dotenv';
 import myDataSource from "./ORM/app-data-source";
 import getPostRoutes from './Components/Routes/getAllRoutes';
-import {hostname} from 'os';
 dotenv.config();
 const http = require('http');
 const {Server} = require("socket.io");
@@ -17,11 +16,9 @@ myDataSource
     .catch((err) => {
         console.error("Error during Data Source initialization:", err);
     });
-
 const app : Express = express();
 const server = http.createServer(app);
 const io = new Server(server);
-
 
 const port = process.env.PORT;
 app.use(express.json());
@@ -41,7 +38,9 @@ server.listen(process.env.PORT, async() => {
 
 
 io.on('connection', async function (socket : any) {
-        console.log("Socket connected");
+        let d = new Date()
+        let ank = d.toLocaleString('en-US', { timeZone: 'Asia/Kathmandu' });
+        console.log(`${ank}`,`-> Socket connected`);
         socket.on("join",async (data:any)=>{
             console.log(data);
 
@@ -54,6 +53,7 @@ io.on('connection', async function (socket : any) {
                 socket.emit("error","error")
             }
             else{
+                console.log(`Initial join hash ${hash}`)
                 socket.emit("message",{"update_endpoint":hash})
             }
         })
