@@ -15,7 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.app = exports.io = void 0;
 const express_1 = __importDefault(require("express"));
 const dotenv_1 = __importDefault(require("dotenv"));
-const app_data_source_1 = __importDefault(require("./ORM/app-data-source"));
+const app_data_source_1 = __importDefault(require("./app-data-source"));
 const getAllRoutes_1 = __importDefault(require("./Components/Routes/getAllRoutes"));
 dotenv_1.default.config();
 const http = require('http');

@@ -1,6 +1,6 @@
 import express, {Express, Request, Response} from 'express';
 import dotenv from 'dotenv';
-import myDataSource from "./ORM/app-data-source";
+import myDataSource from "./app-data-source";
 import getPostRoutes from './Components/Routes/getAllRoutes';
 dotenv.config();
 const http = require('http');

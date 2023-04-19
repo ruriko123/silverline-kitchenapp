@@ -1,6 +1,6 @@
 import {Tblordertracker} from "@model/Tblordertracker";
 import {Tblordertrackerdetails} from '@model/Tblordertrackerdetails';
-import myDataSource from "@orm/app-data-source";
+import myDataSource from "@base/app-data-source";
 import {orderHistory, orderHistoryDetails} from "@reqtypes/orderHistory"
 import {emitOrder} from "../Controllers/Socket/EmitOrder";
 
