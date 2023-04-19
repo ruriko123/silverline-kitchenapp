@@ -18,6 +18,16 @@ router.post(`/${scriptName}`, async(req, res) => {
                 .status(500)
                 .json(result);
             return;
+        } else if ("tokenError" in result) {
+            res
+                .status(401)
+                .json({"error": result["tokenError"]});
+            return;
+        } else if ("notokenError" in result) {
+            res
+                .status(401)
+                .json({"error": result["notokenError"]});
+            return;
         } else {
             /* After the middleware emits the data to the device through socket connection, the same data is sent back to the user who post it  */
             res

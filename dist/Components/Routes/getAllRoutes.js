@@ -37,6 +37,7 @@ const fs = __importStar(require("fs"));
 const path = __importStar(require("path"));
 const router = (0, express_1.Router)();
 let PostrouteArray = [];
+/* This function returns all the routes inside the POST folder dynamically*/
 function getPostRoutes() {
     return __awaiter(this, void 0, void 0, function* () {
         fs

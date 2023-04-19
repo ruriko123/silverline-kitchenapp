@@ -1,43 +1,41 @@
 {
-  "customerName": "Test",
-  "customerPhone": "9845356788",
-  "Address": "testaddress",
-  "deliveryVia": "self",
-  "outlet_orderid": 123,
-  "kotid": "111",
-  "orderedat": "14:18:00",
-  "tablenum": "41",
-  "employee": "123San",
-  "ordertype": "Dine-In",
-  "currentstate": "Started",
-  "outletName": "test@123",
-  "guestCount": 1,
-  "OrderItemDetailsList": [
-      {
-          "orderedat": "14:21:32",
-          "itemname": "1",
-          "quantity": "2",
-          "modification": "",
-          "avgpreptime": "00:10:00",
-          "itemPrice": "132.74",
-          "category": "Cold Beverage",
-          "description": "123test",
-          "productId": 1,
-          "unit": "liters",
-          "isTaxable": true
-      },
-      {
-          "orderedat": "14:21:32",
-          "itemname": "425",
-          "quantity": "2",
-          "modification": "",
-          "avgpreptime": "00:10:00",
-          "itemPrice": "132.74",
-          "category": "Cold Beverage",
-          "description": "123test",
-          "productId": 1,
-          "unit": "liters",
-          "isTaxable": true
-      }
-  ]
+
+    "deliveryVia": "self",
+    "outlet_orderid": 123,
+    "kotid": "111",
+    "orderedat": "14:18:00",
+    "tablenum": "41",
+    "employee": "123San",
+    "ordertype": "Dine-In",
+    "currentstate": "Started",
+    "outletName": "123test@123",
+    "guestCount": 1,
+    "OrderItemDetailsList": [
+        {
+            "orderedat": "14:21:32",
+            "itemname": "1",
+            "quantity": "2",
+            "modification": "",
+            "avgpreptime": "00:10:00",
+            "itemPrice": "132.74",
+            "category": "Cold Beverage",
+            "description": "123test",
+            "productId": 1,
+            "unit": "liters",
+            "isTaxable": true
+        },
+        {
+            "orderedat": "14:21:32",
+            "itemname": "425",
+            "quantity": "2",
+            "modification": "",
+            "avgpreptime": "00:10:00",
+            "itemPrice": "132.74",
+            "category": "Cold Beverage",
+            "description": "123test",
+            "productId": 1,
+            "unit": "liters",
+            "isTaxable": true
+        }
+    ]
 }

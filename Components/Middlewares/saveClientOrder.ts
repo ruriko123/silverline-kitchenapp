@@ -1,12 +1,10 @@
 import {Tblordertracker} from "@model/Tblordertracker";
-import {TblThirdparty} from "@model/TblThirdparty";
-
 import {Tblordertrackerdetails} from '@model/Tblordertrackerdetails';
 import myDataSource from "@base/app-data-source";
 import {orderHistory, orderHistoryDetails} from "@reqtypes/orderHistory"
 import {emitOrder} from "../Controllers/Socket/EmitOrder";
 
-const saveOrder = async(orderObject : orderHistory) => {
+const saveClientOrder = async(orderObject : orderHistory) => {
     try {
         let order : orderHistory = orderObject;
         const orderTracker = new Tblordertracker();
@@ -69,7 +67,6 @@ const saveOrder = async(orderObject : orderHistory) => {
         return errordata;
     };
 
-
 };
 
-export {saveOrder};
+export {saveClientOrder};

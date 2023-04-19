@@ -5,6 +5,9 @@ const router = Router();
 
 let PostrouteArray : any = [];
 
+
+
+/* This function returns all the routes inside the POST folder dynamically*/
 async function getPostRoutes() {
     fs
         .readdirSync(path.join(__dirname, "./Post"))

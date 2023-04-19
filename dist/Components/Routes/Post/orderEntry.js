@@ -22,9 +22,29 @@ var scriptName = path
     .basename(__filename)
     .replace(/\.[^.]*$/, '');
 const saveOrder_1 = require("../../../Components/Middlewares/saveOrder");
+const checkThirdPartytoken_1 = require("../../../Components/Middlewares/checkThirdPartytoken");
 router.post(`/${scriptName}`, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
+        /* Validate the token*/
+        let tokenresult = yield (0, checkThirdPartytoken_1.check3Ptoken)(req.get("token"));
+        if ("error" in tokenresult) {
+            res
+                .status(500)
+                .json(tokenresult);
+            return;
+        }
+        else if ("tokenError" in tokenresult) {
+            res
+                .status(401)
+                .json({ "error": tokenresult["tokenError"] });
+            return;
+        }
+        ;
+        /* tokenresult returns the company details which is passed with the "order" object*/
         let order = req === null || req === void 0 ? void 0 : req.body;
+        order["customerName"] = tokenresult.CompanyName;
+        order["customerPhone"] = tokenresult.Phone || tokenresult.AltPhone;
+        order["Address"] = tokenresult.Address;
         /* The device posts the order JSON which is passed to the saveOrder middleware */
         let result = yield (0, saveOrder_1.saveOrder)(order);
         if ("error" in result) {

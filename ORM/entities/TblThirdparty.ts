@@ -10,7 +10,7 @@ export class TblThirdparty {
         nullable: true,
         length: 50
     })
-    CompanyName : number | null;
+    CompanyName : string | null;
 
     @Column("varchar", {
         name: "Address",
