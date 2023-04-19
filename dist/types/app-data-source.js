@@ -7,8 +7,8 @@ const typeorm_1 = require("typeorm");
 const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
 require("reflect-metadata");
-const Tblordertracker_1 = require("./entities/Tblordertracker");
-const Tblordertrackerdetails_1 = require("./entities/Tblordertrackerdetails");
+const Tblordertracker_1 = require("../ORM/entities/Tblordertracker");
+const Tblordertrackerdetails_1 = require("../ORM/entities/Tblordertrackerdetails");
 //import the models in entities
 const myDataSource = new typeorm_1.DataSource({
     type: "mariadb",

@@ -2,10 +2,7 @@ import {Tblordertracker} from "@model/Tblordertracker";
 import {Tblordertrackerdetails} from '@model/Tblordertrackerdetails';
 import myDataSource from "@orm/app-data-source";
 import {orderHistory, orderHistoryDetails} from "@reqtypes/orderHistory"
-import { emitOrder } from "../Controllers/Socket/EmitOrder";
-
-
-
+import {emitOrder} from "../Controllers/Socket/EmitOrder";
 
 const saveOrder = async(orderObject : orderHistory) => {
     try {
@@ -20,6 +17,10 @@ const saveOrder = async(orderObject : orderHistory) => {
         orderTracker.currentstate = order.currentstate;
         orderTracker.outletName = order.outletName;
         orderTracker.guestCount = order.guestCount;
+        orderTracker.customerName=order.customerName;
+        orderTracker.customerPhone=order.customerPhone;
+        orderTracker.Address=order.Address;
+        orderTracker.deliveryVia=order.deliveryVia;
         await myDataSource
             .manager
             .save(orderTracker);
@@ -28,7 +29,7 @@ const saveOrder = async(orderObject : orderHistory) => {
         let orderDetails = order["OrderItemDetailsList"];
         for (let x = 0; x < orderDetails.length; x++) {
             let orderTrackerDetails = new Tblordertrackerdetails();
-            let e:orderHistoryDetails = orderDetails[x];
+            let e : orderHistoryDetails = orderDetails[x];
             orderTrackerDetails.orderedat = e.orderedat;
             orderTrackerDetails.ordertrackerId = primarykey;
             orderTrackerDetails.itemname = e.itemname;
@@ -43,19 +44,29 @@ const saveOrder = async(orderObject : orderHistory) => {
             orderTrackerDetails.isTaxable = e.isTaxable;
             await myDataSource
                 .manager
-                .save(orderTrackerDetails).then((e)=>{
+                .save(orderTrackerDetails)
+                .then((e) => {
                     order["OrderItemDetailsList"][x]["idtblordertracker_details"] = orderTrackerDetails.idtblordertrackerDetails;
                 });
         };
-        emitOrder(order.outletName,orderObject);
-        let successdata = {"success":orderObject};
+
+
+        /* The outlet name is hashed and the json object is emitted on the hashed outlet name. The device is listening on this outlet name hash so it receives the orderdata just before it is saved to the db.*/
+        emitOrder(order.outletName, orderObject);
+        let successdata = {
+            "success": orderObject
+        };
+
+
+        /* After sending the data to the socket, it is also returned back to the route. */
         return successdata;
     } catch (err) {
-        let errordata = {"error":`${err}`};
+        let errordata = {
+            "error": `${err}`
+        };
         return errordata;
-    }
+    };
 
-}
-
+};
 
 export {saveOrder};

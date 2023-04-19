@@ -8,30 +8,16 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.router = void 0;
-const express_1 = __importDefault(require("express"));
-const router = express_1.default.Router();
-exports.router = router;
-var path = require('path');
-var scriptName = path
-    .basename(__filename)
-    .replace(/\.[^.]*$/, '');
-router.post(`/${scriptName}`, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        res
-            .status(200)
-            .json({ "success": "orderEntry2" });
-        return;
+exports.Migrations1681877636578 = void 0;
+class Migrations1681877636578 {
+    up(queryRunner) {
+        return __awaiter(this, void 0, void 0, function* () {
+        });
     }
-    catch (err) {
-        res
-            .status(500)
-            .json(err);
-        return;
+    down(queryRunner) {
+        return __awaiter(this, void 0, void 0, function* () {
+        });
     }
-    ;
-}));
+}
+exports.Migrations1681877636578 = Migrations1681877636578;

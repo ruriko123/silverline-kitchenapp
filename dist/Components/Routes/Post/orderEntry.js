@@ -17,23 +17,36 @@ const express_1 = __importDefault(require("express"));
 const router = express_1.default.Router();
 exports.router = router;
 var path = require('path');
-var scriptName = path.basename(__filename).replace(/\.[^.]*$/, '');
+/* The name of the file is used as the express route endpoint */
+var scriptName = path
+    .basename(__filename)
+    .replace(/\.[^.]*$/, '');
 const saveOrder_1 = require("../../../Components/Middlewares/saveOrder");
 router.post(`/${scriptName}`, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         let order = req === null || req === void 0 ? void 0 : req.body;
+        /* The device posts the order JSON which is passed to the saveOrder middleware */
         let result = yield (0, saveOrder_1.saveOrder)(order);
         if ("error" in result) {
-            res.status(500).json(result);
+            res
+                .status(500)
+                .json(result);
             return;
         }
         else {
-            res.status(200).json(result["success"]);
+            /* After the middleware emits the data to the device through socket connection, the same data is sent back to the user who post it  */
+            res
+                .status(200)
+                .json(result["success"]);
             return;
         }
+        ;
     }
     catch (err) {
-        res.status(500).json(err);
+        res
+            .status(500)
+            .json(err);
         return;
     }
+    ;
 }));

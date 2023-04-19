@@ -1,26 +1,13 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Tblordertrackerdetails } from "./Tblordertrackerdetails";
 
-@Entity()
+@Entity("tblordertracker", { schema: "kitchenDB" })
 export class Tblordertracker {
   @PrimaryGeneratedColumn({ type: "bigint", name: "id" })
   id: string;
 
   @Column("int", { name: "outlet_orderid", nullable: true })
   outletOrderid: number | null;
-
-  @Column("varchar", { name: "customerName", nullable: true, length: 50 })
-  customerName: string | null;
-
-  @Column("varchar", { name: "customerPhone", nullable: true, length: 20 })
-  customerPhone: string | null;
-
-  @Column("varchar", { name: "Address", nullable: true, length: 100 })
-  Address: string | null;
-
-  @Column("varchar", { name: "deliveryVia", nullable: true, length: 50 })
-  deliveryVia: string | null;
-
 
   @Column("date", { name: "date", nullable: true })
   date: string | null;
@@ -63,7 +50,17 @@ export class Tblordertracker {
   @Column("varchar", { name: "kotid", nullable: true, length: 20 })
   kotid: string | null;
 
+  @Column("varchar", { name: "customerName", nullable: true, length: 50 })
+  customerName: string | null;
 
+  @Column("varchar", { name: "customerPhone", nullable: true, length: 20 })
+  customerPhone: string | null;
+
+  @Column("varchar", { name: "Address", nullable: true, length: 100 })
+  address: string | null;
+
+  @Column("varchar", { name: "deliveryVia", nullable: true, length: 50 })
+  deliveryVia: string | null;
 
   @OneToMany(
     () => Tblordertrackerdetails,

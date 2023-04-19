@@ -6,12 +6,22 @@
   "scripts": {
     "build": "npx tsc && tsc-alias",
     "start": "node dist/index.js",
+    "typeorm": "node --require ts-node/register ./node_modules/typeorm/cli.js",
+    "typeorm:migrate": "yarn typeorm migration:run",
+    "typeorm:generate": "yarn typeorm migration:generate src/database/migrations/Migration --timestamp",
+    "typeorm:revert": "yarn typeorm migration:revert",
     "dev": "concurrently  \"npx tsc && tsc-alias\"  \"npx tsc && tsc-alias --watch\" \"nodemon -q dist/index.js\"",
     "build:watch": "concurrently --kill-others \"tsc -w\" \"tsc-alias -w\"",
     "migration": "typeorm-model-generator -h localhost -p 3306 -d kitchenDB -u root -x password -e mariadb -o .",
-    "dbbackup": "typeorm-model-generator -h localhost -p 3306 -d kitchenDB -u root -x password -e mariadb -o ./backup/dbbackup"
-  }, "nodemonConfig": {
-    "ignore": [".vscode", ".git","./dist/*","./node_modules"]
+    "dbbackup": "typeorm-model-generator -h localhost -p 3306 -d kitchenDB -u root -x password -e mariadb -o ./backup"
+  },
+  "nodemonConfig": {
+    "ignore": [
+      ".vscode",
+      ".git",
+      "./dist/*",
+      "./node_modules"
+    ]
   },
   "repository": {
     "type": "git",
@@ -38,6 +48,7 @@
     "@types/node": "^18.15.11",
     "concurrently": "^8.0.1",
     "nodemon": "^2.0.22",
+    "ts-node": "^10.9.1",
     "tsc-alias": "^1.8.5",
     "tsconfig-paths": "^4.2.0",
     "typescript": "^5.0.4"

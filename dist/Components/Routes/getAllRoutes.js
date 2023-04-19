@@ -39,13 +39,16 @@ const router = (0, express_1.Router)();
 let PostrouteArray = [];
 function getPostRoutes() {
     return __awaiter(this, void 0, void 0, function* () {
-        fs.readdirSync(path.join(__dirname, "./Post")).forEach((file) => __awaiter(this, void 0, void 0, function* () {
+        fs
+            .readdirSync(path.join(__dirname, "./Post"))
+            .forEach((file) => __awaiter(this, void 0, void 0, function* () {
             if (`${file}`.includes(".ts") || `${file}`.includes(".js")) {
                 let routename = file.replace(".ts", "");
                 routename = file.replace(".js", "");
                 var { router } = require(__dirname + "/Post/" + routename);
                 PostrouteArray.push(router);
             }
+            ;
         }));
         PostrouteArray.forEach((route) => router.use("/", route));
         return PostrouteArray;

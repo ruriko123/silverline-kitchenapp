@@ -30,6 +30,10 @@ const saveOrder = (orderObject) => __awaiter(void 0, void 0, void 0, function* (
         orderTracker.currentstate = order.currentstate;
         orderTracker.outletName = order.outletName;
         orderTracker.guestCount = order.guestCount;
+        orderTracker.customerName = order.customerName;
+        orderTracker.customerPhone = order.customerPhone;
+        orderTracker.Address = order.Address;
+        orderTracker.deliveryVia = order.deliveryVia;
         yield app_data_source_1.default
             .manager
             .save(orderTracker);
@@ -53,17 +57,26 @@ const saveOrder = (orderObject) => __awaiter(void 0, void 0, void 0, function* (
             orderTrackerDetails.isTaxable = e.isTaxable;
             yield app_data_source_1.default
                 .manager
-                .save(orderTrackerDetails).then((e) => {
+                .save(orderTrackerDetails)
+                .then((e) => {
                 order["OrderItemDetailsList"][x]["idtblordertracker_details"] = orderTrackerDetails.idtblordertrackerDetails;
             });
         }
+        ;
+        /* The outlet name is hashed and the json object is emitted on the hashed outlet name. The device is listening on this outlet name hash so it receives the orderdata just before it is saved to the db.*/
         (0, EmitOrder_1.emitOrder)(order.outletName, orderObject);
-        let successdata = { "success": orderObject };
+        let successdata = {
+            "success": orderObject
+        };
+        /* After sending the data to the socket, it is also returned back to the route. */
         return successdata;
     }
     catch (err) {
-        let errordata = { "error": `${err}` };
+        let errordata = {
+            "error": `${err}`
+        };
         return errordata;
     }
+    ;
 });
 exports.saveOrder = saveOrder;

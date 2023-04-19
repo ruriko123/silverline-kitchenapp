@@ -23,22 +23,6 @@ __decorate([
     __metadata("design:type", Object)
 ], Tblordertracker.prototype, "outletOrderid", void 0);
 __decorate([
-    (0, typeorm_1.Column)("varchar", { name: "customerName", nullable: true, length: 50 }),
-    __metadata("design:type", Object)
-], Tblordertracker.prototype, "customerName", void 0);
-__decorate([
-    (0, typeorm_1.Column)("varchar", { name: "customerPhone", nullable: true, length: 20 }),
-    __metadata("design:type", Object)
-], Tblordertracker.prototype, "customerPhone", void 0);
-__decorate([
-    (0, typeorm_1.Column)("varchar", { name: "Address", nullable: true, length: 100 }),
-    __metadata("design:type", Object)
-], Tblordertracker.prototype, "Address", void 0);
-__decorate([
-    (0, typeorm_1.Column)("varchar", { name: "deliveryVia", nullable: true, length: 50 }),
-    __metadata("design:type", Object)
-], Tblordertracker.prototype, "deliveryVia", void 0);
-__decorate([
     (0, typeorm_1.Column)("date", { name: "date", nullable: true }),
     __metadata("design:type", Object)
 ], Tblordertracker.prototype, "date", void 0);
@@ -92,10 +76,26 @@ __decorate([
     __metadata("design:type", Object)
 ], Tblordertracker.prototype, "kotid", void 0);
 __decorate([
+    (0, typeorm_1.Column)("varchar", { name: "customerName", nullable: true, length: 50 }),
+    __metadata("design:type", Object)
+], Tblordertracker.prototype, "customerName", void 0);
+__decorate([
+    (0, typeorm_1.Column)("varchar", { name: "customerPhone", nullable: true, length: 20 }),
+    __metadata("design:type", Object)
+], Tblordertracker.prototype, "customerPhone", void 0);
+__decorate([
+    (0, typeorm_1.Column)("varchar", { name: "Address", nullable: true, length: 100 }),
+    __metadata("design:type", Object)
+], Tblordertracker.prototype, "address", void 0);
+__decorate([
+    (0, typeorm_1.Column)("varchar", { name: "deliveryVia", nullable: true, length: 50 }),
+    __metadata("design:type", Object)
+], Tblordertracker.prototype, "deliveryVia", void 0);
+__decorate([
     (0, typeorm_1.OneToMany)(() => Tblordertrackerdetails_1.Tblordertrackerdetails, (tblordertrackerdetails) => tblordertrackerdetails.ordertracker),
     __metadata("design:type", Array)
 ], Tblordertracker.prototype, "tblordertrackerdetails", void 0);
 Tblordertracker = __decorate([
-    (0, typeorm_1.Entity)()
+    (0, typeorm_1.Entity)("tblordertracker", { schema: "kitchenDB" })
 ], Tblordertracker);
 exports.Tblordertracker = Tblordertracker;

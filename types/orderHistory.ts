@@ -1,3 +1,6 @@
+/* Types for orderhistory post api */
+
+
 export interface orderHistory {
     Id:number|null|string;
     outlet_orderid: number;
@@ -9,6 +12,10 @@ export interface orderHistory {
     currentstate:string;
     outletName:string;
     guestCount:number|null;
+    customerName:string;
+    customerPhone:string;
+    Address:string;
+    deliveryVia:string;
     OrderItemDetailsList:Array<orderHistoryDetails>
 
 }

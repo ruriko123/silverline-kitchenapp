@@ -25,5 +25,6 @@ const createOutletHash = (outletName) => __awaiter(void 0, void 0, void 0, funct
     catch (error) {
         return false;
     }
+    ;
 });
 exports.createOutletHash = createOutletHash;

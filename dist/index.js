@@ -23,6 +23,7 @@ const { Server } = require("socket.io");
 var bodyparser = require('body-parser');
 var urlencodedParser = bodyparser.urlencoded({ extended: false });
 const socketJoinToken_1 = require("./Components/Controllers/Socket/socketJoinToken");
+/* Initialize the orm data source*/
 app_data_source_1.default
     .initialize()
     .then(() => {
@@ -44,28 +45,36 @@ app.get('/', (req, res) => {
 });
 server.listen(process.env.PORT, () => __awaiter(void 0, void 0, void 0, function* () {
     console.log(`⚡️[server]: Server is running at http://localhost:${port}`);
+    /* After server is initialized, call the getPostRoutes() function to dynamically fetch all express routes automatically. */
     let allPostRoutes = yield (0, getAllRoutes_1.default)();
+    /* Register all the routes */
     app.use("/", allPostRoutes);
 }));
+/* Socket connection */
 io.on('connection', function (socket) {
     return __awaiter(this, void 0, void 0, function* () {
         let d = new Date();
         let ank = d.toLocaleString('en-US', { timeZone: 'Asia/Kathmandu' });
         console.log(`${ank}`, `-> Socket connected`);
+        /* After connection, the device emits on the "join" channel and sends outletName in json.*/
         socket.on("join", (data) => __awaiter(this, void 0, void 0, function* () {
             console.log(data);
             let jsonData = data;
             if (!("outletName" in jsonData)) {
                 return;
             }
+            ;
+            /* The createOutletHash function hashes the outletname and emits it back to the device on the 'message' event*/
             let hash = yield (0, socketJoinToken_1.createOutletHash)(jsonData["outletName"]);
             if (!hash) {
                 socket.emit("error", "error");
             }
             else {
                 console.log(`Initial join hash ${hash}`);
+                /* OutletName hash is passed and the client uses it as its socket event name. */
                 socket.emit("message", { "update_endpoint": hash });
             }
+            ;
         }));
     });
 });
