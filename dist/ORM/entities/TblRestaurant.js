@@ -177,6 +177,14 @@ __decorate([
     __metadata("design:type", Object)
 ], TblRestaurant.prototype, "lastModifiedBy", void 0);
 __decorate([
+    (0, typeorm_1.Column)("varchar", {
+        name: "baseURL",
+        nullable: true,
+        length: 50
+    }),
+    __metadata("design:type", Object)
+], TblRestaurant.prototype, "baseURL", void 0);
+__decorate([
     (0, typeorm_1.Column)("boolean", {
         name: "isActive",
         default: true

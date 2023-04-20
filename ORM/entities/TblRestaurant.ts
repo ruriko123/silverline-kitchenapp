@@ -157,7 +157,7 @@ export class TblRestaurant {
 
     @Column("boolean", {
         name: "isActive",
-        default:true
+        default:false
     })
     isActive : string | null;
 

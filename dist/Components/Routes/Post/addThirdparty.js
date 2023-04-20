@@ -4,7 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.router = void 0;
-const addThirdparty_1 = require("../../../Components/Controllers/Admin/addThirdparty");
+const addThirdparty_1 = require("../../../Components/Controllers/Admin/thirdparty/addThirdparty");
 const sessionChecker_1 = require("../../../Components/Middlewares/Admin/sessionChecker");
 const express_1 = __importDefault(require("express"));
 const router = express_1.default.Router();
