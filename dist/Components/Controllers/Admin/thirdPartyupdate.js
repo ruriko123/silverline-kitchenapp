@@ -21,19 +21,11 @@ const thirdPartyupdate = (req, res) => __awaiter(void 0, void 0, void 0, functio
     try {
         let id = (_a = req.body) === null || _a === void 0 ? void 0 : _a.id;
         let Name = (_b = req.body) === null || _b === void 0 ? void 0 : _b.Name;
-        // let Address : string = req.body
-        //     ?.Address;
-        // let Phone : string = req.body
-        //     ?.Phone;
-        // let Pan : string = req.body
-        //     ?.Pan;
-        // let AltPhone : string = req.body
-        //     ?.AltPhone || "";
-        // let Email : string = req.body
-        //     ?.Email;
-        // let addedBy : string = req.session
-        //     ?.adminName || "";
-        // let baseURL:string=req.body?.baseURL;
+        // let Address : string = req.body     ?.Address; let Phone : string = req.body
+        //    ?.Phone; let Pan : string = req.body     ?.Pan; let AltPhone : string =
+        // req.body     ?.AltPhone || ""; let Email : string = req.body     ?.Email; let
+        // addedBy : string = req.session     ?.adminName || ""; let
+        // baseURL:string=req.body?.baseURL;
         if (!id || !Name) {
             res
                 .status(401)

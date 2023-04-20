@@ -40,31 +40,57 @@ export interface orderHistoryDetails{
 
 export interface orderHistoryThirdParty extends orderHistory{
     id?:number|null;
-    CompanyName?:number|null;
-    CompanyAddress?:number|null;
-    CompanyPhone?:number|null;
-    CompanyPan?:number|null;
-    CompanyAltPhone?:number|null;
-    CompanyEmail?:number|null;
-    Token?:number|null;
-    CompanyisActive?:boolean|number|null;
+    CompanyName?:string|null;
+    CompanyAddress?:string|null;
+    CompanyPhone?:string|null;
+    CompanyPan?:string|null;
+    CompanyAltPhone?:string|null;
+    CompanyEmail?:string|null;
+    Token?:string|null;
+    CompanyisActive?:boolean|string|number|null;
 
 }
 
 export interface thirdParty {
     id:number|null;
-    Name:number|null;
-    Address:number|null;
-    Phone:number|null;
-    Pan:number|null;
-    AltPhone:number|null;
-    Email:number|null;
-    Token:number|null;
-    isActive:boolean|number|null;
+    Name:string|null;
+    Address:string|null;
+    Phone:string|null;
+    Pan:string|null;
+    AltPhone:string|null;
+    Email:string|null;
+    Token:string|null;
+    isActive:boolean|number|string|null;
     addedBy:string|null;
     deletedBy:string|null;
     addedDate:string|null;
     deletedDate:string|null;
     baseURL:string|null;
 
+}
+
+export interface typeTblRestaurant{
+    id:number|null;
+    Name:string|null;
+    Address:string|null;
+    Phone:string|null;
+    Pan:string|null;
+    AltPhone:string|null;
+    Email:string|null;
+    long:string|null;
+    lat:string|null;
+    details:string|null;
+    logo:string|null;
+    coverimage:string|null;
+    contactPerson:string|null;
+    commission:string|null;
+    slogin:string|null;
+    lastModifiedBy:string|null;
+    isResproclient:boolean|string|number|null;
+    isActive:boolean|string|number|null;
+    addedBy:string|null;
+    deletedBy:string|null;
+    addedDate:string|null;
+    deletedDate:string|null;
+    baseURL:string|null;
 }
