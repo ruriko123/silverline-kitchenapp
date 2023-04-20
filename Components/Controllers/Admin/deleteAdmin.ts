@@ -2,7 +2,6 @@ import {RequestHandler} from "express";
 import {adminHash, adminHashCompare} from "@base/Components/utils/AdminHash";
 import {TblAdmin} from "@model/TblAdmin";
 import myDataSource from "@base/app-data-source";
-import { And, Not } from "typeorm";
 
 const deleteAdmin : RequestHandler = async(req, res) => {
 

@@ -39,6 +39,7 @@ const adminLogin = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
             let checkDB = yield (0, AdminHash_1.adminHashCompare)(password, userData.Password || "");
             if (checkDB) {
                 req.session.admin = true;
+                req.session.adminName = userName;
                 // res.redirect('/');
                 res
                     .status(200)

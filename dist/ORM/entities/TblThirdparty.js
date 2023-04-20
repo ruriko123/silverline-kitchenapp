@@ -15,7 +15,7 @@ let TblThirdparty = class TblThirdparty {
 };
 __decorate([
     (0, typeorm_1.PrimaryGeneratedColumn)({ type: "bigint", name: "id" }),
-    __metadata("design:type", String)
+    __metadata("design:type", Number)
 ], TblThirdparty.prototype, "id", void 0);
 __decorate([
     (0, typeorm_1.Column)("varchar", {
@@ -67,12 +67,52 @@ __decorate([
 ], TblThirdparty.prototype, "Email", void 0);
 __decorate([
     (0, typeorm_1.Column)("varchar", {
+        name: "baseURL",
+        nullable: true,
+        length: 50
+    }),
+    __metadata("design:type", Object)
+], TblThirdparty.prototype, "baseURL", void 0);
+__decorate([
+    (0, typeorm_1.Column)("varchar", {
         name: "Token",
         nullable: true,
         length: 200
     }),
     __metadata("design:type", Object)
 ], TblThirdparty.prototype, "Token", void 0);
+__decorate([
+    (0, typeorm_1.Column)("varchar", {
+        name: "deletedBy",
+        nullable: true,
+        length: 50
+    }),
+    __metadata("design:type", Object)
+], TblThirdparty.prototype, "deletedBy", void 0);
+__decorate([
+    (0, typeorm_1.Column)("varchar", {
+        name: "addedBy",
+        nullable: true,
+        length: 50
+    }),
+    __metadata("design:type", Object)
+], TblThirdparty.prototype, "addedBy", void 0);
+__decorate([
+    (0, typeorm_1.Column)("varchar", {
+        name: "addedDate",
+        nullable: true,
+        length: 50
+    }),
+    __metadata("design:type", Object)
+], TblThirdparty.prototype, "addedDate", void 0);
+__decorate([
+    (0, typeorm_1.Column)("varchar", {
+        name: "deletedDate",
+        nullable: true,
+        length: 50
+    }),
+    __metadata("design:type", Object)
+], TblThirdparty.prototype, "deletedDate", void 0);
 __decorate([
     (0, typeorm_1.Column)("boolean", {
         name: "isActive",

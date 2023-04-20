@@ -4,7 +4,7 @@ import { Tblordertrackerdetails } from "./Tblordertrackerdetails";
 @Entity()
 export class Tblordertracker {
   @PrimaryGeneratedColumn({ type: "bigint", name: "id" })
-  id: string;
+  id: number;
 
   @Column("int", { name: "outlet_orderid", nullable: true })
   outletOrderid: number | null;

@@ -28,6 +28,7 @@ const adminLogin : RequestHandler = async(req, res) => {
             let checkDB = await adminHashCompare(password, userData.Password || "");
             if (checkDB) {
                 req.session.admin = true;
+                req.session.adminName=userName;
                 // res.redirect('/');
                 res
                     .status(200)

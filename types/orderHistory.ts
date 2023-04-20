@@ -61,4 +61,10 @@ export interface thirdParty {
     Email:number|null;
     Token:number|null;
     isActive:boolean|number|null;
+    addedBy:string|null;
+    deletedBy:string|null;
+    addedDate:string|null;
+    deletedDate:string|null;
+    baseURL:string|null;
+
 }

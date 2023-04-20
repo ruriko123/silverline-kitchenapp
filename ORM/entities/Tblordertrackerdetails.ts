@@ -66,7 +66,7 @@ export class Tblordertrackerdetails {
   voidtotaltime: string | null;
 
   @Column("bigint", { name: "ordertracker_id", nullable: true })
-  ordertrackerId: string | null;
+  ordertrackerId: string | null|number;
 
   @Column("varchar", { name: "description", nullable: true, length: 100 })
   description: string | null;

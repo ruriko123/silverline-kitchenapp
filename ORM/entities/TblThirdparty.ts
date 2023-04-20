@@ -3,7 +3,7 @@ import {Column, Entity, OneToMany, PrimaryGeneratedColumn} from "typeorm";
 @Entity()
 export class TblThirdparty {
     @PrimaryGeneratedColumn({type: "bigint", name: "id"})
-    id : string;
+    id : number;
 
     @Column("varchar", {
         name: "CompanyName",
@@ -48,11 +48,48 @@ export class TblThirdparty {
     Email : string | null;
 
     @Column("varchar", {
+        name: "baseURL",
+        nullable: true,
+        length: 50
+    })
+    baseURL : string | null;
+
+
+
+    @Column("varchar", {
         name: "Token",
         nullable: true,
         length: 200
     })
     Token : string | null;
+
+    @Column("varchar", {
+        name: "deletedBy",
+        nullable: true,
+        length: 50
+    })
+    deletedBy : string | null;
+
+    @Column("varchar", {
+        name: "addedBy",
+        nullable: true,
+        length: 50
+    })
+    addedBy : string | null;
+
+    @Column("varchar", {
+        name: "addedDate",
+        nullable: true,
+        length: 50
+    })
+    addedDate : string | null;
+
+    @Column("varchar", {
+        name: "deletedDate",
+        nullable: true,
+        length: 50
+    })
+    deletedDate : string | null;
 
     @Column("boolean", {
         name: "isActive",

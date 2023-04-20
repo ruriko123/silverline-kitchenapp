@@ -16,7 +16,7 @@ let Tblordertracker = class Tblordertracker {
 };
 __decorate([
     (0, typeorm_1.PrimaryGeneratedColumn)({ type: "bigint", name: "id" }),
-    __metadata("design:type", String)
+    __metadata("design:type", Number)
 ], Tblordertracker.prototype, "id", void 0);
 __decorate([
     (0, typeorm_1.Column)("int", { name: "outlet_orderid", nullable: true }),
