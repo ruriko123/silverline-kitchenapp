@@ -1,3 +1,5 @@
+import { adminLogin } from '@base/Components/Controllers/Admin/AdminLogin';
+import { adminSessionChecker } from '@base/Components/Middlewares/Admin/sessionChecker';
 import express from 'express';
 const router = express.Router();
 var path = require('path');
@@ -5,10 +7,8 @@ var path = require('path');
 var scriptName = path
     .basename(__filename)
     .replace(/\.[^.]*$/, '');
-import { thirdPartyorder } from '@base/Components/Controllers/thirdPartyOrder/thirdPartyorder';
 
 
 
-router.post(`/${scriptName}`, thirdPartyorder);
-
+router.post(`/${scriptName}`,adminLogin);
 export {router};

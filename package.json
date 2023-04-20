@@ -30,16 +30,24 @@
   },
   "homepage": "https://github.com/ruriko123/silverline-kitchenapp#readme",
   "dependencies": {
+    "@fulminate/serializer": "^1.2.5",
+    "@types/express-session": "^1.17.7",
+    "bcrypt": "^5.1.0",
+    "bcrypt-ts": "^3.0.0",
     "body-parser": "^1.20.2",
     "crypto": "^1.0.1",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
+    "express-session": "^1.17.3",
     "mysql": "^2.18.1",
     "reflect-metadata": "^0.1.13",
     "socket.io": "^4.6.1",
-    "typeorm": "^0.3.15"
+    "ts-transformer-keys": "^0.4.4",
+    "typeorm": "^0.3.15",
+    "typeserializer": "^0.2.5"
   },
   "devDependencies": {
+    "@types/bcrypt": "^5.0.0",
     "@types/express": "^4.17.17",
     "@types/node": "^18.15.11",
     "concurrently": "^8.0.1",

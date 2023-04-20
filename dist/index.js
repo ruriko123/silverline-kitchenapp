@@ -22,7 +22,8 @@ const http = require('http');
 const { Server } = require("socket.io");
 var bodyparser = require('body-parser');
 var urlencodedParser = bodyparser.urlencoded({ extended: false });
-const socketJoinToken_1 = require("./Components/Controllers/Socket/socketJoinToken");
+const socketJoinToken_1 = require("./Components/Socket/socketJoinToken");
+var session = require('express-session');
 /* Initialize the orm data source*/
 app_data_source_1.default
     .initialize()
@@ -43,7 +44,29 @@ app.use(urlencodedParser);
 app.get('/', (req, res) => {
     res.send('Express + TypeScript Server');
 });
+let sess = {
+    name: `-4D44-Wp`,
+    secret: '2C44-4D44-WppQ38S',
+    resave: true,
+    saveUninitialized: true,
+    cookie: {
+        secure: false,
+        maxAge: 43200000 // 1 min
+    }
+};
+if (app.get('env') === 'production') {
+    app.set('trust proxy', 1); // trust first proxy
+    sess.cookie.secure = true; // serve secure cookies
+}
+;
+app.use(session(sess));
 server.listen(process.env.PORT, () => __awaiter(void 0, void 0, void 0, function* () {
+    // let a = await adminHash("test")
+    // console.log(a, " password")
+    // let b = "test"
+    // console.log(b, " password")
+    // let c = await adminHashCompare(b,a);
+    // console.log(c)
     console.log(`⚡️[server]: Server is running at http://localhost:${port}`);
     /* After server is initialized, call the getPostRoutes() function to dynamically fetch all express routes automatically. */
     let allPostRoutes = yield (0, getAllRoutes_1.default)();

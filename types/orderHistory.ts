@@ -4,14 +4,14 @@
 export interface orderHistory {
     Id:number|null|string;
     outlet_orderid: number;
-    kotid: string|null;
+    // kotid: string|null;
     orderedat:string;
-    tablenum:string|null;
-    employee:string;
-    ordertype:string;
+    // tablenum:string|null;
+    // employee:string;
+    // ordertype:string;
     currentstate:string;
     outletName:string;
-    guestCount:number|null;
+    // guestCount:number|null;
     customerName:string|null;
     customerPhone:string|null;
     Address:string|null;
@@ -27,11 +27,11 @@ export interface orderHistoryDetails{
     itemname:string;
     quantity:string|null;
     modification:string|null;
-    avgpreptime:string|null;
+    // avgpreptime:string|null;
     itemPrice:string;
     category:string;
     description:string;
-    productId:number;
+    // productId:number;
     unit:string|null;
     isTaxable:boolean;
 

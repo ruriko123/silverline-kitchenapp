@@ -38,8 +38,14 @@ export class Tblordertrackerdetails {
   })
   quantity: string | null;
 
+
   @Column("varchar", { name: "modification", nullable: true, length: 50 })
   modification: string | null;
+
+
+  @Column("varchar", { name: "itemType",default:"FOOD", length: 50 })
+  itemType: string | null;
+
 
   @Column("varchar", { name: "avgpreptime", nullable: true, length: 20 })
   avgpreptime: string | null;

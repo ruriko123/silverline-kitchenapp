@@ -11,9 +11,11 @@ const myDataSource = new DataSource({
     username: process.env.DB_USERNAME,
     password: process.env.DB_PASSWORD,
     database: process.env.DB_NAME,
-    entities: [__dirname + "/ORM/entities/*.js"],
+    entities: [__dirname + "/ORM/entities/*.js",__dirname + "/ORM/entities/*.ts"],
     synchronize: true,
     logging: false,
+    migrations: [__dirname + '/ORM/migrations/*.ts',__dirname + '/ORM/migrations/*.js'],
+    
 });
 
 

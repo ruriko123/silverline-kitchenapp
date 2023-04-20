@@ -48,6 +48,10 @@ __decorate([
     __metadata("design:type", Object)
 ], Tblordertrackerdetails.prototype, "modification", void 0);
 __decorate([
+    (0, typeorm_1.Column)("varchar", { name: "itemType", default: "FOOD", length: 50 }),
+    __metadata("design:type", Object)
+], Tblordertrackerdetails.prototype, "itemType", void 0);
+__decorate([
     (0, typeorm_1.Column)("varchar", { name: "avgpreptime", nullable: true, length: 20 }),
     __metadata("design:type", Object)
 ], Tblordertrackerdetails.prototype, "avgpreptime", void 0);

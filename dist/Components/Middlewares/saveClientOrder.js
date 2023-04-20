@@ -16,20 +16,20 @@ exports.saveClientOrder = void 0;
 const Tblordertracker_1 = require("../../ORM/entities/Tblordertracker");
 const Tblordertrackerdetails_1 = require("../../ORM/entities/Tblordertrackerdetails");
 const app_data_source_1 = __importDefault(require("../../app-data-source"));
-const EmitOrder_1 = require("../Controllers/Socket/EmitOrder");
+const EmitOrder_1 = require("../Socket/EmitOrder");
 const saveClientOrder = (orderObject) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         let order = orderObject;
         const orderTracker = new Tblordertracker_1.Tblordertracker();
         orderTracker.outletOrderid = order.outlet_orderid;
-        orderTracker.kotid = order.kotid;
+        // orderTracker.kotid = order.kotid;
         orderTracker.orderedat = order.orderedat;
-        orderTracker.tablenum = order.tablenum;
-        orderTracker.employee = order.employee;
-        orderTracker.ordertype = order.ordertype;
+        // orderTracker.tablenum = order.tablenum;
+        // orderTracker.employee = order.employee;
+        // orderTracker.ordertype = order.ordertype;
         orderTracker.currentstate = order.currentstate;
         orderTracker.outletName = order.outletName;
-        orderTracker.guestCount = order.guestCount;
+        // orderTracker.guestCount = order.guestCount;
         orderTracker.customerName = order.customerName;
         orderTracker.customerPhone = order.customerPhone;
         orderTracker.Address = order.Address;
@@ -48,11 +48,11 @@ const saveClientOrder = (orderObject) => __awaiter(void 0, void 0, void 0, funct
             orderTrackerDetails.itemname = e.itemname;
             orderTrackerDetails.quantity = e.quantity;
             orderTrackerDetails.modification = e.modification;
-            orderTrackerDetails.avgpreptime = e.avgpreptime;
+            // orderTrackerDetails.avgpreptime = e.avgpreptime;
             orderTrackerDetails.itemPrice = e.itemPrice;
             orderTrackerDetails.category = e.category;
             orderTrackerDetails.description = e.description;
-            orderTrackerDetails.productId = e.productId;
+            // orderTrackerDetails.productId = e.productId;
             orderTrackerDetails.unit = e.unit;
             orderTrackerDetails.isTaxable = e.isTaxable;
             yield app_data_source_1.default
