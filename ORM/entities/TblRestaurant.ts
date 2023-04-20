@@ -148,7 +148,12 @@ export class TblRestaurant {
         length: 50
     })
     lastModifiedBy : string | null;
-
+    @Column("varchar", {
+        name: "baseURL",
+        nullable: true,
+        length: 50
+    })
+    baseURL : string | null;
 
     @Column("boolean", {
         name: "isActive",
@@ -156,6 +161,6 @@ export class TblRestaurant {
     })
     isActive : string | null;
 
-
+    
 
 }

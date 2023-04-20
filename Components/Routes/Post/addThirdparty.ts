@@ -1,5 +1,5 @@
-import { addThirdParty } from '@base/Components/Controllers/Admin/addThirdparty';
-import { adminSessionChecker } from '@base/Components/Middlewares/Admin/sessionChecker';
+import {addThirdParty} from '@base/Components/Controllers/Admin/thirdparty/addThirdparty';
+import {adminSessionChecker} from '@base/Components/Middlewares/Admin/sessionChecker';
 
 import express from 'express';
 const router = express.Router();
@@ -9,7 +9,5 @@ var scriptName = path
     .basename(__filename)
     .replace(/\.[^.]*$/, '');
 
-
-
-router.post(`/${scriptName}`,adminSessionChecker,addThirdParty);
+router.post(`/${scriptName}`, adminSessionChecker, addThirdParty);
 export {router};

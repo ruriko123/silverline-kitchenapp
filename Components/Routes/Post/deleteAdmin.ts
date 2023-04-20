@@ -1,5 +1,5 @@
-import { deleteAdmin } from '@base/Components/Controllers/Admin/deleteAdmin';
-import { adminSessionChecker } from '@base/Components/Middlewares/Admin/sessionChecker';
+import {deleteAdmin} from '@base/Components/Controllers/Admin/deleteAdmin';
+import {adminSessionChecker} from '@base/Components/Middlewares/Admin/sessionChecker';
 
 import express from 'express';
 const router = express.Router();
@@ -9,7 +9,5 @@ var scriptName = path
     .basename(__filename)
     .replace(/\.[^.]*$/, '');
 
-
-
-router.post(`/${scriptName}`,adminSessionChecker,deleteAdmin);
+router.post(`/${scriptName}`, adminSessionChecker, deleteAdmin);
 export {router};
