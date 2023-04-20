@@ -3,6 +3,7 @@
 import {RequestHandler} from "express";
 import {TblThirdparty} from "@model/TblThirdparty";
 import myDataSource from "@base/app-data-source";
+import { Not } from "typeorm";
 
 const thirdPartyupdate : RequestHandler = async(req, res) => {
 
@@ -10,31 +11,37 @@ const thirdPartyupdate : RequestHandler = async(req, res) => {
         let id:number=req.body?.id;
         let Name : string = req.body
             ?.Name;
-        let Address : string = req.body
-            ?.Address;
-        let Phone : string = req.body
-            ?.Phone;
-        let Pan : string = req.body
-            ?.Pan;
-        let AltPhone : string = req.body
-            ?.AltPhone || "";
-        let Email : string = req.body
-            ?.Email;
-        let addedBy : string = req.session
-            ?.adminName || "";
-        let baseURL:string=req.body?.baseURL;
+        
+        // let Address : string = req.body
+        //     ?.Address;
+        // let Phone : string = req.body
+        //     ?.Phone;
+        // let Pan : string = req.body
+        //     ?.Pan;
+        // let AltPhone : string = req.body
+        //     ?.AltPhone || "";
+        // let Email : string = req.body
+        //     ?.Email;
+        // let addedBy : string = req.session
+        //     ?.adminName || "";
+        // let baseURL:string=req.body?.baseURL;
 
-        if (!Name || !Address || !Phone || !Pan || !AltPhone || !Email||!baseURL) {
+
+        if (!id || !Name) {
             res
                 .status(401)
-                .json({"error": "Missing parameters."});
+                .json({"error": "Company ID or name not supplied."});
             return;
         }
+        req.body["CompanyName"]=Name;
+        
+        delete req.body["id"];
         let userData = await myDataSource
             .getRepository(TblThirdparty)
             .findOne({
                 where: {
-                    CompanyName: `${Name}`
+                    CompanyName: `${req.body["Name"]}`,
+                    id:Not(id)
                 }
             });
         if (userData) {
@@ -43,11 +50,12 @@ const thirdPartyupdate : RequestHandler = async(req, res) => {
                 .json({"error": "Company name already registered. Try with another name."});
             return;
         } else {
-
+            
+                delete req.body["Name"];
                 await myDataSource
                 .createQueryBuilder()
                 .update(TblThirdparty)
-                .set({ Name:Name,Email:Email,Phone:Phone,AltPhone:AltPhone,Pan:Pan,addedBy:addedBy,Address:Address,baseURL:baseURL})
+                .set(req.body)
                 .where("id = :id", {id: id})
                 .execute();
 
@@ -58,6 +66,7 @@ const thirdPartyupdate : RequestHandler = async(req, res) => {
         }
 
     } catch (error) {
+        console.log(error)
         res
             .status(500)
             .json({"error": error});
