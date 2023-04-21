@@ -12,25 +12,21 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.addRestaurant = void 0;
+exports.updateRestaurantinfo = void 0;
 const TblRestaurant_1 = require("../../../../ORM/entities/TblRestaurant");
 const app_data_source_1 = __importDefault(require("../../../../app-data-source"));
-const addRestaurant = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    var _a, _b, _c, _d, _e;
+const updateRestaurantinfo = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    var _a, _b;
     try {
-        let Outlet_Name = (_a = req.body) === null || _a === void 0 ? void 0 : _a.Outlet_Name;
-        let Address = (_b = req.body) === null || _b === void 0 ? void 0 : _b.Address;
-        let Email = (_c = req.body) === null || _c === void 0 ? void 0 : _c.Email;
-        let Phone = (_d = req.body) === null || _d === void 0 ? void 0 : _d.Phone;
-        let baseURL = (_e = req.body) === null || _e === void 0 ? void 0 : _e.baseURL;
-        let addedDate = new Date().toLocaleString('en-US', { timeZone: 'Asia/Kathmandu' });
-        if (!Outlet_Name || !Address || !Email || !Phone || !baseURL) {
+        let restaurantData = req.body;
+        let id = (_a = req.body) === null || _a === void 0 ? void 0 : _a.id;
+        let Outlet_Name = (_b = req.body) === null || _b === void 0 ? void 0 : _b.Outlet_Name;
+        if (!Outlet_Name || !id) {
             res
                 .status(400)
-                .json({ "error": "Missing Parameters." });
+                .json({ "error": "Outlet Name or ID not supplied." });
             return;
         }
-        ;
         let userData = yield app_data_source_1.default
             .getRepository(TblRestaurant_1.TblRestaurant)
             .findOne({
@@ -38,26 +34,23 @@ const addRestaurant = (req, res) => __awaiter(void 0, void 0, void 0, function* 
                 Name: `${Outlet_Name}`
             }
         });
-        if (userData) {
+        if (!userData) {
             res
                 .status(400)
-                .json({ "error": "Outlet is already registered." });
+                .json({ "error": "Outlet does not exist." });
             return;
         }
         else {
-            const restaurantTable = new TblRestaurant_1.TblRestaurant();
-            restaurantTable.Name = Outlet_Name;
-            restaurantTable.Address = Address;
-            restaurantTable.Email = Email;
-            restaurantTable.Phone = Phone;
-            restaurantTable.baseURL = baseURL;
-            restaurantTable.addedDate = addedDate;
+            restaurantData.isActive = true;
             yield app_data_source_1.default
-                .manager
-                .save(restaurantTable);
+                .createQueryBuilder()
+                .update(TblRestaurant_1.TblRestaurant)
+                .set(restaurantData)
+                .where("id = :id", { id: id })
+                .execute();
             res
                 .status(200)
-                .json({ "success": "Outlet registered successfully." });
+                .json({ "success": "Restautant Updated." });
             return;
         }
         ;
@@ -70,4 +63,4 @@ const addRestaurant = (req, res) => __awaiter(void 0, void 0, void 0, function* 
     }
     ;
 });
-exports.addRestaurant = addRestaurant;
+exports.updateRestaurantinfo = updateRestaurantinfo;

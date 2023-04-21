@@ -16,7 +16,7 @@ exports.app = exports.io = void 0;
 const express_1 = __importDefault(require("express"));
 const dotenv_1 = __importDefault(require("dotenv"));
 const app_data_source_1 = __importDefault(require("./app-data-source"));
-const getAllRoutes_1 = __importDefault(require("./Components/Routes/getAllRoutes"));
+const getAllRoutes_1 = require("./Components/Routes/getAllRoutes");
 dotenv_1.default.config();
 const http = require('http');
 const { Server } = require("socket.io");
@@ -69,9 +69,16 @@ server.listen(process.env.PORT, () => __awaiter(void 0, void 0, void 0, function
     // console.log(c)
     console.log(`⚡️[server]: Server is running at http://localhost:${port}`);
     /* After server is initialized, call the getPostRoutes() function to dynamically fetch all express routes automatically. */
-    let allPostRoutes = yield (0, getAllRoutes_1.default)();
-    /* Register all the routes */
-    app.use("/", allPostRoutes);
+    let allPostRoutes = yield (0, getAllRoutes_1.getPostRoutes)();
+    let allGetRoutes = yield (0, getAllRoutes_1.getGETRoutes)();
+    if (allGetRoutes) {
+        /* Register all the GET routes */
+        app.use("/", allGetRoutes);
+    }
+    if (allPostRoutes) {
+        /* Register all the POST routes */
+        app.use("/", allPostRoutes);
+    }
 }));
 /* Socket connection */
 io.on('connection', function (socket) {

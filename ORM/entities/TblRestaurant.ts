@@ -159,7 +159,7 @@ export class TblRestaurant {
         name: "isActive",
         default:false
     })
-    isActive : string | null;
+    isActive : boolean | null;
 
     
 

@@ -23,4 +23,20 @@ async function getPostRoutes() {
     return PostrouteArray;
 }
 
-export default getPostRoutes;
+
+
+async function getGETRoutes() {
+    fs
+        .readdirSync(path.join(__dirname, "./Get"))
+        .forEach(async(file) => {
+            if (`${file}`.includes(".ts") || `${file}`.includes(".js")) {
+                let routename = file.replace(".ts", "");
+                routename = file.replace(".js", "");
+                var {router} = require(__dirname + "/Get/" + routename);
+                PostrouteArray.push(router);
+            };
+        });
+    PostrouteArray.forEach((route : any) => router.use("/", route));
+    return PostrouteArray;
+}
+export {getPostRoutes,getGETRoutes};

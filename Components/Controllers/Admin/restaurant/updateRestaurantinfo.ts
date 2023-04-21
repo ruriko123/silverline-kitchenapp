@@ -5,7 +5,7 @@ import { typeTblRestaurant } from '@reqtypes/orderHistory';
 
 const updateRestaurantinfo : RequestHandler = async(req, res) => {
     try {
-        
+
         let restaurantData:typeTblRestaurant = req.body;
         let id = req.body?.id;
         let Outlet_Name = req.body

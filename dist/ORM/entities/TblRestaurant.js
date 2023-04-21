@@ -187,7 +187,7 @@ __decorate([
 __decorate([
     (0, typeorm_1.Column)("boolean", {
         name: "isActive",
-        default: true
+        default: false
     }),
     __metadata("design:type", Object)
 ], TblRestaurant.prototype, "isActive", void 0);

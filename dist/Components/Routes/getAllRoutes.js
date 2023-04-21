@@ -32,6 +32,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.getGETRoutes = exports.getPostRoutes = void 0;
 const express_1 = require("express");
 const fs = __importStar(require("fs"));
 const path = __importStar(require("path"));
@@ -55,4 +56,22 @@ function getPostRoutes() {
         return PostrouteArray;
     });
 }
-exports.default = getPostRoutes;
+exports.getPostRoutes = getPostRoutes;
+function getGETRoutes() {
+    return __awaiter(this, void 0, void 0, function* () {
+        fs
+            .readdirSync(path.join(__dirname, "./Get"))
+            .forEach((file) => __awaiter(this, void 0, void 0, function* () {
+            if (`${file}`.includes(".ts") || `${file}`.includes(".js")) {
+                let routename = file.replace(".ts", "");
+                routename = file.replace(".js", "");
+                var { router } = require(__dirname + "/Get/" + routename);
+                PostrouteArray.push(router);
+            }
+            ;
+        }));
+        PostrouteArray.forEach((route) => router.use("/", route));
+        return PostrouteArray;
+    });
+}
+exports.getGETRoutes = getGETRoutes;

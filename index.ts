@@ -1,14 +1,13 @@
 import express, {Express, Request, Response} from 'express';
 import dotenv from 'dotenv';
 import myDataSource from "./app-data-source";
-import getPostRoutes from './Components/Routes/getAllRoutes';
+import {getPostRoutes,getGETRoutes} from './Components/Routes/getAllRoutes';
 dotenv.config();
 const http = require('http');
 const {Server} = require("socket.io");
 var bodyparser = require('body-parser');
 var urlencodedParser = bodyparser.urlencoded({extended: false});
 import {createOutletHash} from "@socket/socketJoinToken";
-import { adminHash,adminHashCompare } from '@base/Components/utils/AdminHash';
 var session = require('express-session');
 
 /* Initialize the orm data source*/
@@ -62,13 +61,19 @@ server.listen(process.env.PORT, async() => {
     // let c = await adminHashCompare(b,a);
     // console.log(c)
 
-
-    
     console.log(`⚡️[server]: Server is running at http://localhost:${port}`);
     /* After server is initialized, call the getPostRoutes() function to dynamically fetch all express routes automatically. */
     let allPostRoutes = await getPostRoutes();
-    /* Register all the routes */
-    app.use("/", allPostRoutes);
+    let allGetRoutes=await getGETRoutes();
+    if(allGetRoutes){
+         /* Register all the GET routes */
+        app.use("/", allGetRoutes);
+    }
+    if(allPostRoutes){  
+        /* Register all the POST routes */
+        app.use("/", allPostRoutes);
+
+    }
 
 });
 
