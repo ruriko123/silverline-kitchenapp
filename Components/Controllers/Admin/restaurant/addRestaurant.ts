@@ -3,9 +3,7 @@ import {TblRestaurant} from "@model/TblRestaurant";
 import myDataSource from "@base/app-data-source";
 
 const addRestaurant : RequestHandler = async(req, res) => {
-
     try {
-
         let Outlet_Name = req.body
             ?.Outlet_Name;
         let Address = req.body
@@ -23,8 +21,7 @@ const addRestaurant : RequestHandler = async(req, res) => {
                 .status(400)
                 .json({"error": "Missing Parameters."});
             return;
-        }
-
+        };
         let userData = await myDataSource
             .getRepository(TblRestaurant)
             .findOne({
@@ -53,15 +50,14 @@ const addRestaurant : RequestHandler = async(req, res) => {
                 .status(200)
                 .json({"success": "Outlet registered successfully."});
             return;
-        }
+        };
 
     } catch (error) {
         res
             .status(500)
             .json({"error": error});
         return;
-
-    }
+    };
 
 };
 
