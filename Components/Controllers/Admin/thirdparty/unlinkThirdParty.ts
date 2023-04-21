@@ -3,6 +3,9 @@ import {TblRestaurantThirdPartyLinks} from "@model/TblRestaurantThirdPartyLinks"
 import myDataSource from "@base/app-data-source";
 import {TblThirdparty} from "@model/TblThirdparty";
 import {TblRestaurant} from "@model/TblRestaurant";
+import { RestaurantLinkDJANGOAPI } from "@base/Components/utils/RestaurantLinkDJANGOAPI";
+
+
 
 const unlinkThirdParty : RequestHandler = async(req, res) => {
 
@@ -32,6 +35,18 @@ const unlinkThirdParty : RequestHandler = async(req, res) => {
                 .json({"error": "Third party does not exist."});
             return;
         };
+
+        let thirdPartyInfo = {
+            CompanyName: ThirdPartyExists.CompanyName,
+            Address: ThirdPartyExists.Address,
+            Phone: ThirdPartyExists.Phone,
+            Pan: ThirdPartyExists.Pan,
+            Type:"UNLINK",
+            BASEURL:ThirdPartyExists.baseURL
+        };
+
+        RestaurantLinkDJANGOAPI(thirdPartyInfo)
+
 
         let restaurantExists = await myDataSource
             .getRepository(TblRestaurant)
