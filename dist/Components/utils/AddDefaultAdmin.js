@@ -45,6 +45,7 @@ const createDefaultAdmin = () => __awaiter(void 0, void 0, void 0, function* () 
             admintable.PermissionType = PermissionType;
             admintable.addedBy = addedBy;
             admintable.addedDate = addedDate;
+            admintable.isMainAdmin = true;
             yield app_data_source_1.default
                 .manager
                 .save(admintable);

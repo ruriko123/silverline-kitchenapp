@@ -8,7 +8,7 @@ const viewAllAdmin : RequestHandler = async(req, res) => {
     try {
 
         let userData = await myDataSource
-            .getRepository(TblAdmin).createQueryBuilder("t").select(["t.isActive","t.userName","t.isMainAdmin"])
+            .getRepository(TblAdmin).createQueryBuilder("t").select(["t.id","t.isActive","t.userName","t.isMainAdmin"])
             .getMany();
 
             res

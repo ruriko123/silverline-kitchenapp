@@ -45,7 +45,7 @@ export class TblAdmin {
         name: "isActive",
         default:true
     })
-    isActive : string | null;
+    isActive : boolean|string | null;
 
     @Column("varchar", {
         name: "addedBy",

@@ -42,7 +42,7 @@ const restaurantInActive = (req, res) => __awaiter(void 0, void 0, void 0, funct
             yield app_data_source_1.default
                 .createQueryBuilder()
                 .update(TblRestaurant_1.TblRestaurant)
-                .set({ isActive: true })
+                .set({ isActive: false })
                 .where("id = :id", { id: id })
                 .execute();
             res

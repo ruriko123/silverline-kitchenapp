@@ -1,44 +1,44 @@
 import {RequestHandler} from "express";
 import myDataSource from "@base/app-data-source";
-import { TblRestaurant } from '@model/TblRestaurant';
+import { TblAdmin } from '@model/TblAdmin';
 
-const restaurantInActive : RequestHandler = async(req, res) => {
 
+const AdminInActive : RequestHandler = async(req, res) => {
     try {
-
         let id : number = req.body
             ?.id;
         if (!id) {
             res
                 .status(401)
-                .json({"error": "Restaurant ID not supplied."});
+                .json({"error": "Admin ID not supplied."});
             return;
         }
         let userData = await myDataSource
-            .getRepository(TblRestaurant)
+            .getRepository(TblAdmin)
             .findOne({
                 where: {
-                    id: id
+                    id: id,
+                    isMainAdmin:false
                 }
             });
         if (!userData) {
             res
                 .status(400)
-                .json({"error": "Restaurant with this ID does not exist."});
+                .json({"error": "Admin with this ID does not exist or cannot be made inactive."});
             return;
         } else {
 
             await myDataSource
                 .createQueryBuilder()
-                .update(TblRestaurant)
+                .update(TblAdmin)
                 .set({ isActive:false})
                 .where("id = :id", {id: id})
                 .execute();
             res
                 .status(200)
-                .json({"success": "Restaurant made Inactive."});
+                .json({"success": "Admin made active."});
             return;
-        }
+        };
 
     } catch (error) {
         res
@@ -50,4 +50,4 @@ const restaurantInActive : RequestHandler = async(req, res) => {
 
 };
 
-export {restaurantInActive};
+export {AdminInActive};

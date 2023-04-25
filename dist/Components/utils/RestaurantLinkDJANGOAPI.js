@@ -22,7 +22,7 @@ const RestaurantLinkDJANGOAPI = (data) => __awaiter(void 0, void 0, void 0, func
     try {
         let djangoAPIURL = `${data.BASEURL}/`;
         axios_1.default
-            .post(djangoAPIURL, data)
+            .put(djangoAPIURL, data)
             .then(function (response) { })
             .catch(function (error) {
             console.log(error);

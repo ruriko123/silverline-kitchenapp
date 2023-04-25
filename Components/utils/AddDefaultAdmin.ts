@@ -33,6 +33,7 @@ const createDefaultAdmin= async()=>{
             admintable.PermissionType=PermissionType;
             admintable.addedBy = addedBy;
             admintable.addedDate=addedDate;
+            admintable.isMainAdmin=true;
             await myDataSource
             .manager
             .save(admintable);

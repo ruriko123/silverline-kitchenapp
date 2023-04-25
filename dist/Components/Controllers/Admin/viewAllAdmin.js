@@ -18,7 +18,7 @@ const app_data_source_1 = __importDefault(require("../../../app-data-source"));
 const viewAllAdmin = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         let userData = yield app_data_source_1.default
-            .getRepository(TblAdmin_1.TblAdmin).createQueryBuilder("t").select(["t.isActive", "t.userName", "t.isMainAdmin"])
+            .getRepository(TblAdmin_1.TblAdmin).createQueryBuilder("t").select(["t.id", "t.isActive", "t.userName", "t.isMainAdmin"])
             .getMany();
         res
             .status(200)

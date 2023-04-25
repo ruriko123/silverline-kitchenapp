@@ -12,48 +12,43 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.updateRestaurantinfo = void 0;
-const TblRestaurant_1 = require("../../../../ORM/entities/TblRestaurant");
-const app_data_source_1 = __importDefault(require("../../../../app-data-source"));
-const typeorm_1 = require("typeorm");
-const updateRestaurantinfo = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    var _a, _b;
+exports.AdminInActive = void 0;
+const app_data_source_1 = __importDefault(require("../../../app-data-source"));
+const TblAdmin_1 = require("../../../ORM/entities/TblAdmin");
+const AdminInActive = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    var _a;
     try {
-        let restaurantData = req.body;
-        let id = parseInt((_a = req.body) === null || _a === void 0 ? void 0 : _a.id);
-        let Outlet_Name = (_b = req.body) === null || _b === void 0 ? void 0 : _b.Name;
-        if (!Outlet_Name || !id) {
+        let id = (_a = req.body) === null || _a === void 0 ? void 0 : _a.id;
+        if (!id) {
             res
-                .status(400)
-                .json({ "error": "Outlet Name or ID not supplied." });
+                .status(401)
+                .json({ "error": "Admin ID not supplied." });
             return;
         }
-        ;
         let userData = yield app_data_source_1.default
-            .getRepository(TblRestaurant_1.TblRestaurant)
+            .getRepository(TblAdmin_1.TblAdmin)
             .findOne({
             where: {
-                Name: `${Outlet_Name}`,
-                id: (0, typeorm_1.Not)(id)
+                id: id,
+                isMainAdmin: false
             }
         });
-        if (userData) {
+        if (!userData) {
             res
                 .status(400)
-                .json({ "error": "Restaurant Name already exists. Try another name." });
+                .json({ "error": "Admin with this ID does not exist or cannot be made inactive." });
             return;
         }
         else {
-            restaurantData.isActive = true;
             yield app_data_source_1.default
                 .createQueryBuilder()
-                .update(TblRestaurant_1.TblRestaurant)
-                .set(restaurantData)
+                .update(TblAdmin_1.TblAdmin)
+                .set({ isActive: false })
                 .where("id = :id", { id: id })
                 .execute();
             res
                 .status(200)
-                .json({ "success": "Restautant Updated." });
+                .json({ "success": "Admin made active." });
             return;
         }
         ;
@@ -66,4 +61,4 @@ const updateRestaurantinfo = (req, res) => __awaiter(void 0, void 0, void 0, fun
     }
     ;
 });
-exports.updateRestaurantinfo = updateRestaurantinfo;
+exports.AdminInActive = AdminInActive;

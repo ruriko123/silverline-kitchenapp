@@ -2,6 +2,9 @@ import {RequestHandler} from "express";
 import {TblRestaurant} from "@model/TblRestaurant";
 import myDataSource from "@base/app-data-source";
 import { typeTblRestaurant } from '@reqtypes/orderHistory';
+import {Not} from "typeorm";
+
+
 
 const updateRestaurantinfo : RequestHandler = async(req, res) => {
     try {
@@ -20,7 +23,9 @@ const updateRestaurantinfo : RequestHandler = async(req, res) => {
             .getRepository(TblRestaurant)
             .findOne({
                 where: {
-                    Name: `${Outlet_Name}`
+                    Name: `${Outlet_Name}`,
+                    id: Not(id)
+
                 }
             });
         if (userData) {

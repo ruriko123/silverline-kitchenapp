@@ -10,6 +10,23 @@ const adminLogin : RequestHandler = async(req, res) => {
         let password = req.body
             ?.password;
         password = encodeURIComponent(password);
+
+        let adminActiveCheck = await myDataSource
+        .getRepository(TblAdmin)
+        .findOne({
+            where: {
+                isActive: true,
+                userName: `${userName}`
+            }
+        });
+
+        if(!adminActiveCheck){
+            res
+            .status(401)
+            .json({"error": "Inactive Admin."});
+            return;
+        }
+
         let userData = await myDataSource
             .getRepository(TblAdmin)
             .findOne({

@@ -17,7 +17,7 @@ const RestaurantLinkDJANGOAPI = async(data : DJANGOJSONOBJECT) => {
     try {
         let djangoAPIURL = `${data.BASEURL}/`;
         axios
-            .post(djangoAPIURL, data)
+            .put(djangoAPIURL, data)
             .then(function (response) {})
             .catch(function (error) {
                 console.log(error);

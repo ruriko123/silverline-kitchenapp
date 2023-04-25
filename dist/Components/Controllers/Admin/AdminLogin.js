@@ -22,6 +22,20 @@ const adminLogin = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         let userName = (_a = req.body) === null || _a === void 0 ? void 0 : _a.username;
         let password = (_b = req.body) === null || _b === void 0 ? void 0 : _b.password;
         password = encodeURIComponent(password);
+        let adminActiveCheck = yield app_data_source_1.default
+            .getRepository(TblAdmin_1.TblAdmin)
+            .findOne({
+            where: {
+                isActive: true,
+                userName: `${userName}`
+            }
+        });
+        if (!adminActiveCheck) {
+            res
+                .status(401)
+                .json({ "error": "Inactive Admin." });
+            return;
+        }
         let userData = yield app_data_source_1.default
             .getRepository(TblAdmin_1.TblAdmin)
             .findOne({
