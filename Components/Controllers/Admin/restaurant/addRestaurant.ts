@@ -15,7 +15,8 @@ const addRestaurant : RequestHandler = async(req, res) => {
         let baseURL = req.body
             ?.baseURL;
         let addedDate = new Date().toLocaleString('en-US', {timeZone: 'Asia/Kathmandu'});
-
+        let addedBy : string = req.session
+        ?.adminName || "";
         if (!Outlet_Name || !Address || !Email || !Phone || !baseURL) {
             res
                 .status(400)
@@ -42,7 +43,7 @@ const addRestaurant : RequestHandler = async(req, res) => {
             restaurantTable.Phone = Phone;
             restaurantTable.baseURL = baseURL;
             restaurantTable.addedDate = addedDate;
-
+            restaurantTable.addedBy=addedBy;
             await myDataSource
                 .manager
                 .save(restaurantTable);

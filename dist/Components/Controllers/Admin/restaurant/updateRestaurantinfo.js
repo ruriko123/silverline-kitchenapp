@@ -17,11 +17,12 @@ const TblRestaurant_1 = require("../../../../ORM/entities/TblRestaurant");
 const app_data_source_1 = __importDefault(require("../../../../app-data-source"));
 const typeorm_1 = require("typeorm");
 const updateRestaurantinfo = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    var _a, _b;
+    var _a, _b, _c;
     try {
         let restaurantData = req.body;
         let id = parseInt((_a = req.body) === null || _a === void 0 ? void 0 : _a.id);
         let Outlet_Name = (_b = req.body) === null || _b === void 0 ? void 0 : _b.Name;
+        let modifiedby = ((_c = req.session) === null || _c === void 0 ? void 0 : _c.adminName) || "";
         if (!Outlet_Name || !id) {
             res
                 .status(400)
@@ -44,7 +45,7 @@ const updateRestaurantinfo = (req, res) => __awaiter(void 0, void 0, void 0, fun
             return;
         }
         else {
-            restaurantData.isActive = true;
+            restaurantData.lastModifiedBy = modifiedby;
             yield app_data_source_1.default
                 .createQueryBuilder()
                 .update(TblRestaurant_1.TblRestaurant)

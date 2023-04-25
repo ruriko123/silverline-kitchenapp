@@ -16,7 +16,7 @@ exports.addRestaurant = void 0;
 const TblRestaurant_1 = require("../../../../ORM/entities/TblRestaurant");
 const app_data_source_1 = __importDefault(require("../../../../app-data-source"));
 const addRestaurant = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    var _a, _b, _c, _d, _e;
+    var _a, _b, _c, _d, _e, _f;
     try {
         let Outlet_Name = (_a = req.body) === null || _a === void 0 ? void 0 : _a.Outlet_Name;
         let Address = (_b = req.body) === null || _b === void 0 ? void 0 : _b.Address;
@@ -24,6 +24,7 @@ const addRestaurant = (req, res) => __awaiter(void 0, void 0, void 0, function* 
         let Phone = (_d = req.body) === null || _d === void 0 ? void 0 : _d.Phone;
         let baseURL = (_e = req.body) === null || _e === void 0 ? void 0 : _e.baseURL;
         let addedDate = new Date().toLocaleString('en-US', { timeZone: 'Asia/Kathmandu' });
+        let addedBy = ((_f = req.session) === null || _f === void 0 ? void 0 : _f.adminName) || "";
         if (!Outlet_Name || !Address || !Email || !Phone || !baseURL) {
             res
                 .status(400)
@@ -52,6 +53,7 @@ const addRestaurant = (req, res) => __awaiter(void 0, void 0, void 0, function* 
             restaurantTable.Phone = Phone;
             restaurantTable.baseURL = baseURL;
             restaurantTable.addedDate = addedDate;
+            restaurantTable.addedBy = addedBy;
             yield app_data_source_1.default
                 .manager
                 .save(restaurantTable);

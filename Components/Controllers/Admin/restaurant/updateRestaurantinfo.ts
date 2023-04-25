@@ -13,6 +13,8 @@ const updateRestaurantinfo : RequestHandler = async(req, res) => {
         let id = parseInt(req.body?.id);
         let Outlet_Name = req.body
         ?.Name;
+        let modifiedby : string = req.session
+        ?.adminName || "";
         if(!Outlet_Name||!id){
             res
                 .status(400)
@@ -34,7 +36,7 @@ const updateRestaurantinfo : RequestHandler = async(req, res) => {
                 .json({"error": "Restaurant Name already exists. Try another name."});
             return;
         } else {
-            restaurantData.isActive=true;
+            restaurantData.lastModifiedBy=modifiedby;
             await myDataSource
             .createQueryBuilder()
             .update(TblRestaurant)

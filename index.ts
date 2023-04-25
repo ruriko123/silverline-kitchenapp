@@ -32,7 +32,7 @@ const app : Express = express();
 const corsOptions = {
     optionsSuccessStatus: 200,
     credentials: true,
-    origin: ["http://localhost:3000"]
+    origin: ["http://localhost:3000","*"]
   }
 app.use(cors(corsOptions));
 const server = http.createServer(app);
