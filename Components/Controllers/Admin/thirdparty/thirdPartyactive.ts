@@ -24,7 +24,7 @@ const thirdPartyactive : RequestHandler = async(req, res) => {
         if (!userData) {
             res
                 .status(400)
-                .json({"error": "Third party with this username does not exist."});
+                .json({"error": "Third party with this ID does not exist."});
             return;
         } else {
 

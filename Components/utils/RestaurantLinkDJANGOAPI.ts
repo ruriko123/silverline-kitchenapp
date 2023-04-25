@@ -1,15 +1,19 @@
 import axios from 'axios';
-
+import dotenv from 'dotenv';
+dotenv.config();
 interface DJANGOJSONOBJECT {
-    CompanyName : string | null,
+    name : string | null,
     Address : string | null,
-    Phone : string | null,
-    Pan : string | null,
+    contact_number : string | null,
+    tax_number : string | null,
     Type : string | null,
-    BASEURL : string | null
+    BASEURL : string | null,
+    email:string|null,
+    KEY:string|null|undefined,
 };
 
 const RestaurantLinkDJANGOAPI = async(data : DJANGOJSONOBJECT) => {
+    data["KEY"]=process.env.DJANGO_KEY;
     try {
         let djangoAPIURL = `${data.BASEURL}/`;
         axios

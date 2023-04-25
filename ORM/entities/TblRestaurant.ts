@@ -155,6 +155,21 @@ export class TblRestaurant {
     })
     baseURL : string | null;
 
+    @Column("varchar", {
+        name: "openingTime",
+        nullable: true,
+        length: 50
+    })
+    openingTime : string | null;
+
+    @Column("varchar", {
+        name: "closingTime",
+        nullable: true,
+        length: 50
+    })
+    closingTime : string | null;
+
+
     @Column("boolean", {
         name: "isActive",
         default:false

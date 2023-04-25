@@ -185,6 +185,22 @@ __decorate([
     __metadata("design:type", Object)
 ], TblRestaurant.prototype, "baseURL", void 0);
 __decorate([
+    (0, typeorm_1.Column)("varchar", {
+        name: "openingTime",
+        nullable: true,
+        length: 50
+    }),
+    __metadata("design:type", Object)
+], TblRestaurant.prototype, "openingTime", void 0);
+__decorate([
+    (0, typeorm_1.Column)("varchar", {
+        name: "closingTime",
+        nullable: true,
+        length: 50
+    }),
+    __metadata("design:type", Object)
+], TblRestaurant.prototype, "closingTime", void 0);
+__decorate([
     (0, typeorm_1.Column)("boolean", {
         name: "isActive",
         default: false

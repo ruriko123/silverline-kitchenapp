@@ -47,4 +47,17 @@ export class TblAdmin {
     })
     isActive : string | null;
 
+    @Column("varchar", {
+        name: "addedBy",
+        nullable: true,
+        length: 50
+    })
+    addedBy : string | null;
+    @Column("varchar", {
+        name: "addedDate",
+        nullable: true,
+        length: 50
+    })
+    addedDate : string | null;
+
 }

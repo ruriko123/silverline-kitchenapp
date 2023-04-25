@@ -12,17 +12,20 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.addAdmin = void 0;
-const AdminHash_1 = require("../../../Components/utils/AdminHash");
-const TblAdmin_1 = require("../../../ORM/entities/TblAdmin");
-const app_data_source_1 = __importDefault(require("../../../app-data-source"));
-const addAdmin = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    var _a, _b, _c;
+exports.createDefaultAdmin = void 0;
+const AdminHash_1 = require("../../Components/utils/AdminHash");
+const TblAdmin_1 = require("../../ORM/entities/TblAdmin");
+const app_data_source_1 = __importDefault(require("../../app-data-source"));
+const createDefaultAdmin = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        let userName = (_a = req.body) === null || _a === void 0 ? void 0 : _a.username;
-        let password = (_b = req.body) === null || _b === void 0 ? void 0 : _b.password;
-        let PermissionType = "ADMIN";
-        let addedBy = ((_c = req.session) === null || _c === void 0 ? void 0 : _c.adminName) || "";
+        if (!process.env.DEFAULTADMINUSERNAME || !process.env.DEFAULTADMINPASSWORD) {
+            console.log("FAILURE: cannot read default admin credentials from env file.");
+            return;
+        }
+        let userName = process.env.DEFAULTADMINUSERNAME;
+        let password = process.env.DEFAULTADMINPASSWORD;
+        let PermissionType = "MAINADMIN";
+        let addedBy = "BACKEND";
         let addedDate = new Date().toLocaleString('en-US', { timeZone: 'Asia/Kathmandu' });
         let userData = yield app_data_source_1.default
             .getRepository(TblAdmin_1.TblAdmin)
@@ -32,9 +35,6 @@ const addAdmin = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             }
         });
         if (userData) {
-            res
-                .status(400)
-                .json({ "error": "Admin with this username already registered." });
             return;
         }
         else {
@@ -48,17 +48,11 @@ const addAdmin = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             yield app_data_source_1.default
                 .manager
                 .save(admintable);
-            res
-                .status(200)
-                .json({ "success": "Admin account created." });
             return;
         }
     }
     catch (error) {
-        res
-            .status(500)
-            .json({ "error": error });
         return;
     }
 });
-exports.addAdmin = addAdmin;
+exports.createDefaultAdmin = createDefaultAdmin;

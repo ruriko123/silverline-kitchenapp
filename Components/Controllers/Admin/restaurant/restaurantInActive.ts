@@ -1,8 +1,8 @@
 import {RequestHandler} from "express";
-import {TblThirdparty} from "@model/TblThirdparty";
 import myDataSource from "@base/app-data-source";
+import { TblRestaurant } from '@model/TblRestaurant';
 
-const thirdPartyInactive : RequestHandler = async(req, res) => {
+const restaurantInActive : RequestHandler = async(req, res) => {
 
     try {
 
@@ -11,11 +11,11 @@ const thirdPartyInactive : RequestHandler = async(req, res) => {
         if (!id) {
             res
                 .status(401)
-                .json({"error": "Third Party ID not supplied."});
+                .json({"error": "Restaurant ID not supplied."});
             return;
         }
         let userData = await myDataSource
-            .getRepository(TblThirdparty)
+            .getRepository(TblRestaurant)
             .findOne({
                 where: {
                     id: id
@@ -24,19 +24,19 @@ const thirdPartyInactive : RequestHandler = async(req, res) => {
         if (!userData) {
             res
                 .status(400)
-                .json({"error": "Third party with this ID does not exist."});
+                .json({"error": "Restaurant with this ID does not exist."});
             return;
         } else {
 
             await myDataSource
                 .createQueryBuilder()
-                .update(TblThirdparty)
-                .set({ isActive:false})
+                .update(TblRestaurant)
+                .set({ isActive:true})
                 .where("id = :id", {id: id})
                 .execute();
             res
                 .status(200)
-                .json({"success": "Third party made inactive."});
+                .json({"success": "Restaurant made Inactive."});
             return;
         }
 
@@ -46,8 +46,8 @@ const thirdPartyInactive : RequestHandler = async(req, res) => {
             .json({"error": error});
         return;
 
-    }
+    };
 
 };
 
-export {thirdPartyInactive};
+export {restaurantInActive};

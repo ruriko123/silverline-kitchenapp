@@ -63,6 +63,22 @@ __decorate([
     }),
     __metadata("design:type", Object)
 ], TblAdmin.prototype, "isActive", void 0);
+__decorate([
+    (0, typeorm_1.Column)("varchar", {
+        name: "addedBy",
+        nullable: true,
+        length: 50
+    }),
+    __metadata("design:type", Object)
+], TblAdmin.prototype, "addedBy", void 0);
+__decorate([
+    (0, typeorm_1.Column)("varchar", {
+        name: "addedDate",
+        nullable: true,
+        length: 50
+    }),
+    __metadata("design:type", Object)
+], TblAdmin.prototype, "addedDate", void 0);
 TblAdmin = __decorate([
     (0, typeorm_1.Entity)()
 ], TblAdmin);

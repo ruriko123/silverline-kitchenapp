@@ -8,25 +8,31 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.adminLogout = void 0;
-const adminLogout = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+exports.getThirdParties = void 0;
+const TblThirdparty_1 = require("../../../../ORM/entities/TblThirdparty");
+const app_data_source_1 = __importDefault(require("../../../../app-data-source"));
+const getThirdParties = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        req
-            .session
-            .destroy(function (err) {
-            console.log('Destroyed session');
-        });
+        let tableName = app_data_source_1.default
+            .getRepository(TblThirdparty_1.TblThirdparty).metadata.tableName;
+        let userData = yield app_data_source_1.default
+            .getRepository(TblThirdparty_1.TblThirdparty).createQueryBuilder("*")
+            .getMany();
         res
             .status(200)
-            .json({ "success": "Logout successful." });
-        return;
+            .json(userData);
         return;
     }
     catch (error) {
-        res.status(500).json({ "error": error });
+        res
+            .status(500)
+            .json({ "error": error });
         return;
     }
     ;
 });
-exports.adminLogout = adminLogout;
+exports.getThirdParties = getThirdParties;

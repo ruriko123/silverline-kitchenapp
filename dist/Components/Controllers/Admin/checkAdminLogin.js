@@ -9,24 +9,19 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.adminLogout = void 0;
-const adminLogout = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        req
-            .session
-            .destroy(function (err) {
-            console.log('Destroyed session');
-        });
-        res
-            .status(200)
-            .json({ "success": "Logout successful." });
-        return;
-        return;
+exports.CheckAdminLogin = void 0;
+const CheckAdminLogin = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    if (!req) {
+        return "";
     }
-    catch (error) {
-        res.status(500).json({ "error": error });
-        return;
+    console.log(`Session Checker: ${req.session.id}`);
+    console.log(req.session);
+    if (req.session && req.session.admin) {
+        res.status(200).json({ "status": true });
+    }
+    else {
+        res.status(500).json({ "status": false });
     }
     ;
 });
-exports.adminLogout = adminLogout;
+exports.CheckAdminLogin = CheckAdminLogin;

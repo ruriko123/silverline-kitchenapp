@@ -6,10 +6,10 @@ import {Not} from "typeorm";
 const thirdPartyupdate : RequestHandler = async(req, res) => {
 
     try {
-        let id : number = req.body
-            ?.id;
+        let id : number =parseInt(req.body
+            ?.id);
         let Name : string = req.body
-            ?.Name;
+            ?.CompanyName;
 
         // let Address : string = req.body     ?.Address; let Phone : string = req.body
         //    ?.Phone; let Pan : string = req.body     ?.Pan; let AltPhone : string =
@@ -23,14 +23,14 @@ const thirdPartyupdate : RequestHandler = async(req, res) => {
                 .json({"error": "Company ID or name not supplied."});
             return;
         }
-        req.body["CompanyName"] = Name;
+        // req.body["CompanyName"] = Name;
 
         delete req.body["id"];
         let userData = await myDataSource
             .getRepository(TblThirdparty)
             .findOne({
                 where: {
-                    CompanyName: `${req.body["Name"]}`,
+                    CompanyName: `${Name}`,
                     id: Not(id)
                 }
             });
@@ -41,7 +41,7 @@ const thirdPartyupdate : RequestHandler = async(req, res) => {
             return;
         } else {
 
-            delete req.body["Name"];
+            // delete req.body["Name"];
             await myDataSource
                 .createQueryBuilder()
                 .update(TblThirdparty)

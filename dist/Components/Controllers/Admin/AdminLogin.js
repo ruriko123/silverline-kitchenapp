@@ -40,10 +40,10 @@ const adminLogin = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
             if (checkDB) {
                 req.session.admin = true;
                 req.session.adminName = userName;
-                // res.redirect('/');
+                console.log(req.sessionID, "sessionid");
                 res
                     .status(200)
-                    .json({ "success": "Logged In" });
+                    .json({ username: userName, password: password });
                 return;
             }
             else {

@@ -8,7 +8,10 @@ const adminLogout : RequestHandler = async(req, res) => {
         .destroy(function (err) {
             console.log('Destroyed session')
         });
-    res.redirect('/login');
+        res
+        .status(200)
+        .json({"success": "Logout successful."});
+    return;
     return;
     } catch (error) {
         res.status(500).json({"error":error});

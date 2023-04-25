@@ -1,23 +1,20 @@
-import {RequestHandler} from "express";
 import {adminHash} from "@base/Components/utils/AdminHash";
 import {TblAdmin} from "@model/TblAdmin";
 import myDataSource from "@base/app-data-source";
 
-const addAdmin : RequestHandler = async(req, res) => {
 
+const createDefaultAdmin= async()=>{
     try {
 
-        let userName = req.body
-            ?.username;
-        let password = req.body
-            ?.password;
-        let PermissionType="ADMIN"
-        let addedBy : string = req.session
-        ?.adminName || "";
+        if(!process.env.DEFAULTADMINUSERNAME || !process.env.DEFAULTADMINPASSWORD){
+            console.log("FAILURE: cannot read default admin credentials from env file.")
+            return;
+        }
+        let userName = process.env.DEFAULTADMINUSERNAME;
+        let password = process.env.DEFAULTADMINPASSWORD;
+        let PermissionType="MAINADMIN"
+        let addedBy : string ="BACKEND";
         let addedDate = new Date().toLocaleString('en-US', {timeZone: 'Asia/Kathmandu'});
-
-
-
 
         let userData = await myDataSource
             .getRepository(TblAdmin)
@@ -27,9 +24,6 @@ const addAdmin : RequestHandler = async(req, res) => {
                 }
             });
         if(userData){
-            res
-            .status(400)
-            .json({"error": "Admin with this username already registered."});
             return;
         } else {
             const admintable = new TblAdmin();
@@ -42,20 +36,13 @@ const addAdmin : RequestHandler = async(req, res) => {
             await myDataSource
             .manager
             .save(admintable);
-            res
-            .status(200)
-            .json({"success": "Admin account created."});
+
             return;
         }
 
     } catch (error) {
-        res
-            .status(500)
-            .json({"error": error});
             return;
 
     }
-
-};
-
-export {addAdmin};
+}
+export {createDefaultAdmin};

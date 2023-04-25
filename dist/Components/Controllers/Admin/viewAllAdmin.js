@@ -8,25 +8,29 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.adminLogout = void 0;
-const adminLogout = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+exports.viewAllAdmin = void 0;
+const TblAdmin_1 = require("../../../ORM/entities/TblAdmin");
+const app_data_source_1 = __importDefault(require("../../../app-data-source"));
+const viewAllAdmin = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        req
-            .session
-            .destroy(function (err) {
-            console.log('Destroyed session');
-        });
+        let userData = yield app_data_source_1.default
+            .getRepository(TblAdmin_1.TblAdmin).createQueryBuilder("t").select(["t.isActive", "t.userName", "t.isMainAdmin"])
+            .getMany();
         res
             .status(200)
-            .json({ "success": "Logout successful." });
-        return;
+            .json(userData);
         return;
     }
     catch (error) {
-        res.status(500).json({ "error": error });
+        res
+            .status(500)
+            .json({ "error": error });
         return;
     }
     ;
 });
-exports.adminLogout = adminLogout;
+exports.viewAllAdmin = viewAllAdmin;

@@ -8,25 +8,31 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.adminLogout = void 0;
-const adminLogout = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+exports.RestaurantLinkDJANGOAPI = void 0;
+const axios_1 = __importDefault(require("axios"));
+const dotenv_1 = __importDefault(require("dotenv"));
+dotenv_1.default.config();
+;
+const RestaurantLinkDJANGOAPI = (data) => __awaiter(void 0, void 0, void 0, function* () {
+    data["KEY"] = process.env.DJANGO_KEY;
     try {
-        req
-            .session
-            .destroy(function (err) {
-            console.log('Destroyed session');
+        let djangoAPIURL = `${data.BASEURL}/`;
+        axios_1.default
+            .post(djangoAPIURL, data)
+            .then(function (response) { })
+            .catch(function (error) {
+            console.log(error);
         });
-        res
-            .status(200)
-            .json({ "success": "Logout successful." });
-        return;
         return;
     }
     catch (error) {
-        res.status(500).json({ "error": error });
+        console.log(error);
         return;
     }
     ;
 });
-exports.adminLogout = adminLogout;
+exports.RestaurantLinkDJANGOAPI = RestaurantLinkDJANGOAPI;

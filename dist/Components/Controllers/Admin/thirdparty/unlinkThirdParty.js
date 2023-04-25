@@ -17,6 +17,7 @@ const TblRestaurantThirdPartyLinks_1 = require("../../../../ORM/entities/TblRest
 const app_data_source_1 = __importDefault(require("../../../../app-data-source"));
 const TblThirdparty_1 = require("../../../../ORM/entities/TblThirdparty");
 const TblRestaurant_1 = require("../../../../ORM/entities/TblRestaurant");
+const RestaurantLinkDJANGOAPI_1 = require("../../../../Components/utils/RestaurantLinkDJANGOAPI");
 const unlinkThirdParty = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     var _a, _b;
     try {
@@ -43,6 +44,17 @@ const unlinkThirdParty = (req, res) => __awaiter(void 0, void 0, void 0, functio
             return;
         }
         ;
+        let thirdPartyInfo = {
+            name: ThirdPartyExists.CompanyName,
+            Address: ThirdPartyExists.Address,
+            contact_number: ThirdPartyExists.Phone,
+            tax_number: ThirdPartyExists.Pan,
+            Type: "LINK",
+            BASEURL: ThirdPartyExists.baseURL,
+            email: ThirdPartyExists.Email,
+            KEY: "",
+        };
+        (0, RestaurantLinkDJANGOAPI_1.RestaurantLinkDJANGOAPI)(thirdPartyInfo);
         let restaurantExists = yield app_data_source_1.default
             .getRepository(TblRestaurant_1.TblRestaurant)
             .findOne({

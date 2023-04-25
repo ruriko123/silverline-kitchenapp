@@ -29,10 +29,13 @@ const adminLogin : RequestHandler = async(req, res) => {
             if (checkDB) {
                 req.session.admin = true;
                 req.session.adminName=userName;
-                // res.redirect('/');
+                console.log(req.sessionID,"sessionid");
+
+
+                
                 res
                     .status(200)
-                    .json({"success": "Logged In"});
+                    .json({username:userName,password:password});
                     return;
             } else {
                 res

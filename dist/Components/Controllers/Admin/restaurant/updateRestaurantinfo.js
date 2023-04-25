@@ -19,14 +19,15 @@ const updateRestaurantinfo = (req, res) => __awaiter(void 0, void 0, void 0, fun
     var _a, _b;
     try {
         let restaurantData = req.body;
-        let id = (_a = req.body) === null || _a === void 0 ? void 0 : _a.id;
-        let Outlet_Name = (_b = req.body) === null || _b === void 0 ? void 0 : _b.Outlet_Name;
+        let id = parseInt((_a = req.body) === null || _a === void 0 ? void 0 : _a.id);
+        let Outlet_Name = (_b = req.body) === null || _b === void 0 ? void 0 : _b.Name;
         if (!Outlet_Name || !id) {
             res
                 .status(400)
                 .json({ "error": "Outlet Name or ID not supplied." });
             return;
         }
+        ;
         let userData = yield app_data_source_1.default
             .getRepository(TblRestaurant_1.TblRestaurant)
             .findOne({
@@ -34,10 +35,10 @@ const updateRestaurantinfo = (req, res) => __awaiter(void 0, void 0, void 0, fun
                 Name: `${Outlet_Name}`
             }
         });
-        if (!userData) {
+        if (userData) {
             res
                 .status(400)
-                .json({ "error": "Outlet does not exist." });
+                .json({ "error": "Restaurant Name already exists. Try another name." });
             return;
         }
         else {

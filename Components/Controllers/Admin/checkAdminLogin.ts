@@ -1,19 +1,19 @@
 import { RequestHandler } from "express";
 import type session from "express-session";
 
-const adminSessionChecker:RequestHandler = async(req, res,next) => {
+const CheckAdminLogin:RequestHandler = async(req, res,next) => {
     if(!req){
         return ""
     }
     console.log(`Session Checker: ${req.session.id}`);
     console.log(req.session);
     if (req.session &&  req.session.admin) {
-        next();
+        res.status(200).json({"status":true});
     } else {
-        res.redirect('/login');
+        res.status(500).json({"status":false});
     };
 };
 
 
-export {adminSessionChecker};
+export {CheckAdminLogin};
 

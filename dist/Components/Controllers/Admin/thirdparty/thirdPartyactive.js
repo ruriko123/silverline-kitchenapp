@@ -35,7 +35,7 @@ const thirdPartyactive = (req, res) => __awaiter(void 0, void 0, void 0, functio
         if (!userData) {
             res
                 .status(400)
-                .json({ "error": "Third party with this username does not exist." });
+                .json({ "error": "Third party with this ID does not exist." });
             return;
         }
         else {

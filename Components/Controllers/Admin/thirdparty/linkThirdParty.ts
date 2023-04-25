@@ -37,15 +37,17 @@ const linkThirdParty : RequestHandler = async(req, res) => {
         };
 
         let thirdPartyInfo = {
-            CompanyName: ThirdPartyExists.CompanyName,
+            name: ThirdPartyExists.CompanyName,
             Address: ThirdPartyExists.Address,
-            Phone: ThirdPartyExists.Phone,
-            Pan: ThirdPartyExists.Pan,
-            Type:"UNLINK",
-            BASEURL:ThirdPartyExists.baseURL
+            contact_number: ThirdPartyExists.Phone,
+            tax_number: ThirdPartyExists.Pan,
+            Type:"LINK",
+            BASEURL:ThirdPartyExists.baseURL,
+            email:ThirdPartyExists.Email,
+            KEY:"",
         };
 
-        RestaurantLinkDJANGOAPI(thirdPartyInfo)
+        RestaurantLinkDJANGOAPI(thirdPartyInfo);
         let restaurantExists = await myDataSource
             .getRepository(TblRestaurant)
             .findOne({
@@ -59,7 +61,7 @@ const linkThirdParty : RequestHandler = async(req, res) => {
                 .status(400)
                 .json({"error": "Restaurant does not exist."});
             return;
-        }
+        };
 
         let restaurantLinkData = await myDataSource
             .getRepository(TblRestaurantThirdPartyLinks)
