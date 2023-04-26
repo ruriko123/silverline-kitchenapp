@@ -20,10 +20,9 @@ dotenv_1.default.config();
 const RestaurantLinkDJANGOAPI = (data) => __awaiter(void 0, void 0, void 0, function* () {
     data["KEY"] = process.env.DJANGO_KEY;
     try {
-        console.log(data);
         let djangoAPIURL = `${data.BASEURL}/api/create-customer/`;
         axios_1.default
-            .put(djangoAPIURL, data)
+            .post(djangoAPIURL, data)
             .then(function (response) {
             console.log(response);
         })

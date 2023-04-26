@@ -74,6 +74,9 @@ export class Tblordertrackerdetails {
   @Column("varchar", { name: "unit", nullable: true, length: 15 })
   unit: string | null;
 
+  @Column("varchar", { name: "itemType", length: 50, default: () => "'FOOD'" })
+  itemType: string;
+
   @ManyToOne(
     () => Tblordertracker,
     (tblordertracker) => tblordertracker.tblordertrackerdetails,

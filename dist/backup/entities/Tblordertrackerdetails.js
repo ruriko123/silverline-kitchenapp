@@ -92,6 +92,10 @@ __decorate([
     __metadata("design:type", Object)
 ], Tblordertrackerdetails.prototype, "unit", void 0);
 __decorate([
+    (0, typeorm_1.Column)("varchar", { name: "itemType", length: 50, default: () => "'FOOD'" }),
+    __metadata("design:type", String)
+], Tblordertrackerdetails.prototype, "itemType", void 0);
+__decorate([
     (0, typeorm_1.ManyToOne)(() => Tblordertracker_1.Tblordertracker, (tblordertracker) => tblordertracker.tblordertrackerdetails, { onDelete: "NO ACTION", onUpdate: "NO ACTION" }),
     (0, typeorm_1.JoinColumn)([{ name: "ordertracker_id", referencedColumnName: "id" }]),
     __metadata("design:type", Tblordertracker_1.Tblordertracker)

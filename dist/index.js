@@ -16,7 +16,8 @@ exports.app = exports.io = void 0;
 const express_1 = __importDefault(require("express"));
 const dotenv_1 = __importDefault(require("dotenv"));
 const app_data_source_1 = __importDefault(require("./app-data-source"));
-const getAllRoutes_1 = require("./Components/Routes/getAllRoutes");
+const getAllRoutes_1 = require("./Components/Routes/ADMIN/getAllRoutes");
+const getAllRoutes_2 = require("./Components/Routes/USER/getAllRoutes");
 dotenv_1.default.config();
 const http = require('http');
 const { Server } = require("socket.io");
@@ -85,10 +86,26 @@ server.listen(process.env.PORT, () => __awaiter(void 0, void 0, void 0, function
         /* Register all the GET routes */
         app.use("/", allGetRoutes);
     }
+    ;
     if (allPostRoutes) {
         /* Register all the POST routes */
         app.use("/", allPostRoutes);
     }
+    ;
+    console.log("ADMIN routes loaded.");
+    console.log("Loading user routes...");
+    let allUSERpostRoutes = yield (0, getAllRoutes_2.USERgetPostRoutes)();
+    let allUSERgetRoutes = yield (0, getAllRoutes_2.USERgetGETRoutes)();
+    if (allUSERpostRoutes) {
+        /* Register all the GET routes */
+        app.use("/", allUSERpostRoutes);
+    }
+    ;
+    if (allUSERgetRoutes) {
+        /* Register all the POST routes */
+        app.use("/", allUSERgetRoutes);
+    }
+    ;
 }));
 /* Socket connection */
 io.on('connection', function (socket) {

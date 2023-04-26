@@ -1,7 +1,9 @@
 import express, {Express, Request, Response} from 'express';
 import dotenv from 'dotenv';
 import myDataSource from "./app-data-source";
-import {getPostRoutes, getGETRoutes} from './Components/Routes/getAllRoutes';
+import {getPostRoutes, getGETRoutes} from './Components/Routes/ADMIN/getAllRoutes';
+import {USERgetPostRoutes,USERgetGETRoutes} from './Components/Routes/USER/getAllRoutes';
+
 dotenv.config();
 const http = require('http');
 const {Server} = require("socket.io");
@@ -89,12 +91,23 @@ server.listen(process.env.PORT, async() => {
     if (allGetRoutes) {
         /* Register all the GET routes */
         app.use("/", allGetRoutes);
-    }
+    };
     if (allPostRoutes) {
         /* Register all the POST routes */
         app.use("/", allPostRoutes);
-
-    }
+    };
+    console.log("ADMIN routes loaded.");
+    console.log("Loading user routes...");
+    let allUSERpostRoutes = await USERgetPostRoutes();
+    let allUSERgetRoutes = await USERgetGETRoutes();
+    if (allUSERpostRoutes) {
+        /* Register all the GET routes */
+        app.use("/", allUSERpostRoutes);
+    };
+    if (allUSERgetRoutes) {
+        /* Register all the POST routes */
+        app.use("/", allUSERgetRoutes);
+    };
 
 });
 
