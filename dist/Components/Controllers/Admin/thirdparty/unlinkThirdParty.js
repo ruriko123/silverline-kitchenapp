@@ -44,17 +44,6 @@ const unlinkThirdParty = (req, res) => __awaiter(void 0, void 0, void 0, functio
             return;
         }
         ;
-        let thirdPartyInfo = {
-            name: ThirdPartyExists.CompanyName,
-            Address: ThirdPartyExists.Address,
-            contact_number: ThirdPartyExists.Phone,
-            tax_number: ThirdPartyExists.Pan,
-            Type: "LINK",
-            BASEURL: ThirdPartyExists.baseURL,
-            email: ThirdPartyExists.Email,
-            KEY: "",
-        };
-        (0, RestaurantLinkDJANGOAPI_1.RestaurantLinkDJANGOAPI)(thirdPartyInfo);
         let restaurantExists = yield app_data_source_1.default
             .getRepository(TblRestaurant_1.TblRestaurant)
             .findOne({
@@ -84,6 +73,17 @@ const unlinkThirdParty = (req, res) => __awaiter(void 0, void 0, void 0, functio
             return;
         }
         else {
+            let thirdPartyInfo = {
+                name: ThirdPartyExists.CompanyName,
+                Address: ThirdPartyExists.Address,
+                contact_number: ThirdPartyExists.Phone,
+                tax_number: ThirdPartyExists.Pan,
+                type: "LINK",
+                BASEURL: restaurantExists.baseURL,
+                email: ThirdPartyExists.Email,
+                KEY: "",
+            };
+            (0, RestaurantLinkDJANGOAPI_1.RestaurantLinkDJANGOAPI)(thirdPartyInfo);
             yield app_data_source_1.default
                 .createQueryBuilder()
                 .delete()

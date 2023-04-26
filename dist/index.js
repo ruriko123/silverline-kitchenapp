@@ -48,8 +48,8 @@ const corsOptions = {
     credentials: true,
     origin: ["http://localhost:3000", "*"]
 };
-// app.use(cors({ origin: true, credentials: true }));
-app.use(cors(corsOptions));
+app.use(cors({ origin: true, credentials: true }));
+// app.use(cors(corsOptions));
 const server = http.createServer(app);
 const io = new Server(server);
 exports.io = io;

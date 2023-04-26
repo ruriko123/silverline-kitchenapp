@@ -19,10 +19,11 @@ const TblThirdparty_1 = require("../../../../ORM/entities/TblThirdparty");
 const TblRestaurant_1 = require("../../../../ORM/entities/TblRestaurant");
 const RestaurantLinkDJANGOAPI_1 = require("../../../../Components/utils/RestaurantLinkDJANGOAPI");
 const linkThirdParty = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    var _a, _b;
+    var _a, _b, _c;
     try {
         let RestaurantName = (_a = req.body) === null || _a === void 0 ? void 0 : _a.RestaurantName;
         let ThirdPartyName = (_b = req.body) === null || _b === void 0 ? void 0 : _b.ThirdPartyName;
+        let restaurantID = (_c = req === null || req === void 0 ? void 0 : req.body) === null || _c === void 0 ? void 0 : _c.id;
         if (!RestaurantName || !ThirdPartyName || RestaurantName === "" || ThirdPartyName === "") {
             res
                 .status(401)
@@ -44,17 +45,6 @@ const linkThirdParty = (req, res) => __awaiter(void 0, void 0, void 0, function*
             return;
         }
         ;
-        let thirdPartyInfo = {
-            name: ThirdPartyExists.CompanyName,
-            Address: ThirdPartyExists.Address,
-            contact_number: ThirdPartyExists.Phone,
-            tax_number: ThirdPartyExists.Pan,
-            Type: "LINK",
-            BASEURL: ThirdPartyExists.baseURL,
-            email: ThirdPartyExists.Email,
-            KEY: "",
-        };
-        (0, RestaurantLinkDJANGOAPI_1.RestaurantLinkDJANGOAPI)(thirdPartyInfo);
         let restaurantExists = yield app_data_source_1.default
             .getRepository(TblRestaurant_1.TblRestaurant)
             .findOne({
@@ -84,9 +74,21 @@ const linkThirdParty = (req, res) => __awaiter(void 0, void 0, void 0, function*
             return;
         }
         else {
+            let thirdPartyInfo = {
+                name: ThirdPartyExists.CompanyName,
+                Address: ThirdPartyExists.Address,
+                contact_number: ThirdPartyExists.Phone,
+                tax_number: ThirdPartyExists.Pan,
+                type: "LINK",
+                BASEURL: restaurantExists.baseURL,
+                email: ThirdPartyExists.Email,
+                KEY: "",
+            };
+            (0, RestaurantLinkDJANGOAPI_1.RestaurantLinkDJANGOAPI)(thirdPartyInfo);
             const restaurantthirdpartyLink = new TblRestaurantThirdPartyLinks_1.TblRestaurantThirdPartyLinks();
             restaurantthirdpartyLink.RestaurantName = RestaurantName;
             restaurantthirdpartyLink.ThirdPartyName = ThirdPartyName;
+            restaurantthirdpartyLink.RestaurantID = restaurantID;
             yield app_data_source_1.default
                 .manager
                 .save(restaurantthirdpartyLink);

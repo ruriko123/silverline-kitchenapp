@@ -6,7 +6,7 @@ interface DJANGOJSONOBJECT {
     Address : string | null,
     contact_number : string | null,
     tax_number : string | null,
-    Type : string | null,
+    type : string | null,
     BASEURL : string | null,
     email:string|null,
     KEY:string|null|undefined,
@@ -15,10 +15,13 @@ interface DJANGOJSONOBJECT {
 const RestaurantLinkDJANGOAPI = async(data : DJANGOJSONOBJECT) => {
     data["KEY"]=process.env.DJANGO_KEY;
     try {
-        let djangoAPIURL = `${data.BASEURL}/`;
+        let djangoAPIURL = `${data.BASEURL}/api/create-customer/`;
         axios
-            .put(djangoAPIURL, data)
-            .then(function (response) {})
+            .post(djangoAPIURL, data)
+            .then(function (response) {
+                console.log(response)
+
+            })
             .catch(function (error) {
                 console.log(error);
             });

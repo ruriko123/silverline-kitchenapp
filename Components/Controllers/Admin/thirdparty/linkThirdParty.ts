@@ -6,15 +6,12 @@ import {TblRestaurant} from "@model/TblRestaurant";
 import { RestaurantLinkDJANGOAPI } from "@base/Components/utils/RestaurantLinkDJANGOAPI";
 
 const linkThirdParty : RequestHandler = async(req, res) => {
-
-
-
     try {
         let RestaurantName : string = req.body
             ?.RestaurantName;
         let ThirdPartyName : string = req.body
             ?.ThirdPartyName;
-
+        let restaurantID:any=req?.body?.id;
         if (!RestaurantName || !ThirdPartyName || RestaurantName === "" || ThirdPartyName === "") {
             res
                 .status(401)
@@ -36,18 +33,6 @@ const linkThirdParty : RequestHandler = async(req, res) => {
             return;
         };
 
-        let thirdPartyInfo = {
-            name: ThirdPartyExists.CompanyName,
-            Address: ThirdPartyExists.Address,
-            contact_number: ThirdPartyExists.Phone,
-            tax_number: ThirdPartyExists.Pan,
-            Type:"LINK",
-            BASEURL:ThirdPartyExists.baseURL,
-            email:ThirdPartyExists.Email,
-            KEY:"",
-        };
-
-        RestaurantLinkDJANGOAPI(thirdPartyInfo);
         let restaurantExists = await myDataSource
             .getRepository(TblRestaurant)
             .findOne({
@@ -77,12 +62,25 @@ const linkThirdParty : RequestHandler = async(req, res) => {
                 .json({"error": "Third party link to the restaurant already exists."});
             return;
         } else {
+            let thirdPartyInfo = {
+                name: ThirdPartyExists.CompanyName,
+                Address: ThirdPartyExists.Address,
+                contact_number: ThirdPartyExists.Phone,
+                tax_number: ThirdPartyExists.Pan,
+                type:"LINK",
+                BASEURL:restaurantExists.baseURL,
+                email:ThirdPartyExists.Email,
+                KEY:"",
+            };
+
+            RestaurantLinkDJANGOAPI(thirdPartyInfo);
+
 
             const restaurantthirdpartyLink = new TblRestaurantThirdPartyLinks();
 
             restaurantthirdpartyLink.RestaurantName = RestaurantName;
             restaurantthirdpartyLink.ThirdPartyName = ThirdPartyName;
-
+            restaurantthirdpartyLink.RestaurantID=restaurantID;
             await myDataSource
                 .manager
                 .save(restaurantthirdpartyLink);

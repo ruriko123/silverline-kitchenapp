@@ -33,6 +33,10 @@ __decorate([
     }),
     __metadata("design:type", Object)
 ], TblRestaurantThirdPartyLinks.prototype, "RestaurantName", void 0);
+__decorate([
+    (0, typeorm_1.Column)("bigint", { name: "RestaurantID", nullable: true }),
+    __metadata("design:type", Object)
+], TblRestaurantThirdPartyLinks.prototype, "RestaurantID", void 0);
 TblRestaurantThirdPartyLinks = __decorate([
     (0, typeorm_1.Entity)()
 ], TblRestaurantThirdPartyLinks);

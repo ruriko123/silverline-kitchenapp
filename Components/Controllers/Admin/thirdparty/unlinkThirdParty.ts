@@ -36,18 +36,7 @@ const unlinkThirdParty : RequestHandler = async(req, res) => {
             return;
         };
 
-        let thirdPartyInfo = {
-            name: ThirdPartyExists.CompanyName,
-            Address: ThirdPartyExists.Address,
-            contact_number: ThirdPartyExists.Phone,
-            tax_number: ThirdPartyExists.Pan,
-            Type:"LINK",
-            BASEURL:ThirdPartyExists.baseURL,
-            email:ThirdPartyExists.Email,
-            KEY:"",
-        };
-
-        RestaurantLinkDJANGOAPI(thirdPartyInfo);
+        
 
 
         let restaurantExists = await myDataSource
@@ -79,6 +68,20 @@ const unlinkThirdParty : RequestHandler = async(req, res) => {
                 .json({"error": "Third party link to the restaurant does not exist."});
             return;
         } else {
+
+            let thirdPartyInfo = {
+                name: ThirdPartyExists.CompanyName,
+                Address: ThirdPartyExists.Address,
+                contact_number: ThirdPartyExists.Phone,
+                tax_number: ThirdPartyExists.Pan,
+                type:"LINK",
+                BASEURL:restaurantExists.baseURL,
+                email:ThirdPartyExists.Email,
+                KEY:"",
+            };
+
+            RestaurantLinkDJANGOAPI(thirdPartyInfo);
+
 
             await myDataSource
                 .createQueryBuilder()
