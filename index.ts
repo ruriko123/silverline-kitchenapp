@@ -28,13 +28,27 @@ myDataSource
     .catch((err) => {
         console.error("Error during Data Source initialization:", err);
     });
+
+
 const app : Express = express();
+
+
 const corsOptions = {
     optionsSuccessStatus: 200,
     credentials: true,
     origin: ["http://localhost:3000","*"]
-  }
-app.use(cors(corsOptions));
+};
+
+
+
+
+
+app.use(cors({ origin: true, credentials: true }));
+
+// app.use(cors(corsOptions));
+
+
+
 const server = http.createServer(app);
 const io = new Server(server);
 
@@ -49,8 +63,8 @@ app.get('/', (req : Request, res : Response) => {
 
 let sess = {
     secret: '2C44-4D44-WppQ38S',
-    resave: false,
     saveUninitialized: true,
+    resave:true,
     cookie: {
         secure: false, // This will only work if you have https enabled!
 
