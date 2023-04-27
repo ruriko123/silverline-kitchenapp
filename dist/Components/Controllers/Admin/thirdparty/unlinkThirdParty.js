@@ -78,7 +78,7 @@ const unlinkThirdParty = (req, res) => __awaiter(void 0, void 0, void 0, functio
                 Address: ThirdPartyExists.Address,
                 contact_number: ThirdPartyExists.Phone,
                 tax_number: ThirdPartyExists.Pan,
-                type: "LINK",
+                type: "UNLINK",
                 BASEURL: restaurantExists.baseURL,
                 email: ThirdPartyExists.Email,
                 KEY: "",

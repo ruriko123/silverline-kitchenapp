@@ -74,7 +74,7 @@ const unlinkThirdParty : RequestHandler = async(req, res) => {
                 Address: ThirdPartyExists.Address,
                 contact_number: ThirdPartyExists.Phone,
                 tax_number: ThirdPartyExists.Pan,
-                type:"LINK",
+                type:"UNLINK",
                 BASEURL:restaurantExists.baseURL,
                 email:ThirdPartyExists.Email,
                 KEY:"",

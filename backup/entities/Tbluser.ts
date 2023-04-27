@@ -5,11 +5,13 @@ export class Tbluser {
   @PrimaryGeneratedColumn({ type: "bigint", name: "id" })
   id: string;
 
-  @Column("varchar", { name: "userType", nullable: true, length: 20 })
+  @Column("varchar", {
+    name: "userType",
+    nullable: true,
+    length: 20,
+    default: () => "'user'",
+  })
   userType: string | null;
-
-  @Column("varchar", { name: "username", nullable: true, length: 50 })
-  username: string | null;
 
   @Column("varchar", { name: "email", nullable: true, length: 254 })
   email: string | null;
@@ -20,10 +22,10 @@ export class Tbluser {
   @Column("longtext", { name: "password", nullable: true })
   password: string | null;
 
-  @Column("tinyint", { name: "socialflag", width: 1 })
-  socialflag: boolean;
+  @Column("tinyint", { name: "socialflag", nullable: true, width: 1 })
+  socialflag: boolean | null;
 
-  @Column("tinyint", { name: "activeStatus", width: 1 })
+  @Column("tinyint", { name: "activeStatus", width: 1, default: () => "'1'" })
   activeStatus: boolean;
 
   @Column("varchar", { name: "otp", nullable: true, length: 4 })
@@ -35,8 +37,12 @@ export class Tbluser {
   @Column("varchar", { name: "otpStep", nullable: true, length: 50 })
   otpStep: string | null;
 
-  @Column("int", { name: "otpFailAttempts" })
-  otpFailAttempts: number;
+  @Column("int", {
+    name: "otpFailAttempts",
+    nullable: true,
+    default: () => "'0'",
+  })
+  otpFailAttempts: number | null;
 
   @Column("varchar", { name: "resentOtp", nullable: true, length: 50 })
   resentOtp: string | null;
@@ -44,11 +50,12 @@ export class Tbluser {
   @Column("datetime", { name: "otpTimeout", nullable: true })
   otpTimeout: Date | null;
 
-  @Column("int", { name: "resendOtpAttempts" })
-  resendOtpAttempts: number;
-
-  @Column("varchar", { name: "firebaseToken", nullable: true, length: 255 })
-  firebaseToken: string | null;
+  @Column("int", {
+    name: "resendOtpAttempts",
+    nullable: true,
+    default: () => "'0'",
+  })
+  resendOtpAttempts: number | null;
 
   @Column("varchar", { name: "registrationStatus", nullable: true, length: 50 })
   registrationStatus: string | null;
@@ -62,10 +69,18 @@ export class Tbluser {
   @Column("datetime", { name: "RegistrationDatetime", nullable: true })
   registrationDatetime: Date | null;
 
-  @Column("tinyint", { name: "phoneverificationStatus", width: 1 })
+  @Column("tinyint", {
+    name: "phoneverificationStatus",
+    width: 1,
+    default: () => "'0'",
+  })
   phoneverificationStatus: boolean;
 
-  @Column("tinyint", { name: "emailverificationStatus", width: 1 })
+  @Column("tinyint", {
+    name: "emailverificationStatus",
+    width: 1,
+    default: () => "'0'",
+  })
   emailverificationStatus: boolean;
 
   @Column("varchar", { name: "lat", nullable: true, length: 50 })
@@ -85,4 +100,16 @@ export class Tbluser {
 
   @Column("longtext", { name: "profilepicture", nullable: true })
   profilepicture: string | null;
+
+  @Column("varchar", { name: "username", nullable: true, length: 350 })
+  username: string | null;
+
+  @Column("varchar", { name: "firebaseToken", nullable: true, length: 350 })
+  firebaseToken: string | null;
+
+  @Column("varchar", { name: "displayname", nullable: true, length: 350 })
+  displayname: string | null;
+
+  @Column("varchar", { name: "preferredlocation", nullable: true, length: 50 })
+  preferredlocation: string | null;
 }

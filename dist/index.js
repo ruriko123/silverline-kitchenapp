@@ -18,11 +18,13 @@ const dotenv_1 = __importDefault(require("dotenv"));
 const app_data_source_1 = __importDefault(require("./app-data-source"));
 const getAllRoutes_1 = require("./Components/Routes/ADMIN/getAllRoutes");
 const getAllRoutes_2 = require("./Components/Routes/USER/getAllRoutes");
+const path = require("path");
+const fs = require("fs");
 dotenv_1.default.config();
 const http = require('http');
 const { Server } = require("socket.io");
 var bodyparser = require('body-parser');
-var urlencodedParser = bodyparser.urlencoded({ extended: false });
+var urlencodedParser = bodyparser.urlencoded({ extended: true });
 const socketJoinToken_1 = require("./Components/Socket/socketJoinToken");
 const AddDefaultAdmin_1 = require("./Components/utils/AddDefaultAdmin");
 var session = require('express-session');
@@ -44,11 +46,11 @@ app_data_source_1.default
 });
 const app = (0, express_1.default)();
 exports.app = app;
-const corsOptions = {
-    optionsSuccessStatus: 200,
-    credentials: true,
-    origin: ["http://localhost:3000", "*"]
-};
+// const corsOptions = {
+//     optionsSuccessStatus: 200,
+//     credentials: true,
+//     origin: ["http://localhost:3000", "*"]
+// };
 app.use(cors({ origin: true, credentials: true }));
 // app.use(cors(corsOptions));
 const server = http.createServer(app);
@@ -60,25 +62,30 @@ app.use(urlencodedParser);
 app.get('/', (req, res) => {
     res.send('Express + TypeScript Server');
 });
+app.set("trust proxy", 1);
 let sess = {
     secret: '2C44-4D44-WppQ38S',
     saveUninitialized: true,
-    resave: true,
+    resave: false,
+    proxy: true,
+    name: "app",
     cookie: {
-        secure: false, // This will only work if you have https enabled!
+        secure: true,
+        httpOnly: false,
+        sameSite: 'none'
     }
 };
-if (app.get('env') === 'production') {
-    app.set('trust proxy', 1); // trust first proxy
-    sess.cookie.secure = true; // serve secure cookies
-}
-;
+// if (app.get('env') === 'production') {
+//     app.set('trust proxy', 1); // trust first proxy
+//     sess.cookie.secure = true; // serve secure cookies
+// };
 app.use(session(sess));
 server.listen(process.env.PORT, () => __awaiter(void 0, void 0, void 0, function* () {
     // let a = await adminHash("test") console.log(a, " password") let b = "test"
     // console.log(b, " password") let c = await adminHashCompare(b,a);
     // console.log(c)
     console.log(`⚡️[server]: Server is running at http://localhost:${port}`);
+    app.use("/uploads", express_1.default.static(path.join(__dirname, "/public/images")));
     /* After server is initialized, call the getPostRoutes() function to dynamically fetch all express routes automatically. */
     let allPostRoutes = yield (0, getAllRoutes_1.getPostRoutes)();
     let allGetRoutes = yield (0, getAllRoutes_1.getGETRoutes)();
@@ -106,6 +113,7 @@ server.listen(process.env.PORT, () => __awaiter(void 0, void 0, void 0, function
         app.use("/", allUSERgetRoutes);
     }
     ;
+    console.log("USER routes loaded.");
 }));
 /* Socket connection */
 io.on('connection', function (socket) {
@@ -113,7 +121,9 @@ io.on('connection', function (socket) {
         let d = new Date();
         let ank = d.toLocaleString('en-US', { timeZone: 'Asia/Kathmandu' });
         console.log(`${ank}`, `-> Socket connected`);
-        socket.on('disconnect', function () { socket.disconnect(); });
+        socket.on('disconnect', function () {
+            socket.disconnect();
+        });
         /* After connection, the device emits on the "join" channel and sends outletName in json.*/
         socket.on("join", (data) => __awaiter(this, void 0, void 0, function* () {
             console.log(data);

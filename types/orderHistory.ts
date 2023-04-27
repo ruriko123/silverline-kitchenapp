@@ -1,6 +1,25 @@
 /* Types for orderhistory post api */
 
 
+
+export interface socialLogin {
+    full_name:string;
+    social_token:string;
+    email:string;
+    phone:string|null;
+    long:string|null;
+    lat:string|null;
+    address:string|null;
+    deviceid:string|null;
+    devicetype:string|null;
+    firebasetoken:string|null;
+}
+
+
+
+
+
+
 export interface orderHistory {
     Id:number|null|string;
     outlet_orderid: number;

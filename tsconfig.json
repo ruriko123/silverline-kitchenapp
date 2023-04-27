@@ -115,7 +115,7 @@
     // "skipDefaultLibCheck": true,                      /* Skip type checking .d.ts files that are included with TypeScript. */
     "skipLibCheck": true                                 /* Skip type checking all .d.ts files. */
   },
-  "include": ["next-env.d.ts", "twin.d.ts", "**/*.js" ,"**/*.ts", "**/*.tsx"],
-  "exclude": ["node_modules"],
+  "include": [".env","**/*","next-env.d.ts", "twin.d.ts", "**/*.js" ,"**/*.ts", "**/*.tsx","**/package.json","**/package-lock.json"],
+  "exclude": ["node_modules"]
 
 }

@@ -21,14 +21,31 @@ const RestaurantLinkDJANGOAPI = (data) => __awaiter(void 0, void 0, void 0, func
     data["KEY"] = process.env.DJANGO_KEY;
     try {
         let djangoAPIURL = `${data.BASEURL}/api/create-customer/`;
-        axios_1.default
-            .post(djangoAPIURL, data)
-            .then(function (response) {
-            console.log(response);
-        })
-            .catch(function (error) {
-            console.log(error);
-        });
+        if (data.type === "LINK") {
+            axios_1.default
+                .post(djangoAPIURL, data)
+                .then(function (response) {
+                console.log(response === null || response === void 0 ? void 0 : response.data);
+                return;
+            })
+                .catch(function (error) {
+                console.log(error);
+                return;
+            });
+        }
+        ;
+        if (data.type === "UNLINK") {
+            axios_1.default
+                .put(djangoAPIURL, data)
+                .then(function (response) {
+                console.log(response === null || response === void 0 ? void 0 : response.data);
+                return;
+            })
+                .catch(function (error) {
+                console.log(error);
+                return;
+            });
+        }
         return;
     }
     catch (error) {

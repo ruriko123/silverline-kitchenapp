@@ -21,7 +21,8 @@ __decorate([
     (0, typeorm_1.Column)("varchar", {
         name: "userType",
         nullable: true,
-        length: 20
+        length: 20,
+        default: "user"
     }),
     __metadata("design:type", Object)
 ], Tbluser.prototype, "userType", void 0);
@@ -29,15 +30,26 @@ __decorate([
     (0, typeorm_1.Column)("varchar", {
         name: "username",
         nullable: true,
-        length: 50
+        length: 350,
+        default: null
     }),
     __metadata("design:type", Object)
 ], Tbluser.prototype, "username", void 0);
 __decorate([
     (0, typeorm_1.Column)("varchar", {
+        name: "displayname",
+        nullable: true,
+        length: 350,
+        default: null
+    }),
+    __metadata("design:type", Object)
+], Tbluser.prototype, "displayname", void 0);
+__decorate([
+    (0, typeorm_1.Column)("varchar", {
         name: "email",
         nullable: true,
-        length: 254
+        length: 254,
+        default: null
     }),
     __metadata("design:type", Object)
 ], Tbluser.prototype, "email", void 0);
@@ -45,28 +57,41 @@ __decorate([
     (0, typeorm_1.Column)("varchar", {
         name: "phone",
         nullable: true,
-        length: 50
+        length: 50,
+        default: null
     }),
     __metadata("design:type", Object)
 ], Tbluser.prototype, "phone", void 0);
 __decorate([
+    (0, typeorm_1.Column)("varchar", {
+        name: "preferredlocation",
+        nullable: true,
+        length: 50,
+        default: null
+    }),
+    __metadata("design:type", Object)
+], Tbluser.prototype, "preferredlocation", void 0);
+__decorate([
     (0, typeorm_1.Column)("longtext", {
         name: "password",
-        nullable: true
+        nullable: true,
+        default: null
     }),
     __metadata("design:type", Object)
 ], Tbluser.prototype, "password", void 0);
 __decorate([
     (0, typeorm_1.Column)("tinyint", {
         name: "socialflag",
-        width: 1
+        width: 1,
+        default: null
     }),
     __metadata("design:type", Boolean)
 ], Tbluser.prototype, "socialflag", void 0);
 __decorate([
     (0, typeorm_1.Column)("tinyint", {
         name: "activeStatus",
-        width: 1
+        width: 1,
+        default: true
     }),
     __metadata("design:type", Boolean)
 ], Tbluser.prototype, "activeStatus", void 0);
@@ -74,14 +99,16 @@ __decorate([
     (0, typeorm_1.Column)("varchar", {
         name: "otp",
         nullable: true,
-        length: 4
+        length: 4,
+        default: null
     }),
     __metadata("design:type", Object)
 ], Tbluser.prototype, "otp", void 0);
 __decorate([
     (0, typeorm_1.Column)("datetime", {
         name: "otpGeneratedDatetime",
-        nullable: true
+        nullable: true,
+        default: null
     }),
     __metadata("design:type", Object)
 ], Tbluser.prototype, "otpGeneratedDatetime", void 0);
@@ -89,38 +116,42 @@ __decorate([
     (0, typeorm_1.Column)("varchar", {
         name: "otpStep",
         nullable: true,
-        length: 50
+        length: 50,
+        default: null
     }),
     __metadata("design:type", Object)
 ], Tbluser.prototype, "otpStep", void 0);
 __decorate([
-    (0, typeorm_1.Column)("int", { name: "otpFailAttempts" }),
+    (0, typeorm_1.Column)("int", { name: "otpFailAttempts", default: 0, nullable: true }),
     __metadata("design:type", Number)
 ], Tbluser.prototype, "otpFailAttempts", void 0);
 __decorate([
     (0, typeorm_1.Column)("varchar", {
         name: "resentOtp",
         nullable: true,
-        length: 50
+        length: 50,
+        default: null
     }),
     __metadata("design:type", Object)
 ], Tbluser.prototype, "resentOtp", void 0);
 __decorate([
     (0, typeorm_1.Column)("datetime", {
         name: "otpTimeout",
-        nullable: true
+        nullable: true,
+        default: null
     }),
     __metadata("design:type", Object)
 ], Tbluser.prototype, "otpTimeout", void 0);
 __decorate([
-    (0, typeorm_1.Column)("int", { name: "resendOtpAttempts" }),
+    (0, typeorm_1.Column)("int", { name: "resendOtpAttempts", default: 0, nullable: true }),
     __metadata("design:type", Number)
 ], Tbluser.prototype, "resendOtpAttempts", void 0);
 __decorate([
     (0, typeorm_1.Column)("varchar", {
         name: "firebaseToken",
         nullable: true,
-        length: 255
+        length: 350,
+        default: null
     }),
     __metadata("design:type", Object)
 ], Tbluser.prototype, "firebaseToken", void 0);
@@ -128,14 +159,16 @@ __decorate([
     (0, typeorm_1.Column)("varchar", {
         name: "registrationStatus",
         nullable: true,
-        length: 50
+        length: 50,
+        default: null
     }),
     __metadata("design:type", Object)
 ], Tbluser.prototype, "registrationStatus", void 0);
 __decorate([
     (0, typeorm_1.Column)("datetime", {
         name: "modifiedDate",
-        nullable: true
+        nullable: true,
+        default: null
     }),
     __metadata("design:type", Object)
 ], Tbluser.prototype, "modifiedDate", void 0);
@@ -143,28 +176,32 @@ __decorate([
     (0, typeorm_1.Column)("varchar", {
         name: "modifiedby",
         nullable: true,
-        length: 70
+        length: 70,
+        default: null
     }),
     __metadata("design:type", Object)
 ], Tbluser.prototype, "modifiedby", void 0);
 __decorate([
     (0, typeorm_1.Column)("datetime", {
         name: "RegistrationDatetime",
-        nullable: true
+        nullable: true,
+        default: null
     }),
     __metadata("design:type", Object)
 ], Tbluser.prototype, "registrationDatetime", void 0);
 __decorate([
     (0, typeorm_1.Column)("tinyint", {
         name: "phoneverificationStatus",
-        width: 1
+        width: 1,
+        default: false
     }),
     __metadata("design:type", Boolean)
 ], Tbluser.prototype, "phoneverificationStatus", void 0);
 __decorate([
     (0, typeorm_1.Column)("tinyint", {
         name: "emailverificationStatus",
-        width: 1
+        width: 1,
+        default: false
     }),
     __metadata("design:type", Boolean)
 ], Tbluser.prototype, "emailverificationStatus", void 0);
@@ -172,7 +209,8 @@ __decorate([
     (0, typeorm_1.Column)("varchar", {
         name: "lat",
         nullable: true,
-        length: 50
+        length: 50,
+        default: null
     }),
     __metadata("design:type", Object)
 ], Tbluser.prototype, "lat", void 0);
@@ -180,7 +218,8 @@ __decorate([
     (0, typeorm_1.Column)("varchar", {
         name: "long",
         nullable: true,
-        length: 50
+        length: 50,
+        default: null
     }),
     __metadata("design:type", Object)
 ], Tbluser.prototype, "long", void 0);
@@ -188,7 +227,8 @@ __decorate([
     (0, typeorm_1.Column)("varchar", {
         name: "locationName",
         nullable: true,
-        length: 50
+        length: 50,
+        default: null
     }),
     __metadata("design:type", Object)
 ], Tbluser.prototype, "locationName", void 0);
@@ -196,7 +236,8 @@ __decorate([
     (0, typeorm_1.Column)("varchar", {
         name: "deviceID",
         nullable: true,
-        length: 50
+        length: 50,
+        default: null
     }),
     __metadata("design:type", Object)
 ], Tbluser.prototype, "deviceId", void 0);
@@ -204,14 +245,16 @@ __decorate([
     (0, typeorm_1.Column)("varchar", {
         name: "deviceType",
         nullable: true,
-        length: 50
+        length: 50,
+        default: null
     }),
     __metadata("design:type", Object)
 ], Tbluser.prototype, "deviceType", void 0);
 __decorate([
     (0, typeorm_1.Column)("longtext", {
         name: "profilepicture",
-        nullable: true
+        nullable: true,
+        default: null
     }),
     __metadata("design:type", Object)
 ], Tbluser.prototype, "profilepicture", void 0);
