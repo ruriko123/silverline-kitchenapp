@@ -6,9 +6,7 @@ import {TblRestaurant} from "@model/TblRestaurant";
 import {getdistancefromuser, findOpenClose} from "@utils/USER/restaurantdatafilters";
 
 const getRestaurant : RequestHandler = async(req, res) => {
-
     try {
-
         let token = req
             ?.headers
                 ?.token;
@@ -20,16 +18,13 @@ const getRestaurant : RequestHandler = async(req, res) => {
                 .json({detail: "error while reading token."});
             return;
         };
-
         let restaurantID = req?.body?.id;
         if(!restaurantID){
             res
             .status(400)
             .json({detail: "Restaurant ID not supplied."});
         return;
-        }
-
-    
+        };
         let userid : number = tokendata
             ?.id;
         let userdisplayname : string = tokendata
@@ -48,13 +43,10 @@ const getRestaurant : RequestHandler = async(req, res) => {
                 .json({detail: "User not found."});
             return;
         };
-        let userPreferredLocation = userData
-            ?.preferredlocation;
         let userLat = userData
             ?.lat || "27.7172";
         let userlong = userData
             ?.long || "85.3240";
-        
         let restaurantData = await myDataSource
             .getRepository(TblRestaurant)
             .createQueryBuilder("t")
@@ -80,7 +72,6 @@ const getRestaurant : RequestHandler = async(req, res) => {
                 .json({"error": "No data available."});
             return;
         };
-
         try {
             let restaurantDataFilteredWithDistance = await getdistancefromuser(restaurantData, userLat, userlong);
             restaurantDataFilteredWithDistance = await findOpenClose(restaurantDataFilteredWithDistance);
@@ -88,22 +79,18 @@ const getRestaurant : RequestHandler = async(req, res) => {
                 .status(200)
                 .json(restaurantDataFilteredWithDistance[0]||{});
             return;
-
         } catch (error) {
             res
                 .status(400)
                 .json({"error": error});
             return;
         };
-
     } catch (error) {
         res
             .status(500)
             .json({"error": error});
         return;
-
     };
-
 };
 
 export {getRestaurant};

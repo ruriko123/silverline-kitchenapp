@@ -8,7 +8,6 @@ import {Not} from "typeorm";
 
 const updateRestaurantinfo : RequestHandler = async(req, res) => {
     try {
-
         let restaurantData:typeTblRestaurant = req.body;
         let id = parseInt(req.body?.id);
         let Outlet_Name = req.body
@@ -42,20 +41,17 @@ const updateRestaurantinfo : RequestHandler = async(req, res) => {
             .set(restaurantData)
             .where("id = :id", {id: id})
             .execute();
-
             res
                 .status(200)
                 .json({"success": "Restautant Updated."});
             return;
         };
-
     } catch (error) {
         res
             .status(500)
             .json({"error": error});
         return;
     };
-
 };
 
 export {updateRestaurantinfo};

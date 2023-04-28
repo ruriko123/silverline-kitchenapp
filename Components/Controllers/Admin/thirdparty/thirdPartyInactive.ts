@@ -3,9 +3,7 @@ import {TblThirdparty} from "@model/TblThirdparty";
 import myDataSource from "@base/app-data-source";
 
 const thirdPartyInactive : RequestHandler = async(req, res) => {
-
     try {
-
         let id : number = req.body
             ?.id;
         if (!id) {
@@ -13,7 +11,7 @@ const thirdPartyInactive : RequestHandler = async(req, res) => {
                 .status(401)
                 .json({"error": "Third Party ID not supplied."});
             return;
-        }
+        };
         let userData = await myDataSource
             .getRepository(TblThirdparty)
             .findOne({
@@ -27,7 +25,6 @@ const thirdPartyInactive : RequestHandler = async(req, res) => {
                 .json({"error": "Third party with this ID does not exist."});
             return;
         } else {
-
             await myDataSource
                 .createQueryBuilder()
                 .update(TblThirdparty)
@@ -38,16 +35,13 @@ const thirdPartyInactive : RequestHandler = async(req, res) => {
                 .status(200)
                 .json({"success": "Third party made inactive."});
             return;
-        }
-
+        };
     } catch (error) {
         res
             .status(500)
             .json({"error": error});
         return;
-
-    }
-
+    };
 };
 
 export {thirdPartyInactive};

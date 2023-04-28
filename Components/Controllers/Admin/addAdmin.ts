@@ -4,9 +4,7 @@ import {TblAdmin} from "@model/TblAdmin";
 import myDataSource from "@base/app-data-source";
 
 const addAdmin : RequestHandler = async(req, res) => {
-
     try {
-
         let userName = req.body
             ?.username;
         let password = req.body
@@ -15,10 +13,6 @@ const addAdmin : RequestHandler = async(req, res) => {
         let addedBy : string = req.session
         ?.adminName || "";
         let addedDate = new Date().toLocaleString('en-US', {timeZone: 'Asia/Kathmandu'});
-
-
-
-
         let userData = await myDataSource
             .getRepository(TblAdmin)
             .findOne({
@@ -46,16 +40,13 @@ const addAdmin : RequestHandler = async(req, res) => {
             .status(200)
             .json({"success": "Admin account created."});
             return;
-        }
-
+        };
     } catch (error) {
         res
             .status(500)
             .json({"error": error});
             return;
-
-    }
-
+    };
 };
 
 export {addAdmin};

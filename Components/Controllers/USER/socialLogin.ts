@@ -2,7 +2,7 @@ import {RequestHandler} from "express";
 import {socialLogin} from "@reqtypes/orderHistory";
 import myDataSource from "@base/app-data-source";
 import {Tbluser} from '@model/Tbluser';
-import {generateToken, decodeToken} from "@utils/USER/token";
+import {generateToken} from "@utils/USER/token";
 
 const socialLogin : RequestHandler = async(req, res) => {
     try {
@@ -20,7 +20,6 @@ const socialLogin : RequestHandler = async(req, res) => {
             ?.long||"";
         let lat = userdata
             ?.lat||"";
-
         if(!long || long===""){
             long = "85.3240";
         };
@@ -35,11 +34,11 @@ const socialLogin : RequestHandler = async(req, res) => {
             ?.devicetype || "";
         let firebasetoken = userdata
             ?.firebasetoken || "";
-
         if (!social_token || !full_name) {
             res
                 .status(400)
                 .json({"error": "Missing parameters."});
+                return;
         };
         let userData = await myDataSource
             .getRepository(Tbluser)
@@ -69,9 +68,8 @@ const socialLogin : RequestHandler = async(req, res) => {
             let tokenobject = {
                 id: userid,
                 displayname: full_name
-            }
+            };
             let token = await generateToken(tokenobject);
-
             if (!token) {
                 res
                     .status(400)
@@ -87,7 +85,7 @@ const socialLogin : RequestHandler = async(req, res) => {
                         }
                     });
                 return;
-            }
+            };
         } else {
             let userid = userData
                 ?.id;
@@ -96,9 +94,8 @@ const socialLogin : RequestHandler = async(req, res) => {
             let tokenobject = {
                 id: userid,
                 displayname: full_name
-            }
+            };
             let token = await generateToken(tokenobject);
-
             res
                 .status(200)
                 .json({
@@ -108,17 +105,13 @@ const socialLogin : RequestHandler = async(req, res) => {
                     }
                 });
             return;
-
         };
-
     } catch (error) {
         res
             .status(500)
             .json({"error": error});
         return;
-
     };
-
 };
 
 export {socialLogin};

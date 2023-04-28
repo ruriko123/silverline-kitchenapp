@@ -14,14 +14,12 @@ const LinkedThirdParties : RequestHandler = async(req, res) => {
                 .status(500)
                 .json({"error": "Missing parameters."});
             return;
-        }
-
+        };
         let allThirdPartyNames = await myDataSource
             .getRepository(TblThirdparty)
             .createQueryBuilder("t")
             .select(["t.CompanyName"])
             .getMany();
-
         let allthirdPartiesarray = [];
         for (let x in allThirdPartyNames) {
             let companyname = allThirdPartyNames[x].CompanyName;
@@ -48,12 +46,10 @@ const LinkedThirdParties : RequestHandler = async(req, res) => {
                 linkedpartiesarray.push(ThirdPartyNametempobject);
             };
         };
-
-    
         let jsonData = {
             allThirdPartyNames: allthirdPartiesarray,
             linkedParties: linkedpartiesarray
-        }
+        };
         res
             .status(200)
             .json(jsonData);
@@ -64,9 +60,7 @@ const LinkedThirdParties : RequestHandler = async(req, res) => {
             .status(500)
             .json({"error": error});
         return;
-
     };
-
 };
 
 export {LinkedThirdParties};

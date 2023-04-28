@@ -54,7 +54,7 @@ const saveUserPreferredLocation : RequestHandler = async(req, res) => {
                 .status(400)
                 .json({detail: "Wrong preferred loation ID supplied."});
             return;
-        }
+        };
         let user = new Tbluser();
         user.preferredlocation = locationData.LocationName;
         await myDataSource
@@ -72,9 +72,7 @@ const saveUserPreferredLocation : RequestHandler = async(req, res) => {
             .status(500)
             .json({"error": error});
         return;
-
     };
-
 };
 
 export {saveUserPreferredLocation};

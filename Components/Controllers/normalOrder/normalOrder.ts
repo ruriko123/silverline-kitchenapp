@@ -6,7 +6,6 @@ import { check3Ptoken } from "@base/Components/utils/checkThirdPartytoken";
 
 const normalOrder:RequestHandler = async(req, res) => {
     try {
-
         /* Validate the token*/
         let tokenresult = await check3Ptoken(req.get("token"));
         if ("error" in tokenresult) {
@@ -26,7 +25,6 @@ const normalOrder:RequestHandler = async(req, res) => {
         order["customerName"] = tokenresult.CompanyName;
         order["customerPhone"] = tokenresult.Phone || tokenresult.AltPhone;
         order["Address"] = tokenresult.Address;
-
         /* The device posts the order JSON which is passed to the saveOrder middleware */
         let result = await saveOrder(order);
         if ("error" in result) {

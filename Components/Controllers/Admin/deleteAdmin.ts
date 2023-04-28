@@ -14,7 +14,7 @@ const deleteAdmin : RequestHandler = async(req, res) => {
             .status(401)
             .json({"error": "Admin ID not supplied."});
             return;
-        }
+        };
         let userData = await myDataSource
             .getRepository(TblAdmin)
             .findOne({
@@ -29,28 +29,23 @@ const deleteAdmin : RequestHandler = async(req, res) => {
             .json({"error": "Admin with this username either does not exist not cannot be deleted."});
             return;
         } else {
-
             await myDataSource
             .createQueryBuilder()
             .delete()
             .from(TblAdmin)
             .where("id = :id", { id: id } ).andWhere({isMainAdmin:false})
-            .execute()
-         
+            .execute();
             res
             .status(200)
             .json({"success": "Admin deleted."});
             return;
-        }
-
+        };
     } catch (error) {
         res
             .status(500)
             .json({"error": error});
             return;
-
-    }
-
+    };
 };
 
 export {deleteAdmin};

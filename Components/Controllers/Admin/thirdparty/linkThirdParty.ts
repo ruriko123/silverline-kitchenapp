@@ -72,12 +72,8 @@ const linkThirdParty : RequestHandler = async(req, res) => {
                 email:ThirdPartyExists.Email,
                 KEY:"",
             };
-
             RestaurantLinkDJANGOAPI(thirdPartyInfo);
-
-
             const restaurantthirdpartyLink = new TblRestaurantThirdPartyLinks();
-
             restaurantthirdpartyLink.RestaurantName = RestaurantName;
             restaurantthirdpartyLink.ThirdPartyName = ThirdPartyName;
             restaurantthirdpartyLink.RestaurantID=restaurantID;
@@ -89,16 +85,12 @@ const linkThirdParty : RequestHandler = async(req, res) => {
                 .json({"success": "Third party linked with the restaurant successfully."});
             return;
         };
-
     } catch (error) {
-        console.log(error)
         res
             .status(500)
             .json({"error": error});
         return;
-
     };
-
 };
 
 export {linkThirdParty};

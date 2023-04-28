@@ -21,13 +21,12 @@ const addThirdParty : RequestHandler = async(req, res) => {
             ?.adminName || "";
         let baseURL:string=req.body?.baseURL;
         let addedDate = new Date().toLocaleString('en-US', {timeZone: 'Asia/Kathmandu'});
-
         if (!Name || !Address || !Phone || !Pan || !AltPhone || !Email||!baseURL) {
             res
                 .status(401)
                 .json({"error": "Missing parameters."});
             return;
-        }
+        };
         let userData = await myDataSource
             .getRepository(TblThirdparty)
             .findOne({
@@ -60,16 +59,13 @@ const addThirdParty : RequestHandler = async(req, res) => {
                 .status(200)
                 .json({"success": "Third party added successfully."});
             return;
-        }
-
+        };
     } catch (error) {
         res
             .status(500)
             .json({"error": error});
         return;
-
-    }
-
+    };
 };
 
 export {addThirdParty};

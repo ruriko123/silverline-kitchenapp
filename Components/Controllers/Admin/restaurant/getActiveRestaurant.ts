@@ -4,7 +4,6 @@ import myDataSource from "@base/app-data-source";
 
 const getActiveRestaurant : RequestHandler = async(req, res) => {
     try {
-
         let userData = await myDataSource
             .getRepository(TblRestaurant)
             .find({
@@ -23,14 +22,12 @@ const getActiveRestaurant : RequestHandler = async(req, res) => {
                 .json(userData);
             return;
         };
-
     } catch (error) {
         res
             .status(500)
             .json({"error": error});
         return;
     };
-
 };
 
 export {getActiveRestaurant};

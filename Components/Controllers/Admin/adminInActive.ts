@@ -12,7 +12,7 @@ const AdminInActive : RequestHandler = async(req, res) => {
                 .status(401)
                 .json({"error": "Admin ID not supplied."});
             return;
-        }
+        };
         let userData = await myDataSource
             .getRepository(TblAdmin)
             .findOne({
@@ -27,7 +27,6 @@ const AdminInActive : RequestHandler = async(req, res) => {
                 .json({"error": "Admin with this ID does not exist or cannot be made inactive."});
             return;
         } else {
-
             await myDataSource
                 .createQueryBuilder()
                 .update(TblAdmin)
@@ -39,15 +38,12 @@ const AdminInActive : RequestHandler = async(req, res) => {
                 .json({"success": "Admin made active."});
             return;
         };
-
     } catch (error) {
         res
             .status(500)
             .json({"error": error});
         return;
-
     };
-
 };
 
 export {AdminInActive};

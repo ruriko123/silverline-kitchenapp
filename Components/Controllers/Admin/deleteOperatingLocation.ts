@@ -12,7 +12,7 @@ const deleteOperatingLocation : RequestHandler = async(req, res) => {
                 .status(401)
                 .json({"error": "ID not supplied."});
             return;
-        }
+        };
         let locationexists = await myDataSource
             .getRepository(TbloperatingLocations)
             .findOne({
@@ -26,7 +26,6 @@ const deleteOperatingLocation : RequestHandler = async(req, res) => {
                 .json({"error": "Wrong ID supplied."});
             return;
         } else {
-
             await myDataSource
                 .createQueryBuilder()
                 .delete()
@@ -38,15 +37,12 @@ const deleteOperatingLocation : RequestHandler = async(req, res) => {
                 .json({"success": "Operating location deleted."});
             return;
         };
-
     } catch (error) {
         res
             .status(500)
             .json({"error": error});
         return;
-
     };
-
 };
 
 export {deleteOperatingLocation};

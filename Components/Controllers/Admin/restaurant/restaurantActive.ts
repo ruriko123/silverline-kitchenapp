@@ -13,7 +13,7 @@ const restaurantActive : RequestHandler = async(req, res) => {
                 .status(401)
                 .json({"error": "Restaurant ID not supplied."});
             return;
-        }
+        };
         let userData = await myDataSource
             .getRepository(TblRestaurant)
             .findOne({
@@ -27,7 +27,6 @@ const restaurantActive : RequestHandler = async(req, res) => {
                 .json({"error": "Restaurant with this ID does not exist."});
             return;
         } else {
-
             await myDataSource
                 .createQueryBuilder()
                 .update(TblRestaurant)
@@ -39,15 +38,12 @@ const restaurantActive : RequestHandler = async(req, res) => {
                 .json({"success": "Restaurant made active."});
             return;
         };
-
     } catch (error) {
         res
             .status(500)
             .json({"error": error});
         return;
-
     };
-
 };
 
 export {restaurantActive};

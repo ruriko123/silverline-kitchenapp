@@ -14,14 +14,12 @@ const unlinkThirdParty : RequestHandler = async(req, res) => {
             ?.RestaurantName;
         let ThirdPartyName : string = req.body
             ?.ThirdPartyName;
-
         if (!RestaurantName || !ThirdPartyName || RestaurantName === "" || ThirdPartyName === "") {
             res
                 .status(401)
                 .json({"error": "Missing parameters."});
             return;
         };
-
         let ThirdPartyExists = await myDataSource
             .getRepository(TblThirdparty)
             .findOne({
@@ -35,10 +33,6 @@ const unlinkThirdParty : RequestHandler = async(req, res) => {
                 .json({"error": "Third party does not exist."});
             return;
         };
-
-        
-
-
         let restaurantExists = await myDataSource
             .getRepository(TblRestaurant)
             .findOne({
@@ -46,14 +40,12 @@ const unlinkThirdParty : RequestHandler = async(req, res) => {
                     Name: `${RestaurantName}`
                 }
             });
-
         if (!restaurantExists) {
             res
                 .status(400)
                 .json({"error": "Restaurant does not exist."});
             return;
         };
-
         let restaurantLinkData = await myDataSource
             .getRepository(TblRestaurantThirdPartyLinks)
             .findOne({
@@ -68,7 +60,6 @@ const unlinkThirdParty : RequestHandler = async(req, res) => {
                 .json({"error": "Third party link to the restaurant does not exist."});
             return;
         } else {
-
             let thirdPartyInfo = {
                 name: ThirdPartyExists.CompanyName,
                 Address: ThirdPartyExists.Address,
@@ -79,10 +70,7 @@ const unlinkThirdParty : RequestHandler = async(req, res) => {
                 email:ThirdPartyExists.Email,
                 KEY:"",
             };
-
             RestaurantLinkDJANGOAPI(thirdPartyInfo);
-
-
             await myDataSource
                 .createQueryBuilder()
                 .delete()
@@ -90,22 +78,18 @@ const unlinkThirdParty : RequestHandler = async(req, res) => {
                 .where({RestaurantName: RestaurantName})
                 .andWhere({ThirdPartyName: ThirdPartyName})
                 .execute();
-
             res
                 .status(200)
                 .json({"success": "Third party linked with the restaurant successfully."});
             return;
         };
-
     } catch (error) {
         console.log(error)
         res
             .status(500)
             .json({"error": error});
         return;
-
     };
-
 };
 
 export {unlinkThirdParty};

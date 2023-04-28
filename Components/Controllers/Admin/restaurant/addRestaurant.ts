@@ -52,14 +52,12 @@ const addRestaurant : RequestHandler = async(req, res) => {
                 .json({"success": "Outlet registered successfully."});
             return;
         };
-
     } catch (error) {
         res
             .status(500)
             .json({"error": error});
         return;
     };
-
 };
 
 export {addRestaurant};
