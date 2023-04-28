@@ -46,7 +46,7 @@ const gethomepage : RequestHandler = async(req, res) => {
         let restaurantData =await myDataSource
         .getRepository(TblRestaurant)
         .createQueryBuilder("t")
-        .select(["t.Name","t.Address","t.long","t.lat","t.coverimage","t.openingTime","t.closingTime"])
+        .select(["t.Name","t.Address","t.long","t.lat","t.coverimage","t.openingTime","t.closingTime","t.isPopular"])
         .where({isActive: true,
             operatingLocation:`${userPreferredLocation}`})
         .getMany();
