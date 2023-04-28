@@ -10,7 +10,6 @@ const generateToken = async(tokenobject : any) => {
 };
 
 const decodeToken = async(token : any) => {
-    console.log(token)
     try {
         let decoded = await jwt.verify(token, process.env.JWTTOKEN_KEY);
         return decoded;

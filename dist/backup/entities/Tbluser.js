@@ -27,10 +27,6 @@ __decorate([
     __metadata("design:type", Object)
 ], Tbluser.prototype, "userType", void 0);
 __decorate([
-    (0, typeorm_1.Column)("varchar", { name: "email", nullable: true, length: 254 }),
-    __metadata("design:type", Object)
-], Tbluser.prototype, "email", void 0);
-__decorate([
     (0, typeorm_1.Column)("varchar", { name: "phone", nullable: true, length: 50 }),
     __metadata("design:type", Object)
 ], Tbluser.prototype, "phone", void 0);
@@ -46,10 +42,6 @@ __decorate([
     (0, typeorm_1.Column)("tinyint", { name: "activeStatus", width: 1, default: () => "'1'" }),
     __metadata("design:type", Boolean)
 ], Tbluser.prototype, "activeStatus", void 0);
-__decorate([
-    (0, typeorm_1.Column)("varchar", { name: "otp", nullable: true, length: 4 }),
-    __metadata("design:type", Object)
-], Tbluser.prototype, "otp", void 0);
 __decorate([
     (0, typeorm_1.Column)("datetime", { name: "otpGeneratedDatetime", nullable: true }),
     __metadata("design:type", Object)
@@ -123,7 +115,7 @@ __decorate([
     __metadata("design:type", Object)
 ], Tbluser.prototype, "long", void 0);
 __decorate([
-    (0, typeorm_1.Column)("varchar", { name: "locationName", nullable: true, length: 50 }),
+    (0, typeorm_1.Column)("varchar", { name: "locationName", nullable: true, length: 150 }),
     __metadata("design:type", Object)
 ], Tbluser.prototype, "locationName", void 0);
 __decorate([
@@ -147,13 +139,21 @@ __decorate([
     __metadata("design:type", Object)
 ], Tbluser.prototype, "firebaseToken", void 0);
 __decorate([
-    (0, typeorm_1.Column)("varchar", { name: "displayname", nullable: true, length: 350 }),
-    __metadata("design:type", Object)
-], Tbluser.prototype, "displayname", void 0);
-__decorate([
     (0, typeorm_1.Column)("varchar", { name: "preferredlocation", nullable: true, length: 50 }),
     __metadata("design:type", Object)
 ], Tbluser.prototype, "preferredlocation", void 0);
+__decorate([
+    (0, typeorm_1.Column)("varchar", { name: "displayname", nullable: true, length: 70 }),
+    __metadata("design:type", Object)
+], Tbluser.prototype, "displayname", void 0);
+__decorate([
+    (0, typeorm_1.Column)("varchar", { name: "email", nullable: true, length: 100 }),
+    __metadata("design:type", Object)
+], Tbluser.prototype, "email", void 0);
+__decorate([
+    (0, typeorm_1.Column)("varchar", { name: "otp", nullable: true, length: 5 }),
+    __metadata("design:type", Object)
+], Tbluser.prototype, "otp", void 0);
 Tbluser = __decorate([
     (0, typeorm_1.Entity)("tbluser", { schema: "kitchenDB" })
 ], Tbluser);

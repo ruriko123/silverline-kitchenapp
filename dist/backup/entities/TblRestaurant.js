@@ -113,6 +113,19 @@ __decorate([
     (0, typeorm_1.Column)("varchar", { name: "closingTime", nullable: true, length: 50 }),
     __metadata("design:type", Object)
 ], TblRestaurant.prototype, "closingTime", void 0);
+__decorate([
+    (0, typeorm_1.Column)("tinyint", { name: "isPopular", default: () => "'0'" }),
+    __metadata("design:type", Number)
+], TblRestaurant.prototype, "isPopular", void 0);
+__decorate([
+    (0, typeorm_1.Column)("varchar", {
+        name: "operatingLocation",
+        nullable: true,
+        length: 70,
+        default: () => "'KATHMANDU'",
+    }),
+    __metadata("design:type", Object)
+], TblRestaurant.prototype, "operatingLocation", void 0);
 TblRestaurant = __decorate([
     (0, typeorm_1.Entity)("tbl_restaurant", { schema: "kitchenDB" })
 ], TblRestaurant);

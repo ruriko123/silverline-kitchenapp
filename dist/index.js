@@ -71,15 +71,40 @@ let sess = {
     name: "app",
     cookie: {
         secure: true,
-        httpOnly: false,
+        httpOnly: true,
         sameSite: 'none'
     }
 };
-// if (app.get('env') === 'production') {
-//     app.set('trust proxy', 1); // trust first proxy
-//     sess.cookie.secure = true; // serve secure cookies
-// };
-app.use(session(sess));
+if (process.env.NODE_ENV === 'PRODUCTION') {
+    let sess = {
+        secret: '2C44-4D44-WppQ38S',
+        saveUninitialized: true,
+        resave: false,
+        proxy: true,
+        name: "app",
+        cookie: {
+            secure: true,
+            httpOnly: true,
+            sameSite: 'none'
+        }
+    };
+    app.use(session(sess));
+}
+;
+if (process.env.NODE_ENV === 'DEVELOPMENT') {
+    let sess = {
+        secret: '2C44-4D44-WppQ38S',
+        saveUninitialized: true,
+        resave: false,
+        proxy: true,
+        name: "app",
+        cookie: {
+            httpOnly: true,
+        }
+    };
+    app.use(session(sess));
+}
+;
 server.listen(process.env.PORT, () => __awaiter(void 0, void 0, void 0, function* () {
     // let a = await adminHash("test") console.log(a, " password") let b = "test"
     // console.log(b, " password") let c = await adminHashCompare(b,a);

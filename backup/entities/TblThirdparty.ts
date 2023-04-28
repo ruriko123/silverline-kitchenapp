@@ -5,12 +5,6 @@ export class TblThirdparty {
   @PrimaryGeneratedColumn({ type: "bigint", name: "id" })
   id: string;
 
-  @Column("varchar", { name: "CompanyName", nullable: true, length: 50 })
-  companyName: string | null;
-
-  @Column("varchar", { name: "Address", nullable: true, length: 50 })
-  address: string | null;
-
   @Column("varchar", { name: "Phone", nullable: true, length: 20 })
   phone: string | null;
 
@@ -19,9 +13,6 @@ export class TblThirdparty {
 
   @Column("varchar", { name: "AltPhone", nullable: true, length: 50 })
   altPhone: string | null;
-
-  @Column("varchar", { name: "Email", nullable: true, length: 50 })
-  email: string | null;
 
   @Column("varchar", { name: "Token", nullable: true, length: 200 })
   token: string | null;
@@ -41,6 +32,15 @@ export class TblThirdparty {
   @Column("varchar", { name: "deletedDate", nullable: true, length: 50 })
   deletedDate: string | null;
 
-  @Column("varchar", { name: "baseURL", nullable: true, length: 50 })
+  @Column("varchar", { name: "CompanyName", nullable: true, length: 100 })
+  companyName: string | null;
+
+  @Column("varchar", { name: "Address", nullable: true, length: 100 })
+  address: string | null;
+
+  @Column("varchar", { name: "Email", nullable: true, length: 70 })
+  email: string | null;
+
+  @Column("varchar", { name: "baseURL", nullable: true, length: 100 })
   baseUrl: string | null;
 }

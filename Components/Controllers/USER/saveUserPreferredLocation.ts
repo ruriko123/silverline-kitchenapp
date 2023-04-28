@@ -13,8 +13,7 @@ const saveUserPreferredLocation : RequestHandler = async(req, res) => {
     try {
         let userdata : preferredLocation = req
             ?.body;
-        let token = userdata
-            ?.token;
+        let token = req?.headers?.token;
         let userpreferredlocation = userdata
             ?.location_id;
         let tokendata = await decodeToken(token);

@@ -8,6 +8,7 @@ export class TblAdmin {
     @Column("varchar", {
         name: "userName",
         nullable: true,
+        default:null,
         length: 50
     })
     userName : string | null;
@@ -15,12 +16,15 @@ export class TblAdmin {
     @Column("varchar", {
         name: "Password",
         nullable: true,
+        default:null,
+
         length: 200
     })
     Password : string | null;
 
     @Column("boolean", {
         name: "isMainAdmin",
+
         default:false
     })
     isMainAdmin :boolean;
@@ -29,7 +33,10 @@ export class TblAdmin {
     @Column("varchar", {
         name: "PermissionType",
         nullable: true,
+        default:null,
+
         length: 30
+
     })
     PermissionType : string | null;
 
@@ -37,12 +44,15 @@ export class TblAdmin {
     @Column("varchar", {
         name: "Token",
         nullable: true,
+        default:null,
+
         length: 200
     })
     Token : string | null;
 
     @Column("boolean", {
         name: "isActive",
+
         default:true
     })
     isActive : boolean|string | null;
@@ -50,12 +60,16 @@ export class TblAdmin {
     @Column("varchar", {
         name: "addedBy",
         nullable: true,
+        default:null,
+
         length: 50
     })
     addedBy : string | null;
     @Column("varchar", {
         name: "addedDate",
         nullable: true,
+        default:null,
+
         length: 50
     })
     addedDate : string | null;

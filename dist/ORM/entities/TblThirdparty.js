@@ -21,7 +21,8 @@ __decorate([
     (0, typeorm_1.Column)("varchar", {
         name: "CompanyName",
         nullable: true,
-        length: 50
+        default: null,
+        length: 100
     }),
     __metadata("design:type", Object)
 ], TblThirdparty.prototype, "CompanyName", void 0);
@@ -29,7 +30,8 @@ __decorate([
     (0, typeorm_1.Column)("varchar", {
         name: "Address",
         nullable: true,
-        length: 50
+        default: null,
+        length: 100
     }),
     __metadata("design:type", Object)
 ], TblThirdparty.prototype, "Address", void 0);
@@ -37,6 +39,7 @@ __decorate([
     (0, typeorm_1.Column)("varchar", {
         name: "Phone",
         nullable: true,
+        default: null,
         length: 20
     }),
     __metadata("design:type", Object)
@@ -45,6 +48,7 @@ __decorate([
     (0, typeorm_1.Column)("varchar", {
         name: "Pan",
         nullable: true,
+        default: null,
         length: 50
     }),
     __metadata("design:type", Object)
@@ -53,6 +57,7 @@ __decorate([
     (0, typeorm_1.Column)("varchar", {
         name: "AltPhone",
         nullable: true,
+        default: null,
         length: 50
     }),
     __metadata("design:type", Object)
@@ -61,7 +66,8 @@ __decorate([
     (0, typeorm_1.Column)("varchar", {
         name: "Email",
         nullable: true,
-        length: 50
+        default: null,
+        length: 70
     }),
     __metadata("design:type", Object)
 ], TblThirdparty.prototype, "Email", void 0);
@@ -69,7 +75,8 @@ __decorate([
     (0, typeorm_1.Column)("varchar", {
         name: "baseURL",
         nullable: true,
-        length: 50
+        default: null,
+        length: 100
     }),
     __metadata("design:type", Object)
 ], TblThirdparty.prototype, "baseURL", void 0);
@@ -77,6 +84,7 @@ __decorate([
     (0, typeorm_1.Column)("varchar", {
         name: "Token",
         nullable: true,
+        default: null,
         length: 200
     }),
     __metadata("design:type", Object)
@@ -85,6 +93,7 @@ __decorate([
     (0, typeorm_1.Column)("varchar", {
         name: "deletedBy",
         nullable: true,
+        default: null,
         length: 50
     }),
     __metadata("design:type", Object)
@@ -92,6 +101,7 @@ __decorate([
 __decorate([
     (0, typeorm_1.Column)("varchar", {
         name: "addedBy",
+        default: null,
         nullable: true,
         length: 50
     }),
@@ -100,6 +110,7 @@ __decorate([
 __decorate([
     (0, typeorm_1.Column)("varchar", {
         name: "addedDate",
+        default: null,
         nullable: true,
         length: 50
     }),
@@ -107,6 +118,7 @@ __decorate([
 ], TblThirdparty.prototype, "addedDate", void 0);
 __decorate([
     (0, typeorm_1.Column)("varchar", {
+        default: null,
         name: "deletedDate",
         nullable: true,
         length: 50

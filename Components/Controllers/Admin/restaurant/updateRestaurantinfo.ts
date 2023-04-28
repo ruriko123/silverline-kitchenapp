@@ -27,7 +27,6 @@ const updateRestaurantinfo : RequestHandler = async(req, res) => {
                 where: {
                     Name: `${Outlet_Name}`,
                     id: Not(id)
-
                 }
             });
         if (userData) {

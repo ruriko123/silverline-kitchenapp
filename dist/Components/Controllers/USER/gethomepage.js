@@ -12,18 +12,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.saveUserPreferredLocation = void 0;
-const Tbluser_1 = require("../../../ORM/entities/Tbluser");
-const TbloperatingLocations_1 = require("../../../ORM/entities/TbloperatingLocations");
+exports.gethomepage = void 0;
 const app_data_source_1 = __importDefault(require("../../../app-data-source"));
 const token_1 = require("../../utils/USER/token");
-;
-const saveUserPreferredLocation = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const Tbluser_1 = require("../../../ORM/entities/Tbluser");
+const TblRestaurant_1 = require("../../../ORM/entities/TblRestaurant");
+const gethomepage = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     var _a;
     try {
-        let userdata = req === null || req === void 0 ? void 0 : req.body;
         let token = (_a = req === null || req === void 0 ? void 0 : req.headers) === null || _a === void 0 ? void 0 : _a.token;
-        let userpreferredlocation = userdata === null || userdata === void 0 ? void 0 : userdata.location_id;
         let tokendata = yield (0, token_1.decodeToken)(token);
         if (!tokendata || (tokendata === null || tokendata === void 0 ? void 0 : tokendata.error)) {
             res
@@ -49,30 +46,28 @@ const saveUserPreferredLocation = (req, res) => __awaiter(void 0, void 0, void 0
             return;
         }
         ;
-        let locationData = yield app_data_source_1.default
-            .getRepository(TbloperatingLocations_1.TbloperatingLocations)
-            .findOne({
-            where: {
-                id: userpreferredlocation
-            }
-        });
-        if (!locationData) {
+        let userPreferredLocation = userData === null || userData === void 0 ? void 0 : userData.preferredlocation;
+        let userLat = userData === null || userData === void 0 ? void 0 : userData.lat;
+        let userlong = userData === null || userData === void 0 ? void 0 : userData.long;
+        console.log(userPreferredLocation);
+        let restaurantData = yield app_data_source_1.default
+            .getRepository(TblRestaurant_1.TblRestaurant)
+            .createQueryBuilder("t")
+            .select(["t.Name", "t.Address", "t.long", "t.lat", "t.coverimage", "t.openingTime", "t.closingTime"])
+            .where({ isActive: true,
+            operatingLocation: `${userPreferredLocation}` })
+            .getMany();
+        console.log(restaurantData);
+        if (!restaurantData || restaurantData.length < 1) {
             res
                 .status(400)
-                .json({ detail: "Wrong preferred loation ID supplied." });
+                .json({ "error": "No data available." });
             return;
         }
-        let user = new Tbluser_1.Tbluser();
-        user.preferredlocation = locationData.LocationName;
-        yield app_data_source_1.default
-            .createQueryBuilder()
-            .update(Tbluser_1.Tbluser)
-            .set({ preferredlocation: locationData.LocationName })
-            .where("id = :id", { id: userid })
-            .execute();
+        ;
         res
             .status(200)
-            .json({ success: "User's preferred location saved." });
+            .json(restaurantData);
         return;
     }
     catch (error) {
@@ -83,4 +78,4 @@ const saveUserPreferredLocation = (req, res) => __awaiter(void 0, void 0, void 0
     }
     ;
 });
-exports.saveUserPreferredLocation = saveUserPreferredLocation;
+exports.gethomepage = gethomepage;

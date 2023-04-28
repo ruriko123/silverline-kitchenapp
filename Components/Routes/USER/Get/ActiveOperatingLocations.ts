@@ -8,5 +8,5 @@ var path = require('path');
 var scriptName = path
     .basename(__filename)
     .replace(/\.[^.]*$/, '');
-router.post(`/${scriptName}`, userTokenMiddleware,getActiveOperatingLocations);
+router.get(`/${scriptName}`, userTokenMiddleware,getActiveOperatingLocations);
 export {router};

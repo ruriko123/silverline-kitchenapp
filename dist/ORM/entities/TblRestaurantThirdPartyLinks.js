@@ -20,6 +20,7 @@ __decorate([
 __decorate([
     (0, typeorm_1.Column)("varchar", {
         name: "ThirdPartyName",
+        default: null,
         nullable: true,
         length: 50
     }),
@@ -29,6 +30,7 @@ __decorate([
     (0, typeorm_1.Column)("varchar", {
         name: "RestaurantName",
         nullable: true,
+        default: null,
         length: 50
     }),
     __metadata("design:type", Object)

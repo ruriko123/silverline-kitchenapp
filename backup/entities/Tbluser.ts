@@ -13,9 +13,6 @@ export class Tbluser {
   })
   userType: string | null;
 
-  @Column("varchar", { name: "email", nullable: true, length: 254 })
-  email: string | null;
-
   @Column("varchar", { name: "phone", nullable: true, length: 50 })
   phone: string | null;
 
@@ -27,9 +24,6 @@ export class Tbluser {
 
   @Column("tinyint", { name: "activeStatus", width: 1, default: () => "'1'" })
   activeStatus: boolean;
-
-  @Column("varchar", { name: "otp", nullable: true, length: 4 })
-  otp: string | null;
 
   @Column("datetime", { name: "otpGeneratedDatetime", nullable: true })
   otpGeneratedDatetime: Date | null;
@@ -86,10 +80,10 @@ export class Tbluser {
   @Column("varchar", { name: "lat", nullable: true, length: 50 })
   lat: string | null;
 
-  @Column("varchar", { name: "long", nullable: true, length: 50 })
+  @Column("varchar", { name: "long", nullable: true, length:  50 })
   long: string | null;
 
-  @Column("varchar", { name: "locationName", nullable: true, length: 50 })
+  @Column("varchar", { name: "locationName", nullable: true, length: 150 })
   locationName: string | null;
 
   @Column("varchar", { name: "deviceID", nullable: true, length: 50 })
@@ -107,9 +101,15 @@ export class Tbluser {
   @Column("varchar", { name: "firebaseToken", nullable: true, length: 350 })
   firebaseToken: string | null;
 
-  @Column("varchar", { name: "displayname", nullable: true, length: 350 })
-  displayname: string | null;
-
   @Column("varchar", { name: "preferredlocation", nullable: true, length: 50 })
   preferredlocation: string | null;
+
+  @Column("varchar", { name: "displayname", nullable: true, length: 70 })
+  displayname: string | null;
+
+  @Column("varchar", { name: "email", nullable: true, length: 100 })
+  email: string | null;
+
+  @Column("varchar", { name: "otp", nullable: true, length: 5 })
+  otp: string | null;
 }

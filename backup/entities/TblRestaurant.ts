@@ -76,4 +76,15 @@ export class TblRestaurant {
 
   @Column("varchar", { name: "closingTime", nullable: true, length: 50 })
   closingTime: string | null;
+
+  @Column("tinyint", { name: "isPopular", default: () => "'0'" })
+  isPopular: number;
+
+  @Column("varchar", {
+    name: "operatingLocation",
+    nullable: true,
+    length: 70,
+    default: () => "'KATHMANDU'",
+  })
+  operatingLocation: string | null;
 }

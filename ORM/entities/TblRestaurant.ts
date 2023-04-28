@@ -8,6 +8,8 @@ export class TblRestaurant {
     @Column("varchar", {
         name: "Name",
         nullable: true,
+        default:null,
+
         length: 150
     })
     Name : string | null;
@@ -15,6 +17,8 @@ export class TblRestaurant {
     @Column("varchar", {
         name: "Address",
         nullable: true,
+        default:null,
+
         length: 70
     })
     Address : string | null;
@@ -22,6 +26,8 @@ export class TblRestaurant {
     @Column("varchar", {
         name: "Phone",
         nullable: true,
+        default:null,
+
         length: 20
     })
     Phone : string | null;
@@ -29,13 +35,18 @@ export class TblRestaurant {
     @Column("varchar", {
         name: "Pan",
         nullable: true,
+        default:null,
+
         length: 50
+
     })
     Pan : string | null;
 
     @Column("varchar", {
         name: "AltPhone",
         nullable: true,
+        default:null,
+
         length: 50
     })
     AltPhone : string | null;
@@ -43,6 +54,8 @@ export class TblRestaurant {
     @Column("varchar", {
         name: "Email",
         nullable: true,
+        default:null,
+
         length: 50
     })
     Email : string | null;
@@ -50,6 +63,8 @@ export class TblRestaurant {
     @Column("varchar", {
         name: "long",
         nullable: true,
+        default:null,
+
         length: 20
     })
     long : string | null;
@@ -59,19 +74,26 @@ export class TblRestaurant {
     @Column("varchar", {
         name: "lat",
         nullable: true,
+        default:null,
+
         length: 20
+        
     })
     lat : string | null;
 
     @Column("varchar", {
         name: "details",
         nullable: true,
-        length: 90
+        default:null,
+
+        length: 100
     })
     details : string | null;
     @Column("varchar", {
         name: "logo",
         nullable: true,
+        default:null,
+
         length: 250
     })
     logo : string | null;
@@ -80,6 +102,8 @@ export class TblRestaurant {
     @Column("varchar", {
         name: "coverimage",
         nullable: true,
+        default:null,
+
         length: 250
     })
     coverimage : string | null;
@@ -88,6 +112,8 @@ export class TblRestaurant {
     @Column("varchar", {
         name: "contactPerson",
         nullable: true,
+        default:null,
+
         length: 50
     })
     contactPerson : string | null;
@@ -96,13 +122,18 @@ export class TblRestaurant {
     @Column("varchar", {
         name: "commission",
         nullable: true,
+        default:null,
+
         length: 50
+
     })
     commission : string | null;
 
     @Column("varchar", {
         name: "slogan",
         nullable: true,
+        default:null,
+
         length: 150
     })
     slogan : string | null;
@@ -117,6 +148,8 @@ export class TblRestaurant {
     @Column("varchar", {
         name: "deletedBy",
         nullable: true,
+        default:null,
+
         length: 50
     })
     deletedBy : string | null;
@@ -124,6 +157,8 @@ export class TblRestaurant {
     @Column("varchar", {
         name: "addedBy",
         nullable: true,
+        default:null,
+
         length: 50
     })
     addedBy : string | null;
@@ -131,6 +166,8 @@ export class TblRestaurant {
     @Column("varchar", {
         name: "addedDate",
         nullable: true,
+        default:null,
+
         length: 50
     })
     addedDate : string | null;
@@ -138,6 +175,8 @@ export class TblRestaurant {
     @Column("varchar", {
         name: "deletedDate",
         nullable: true,
+        default:null,
+
         length: 50
     })
     deletedDate : string | null;
@@ -145,12 +184,16 @@ export class TblRestaurant {
     @Column("varchar", {
         name: "lastModifiedBy",
         nullable: true,
+        default:null,
+
         length: 50
     })
     lastModifiedBy : string | null;
     @Column("varchar", {
         name: "baseURL",
         nullable: true,
+        default:null,
+
         length: 50
     })
     baseURL : string | null;
@@ -158,6 +201,8 @@ export class TblRestaurant {
     @Column("varchar", {
         name: "openingTime",
         nullable: true,
+        default:null,
+
         length: 50
     })
     openingTime : string | null;
@@ -165,9 +210,20 @@ export class TblRestaurant {
     @Column("varchar", {
         name: "closingTime",
         nullable: true,
+        default:null,
+
         length: 50
     })
     closingTime : string | null;
+
+    @Column("varchar", {
+        name: "operatingLocation",
+        nullable: true,
+        default:"KATHMANDU",
+        length: 70
+    })
+    operatingLocation : string | null;
+
 
 
     @Column("boolean", {
@@ -176,6 +232,10 @@ export class TblRestaurant {
     })
     isActive : boolean | null;
 
-    
+    @Column("boolean", {
+        name: "isPopular",
+        default:false
+    })
+    isPopular : boolean | null;
 
 }

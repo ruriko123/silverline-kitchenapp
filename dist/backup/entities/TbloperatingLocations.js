@@ -18,17 +18,17 @@ __decorate([
     __metadata("design:type", String)
 ], TbloperatingLocations.prototype, "id", void 0);
 __decorate([
-    (0, typeorm_1.Column)("varchar", { name: "LocationName", nullable: true, length: 50 }),
+    (0, typeorm_1.Column)("varchar", { name: "LocationName", nullable: true, length: 150 }),
     __metadata("design:type", Object)
 ], TbloperatingLocations.prototype, "locationName", void 0);
-__decorate([
-    (0, typeorm_1.Column)("varchar", { name: "IMAGEURL", nullable: true, length: 50 }),
-    __metadata("design:type", Object)
-], TbloperatingLocations.prototype, "imageurl", void 0);
 __decorate([
     (0, typeorm_1.Column)("tinyint", { name: "isActive", default: () => "'1'" }),
     __metadata("design:type", Number)
 ], TbloperatingLocations.prototype, "isActive", void 0);
+__decorate([
+    (0, typeorm_1.Column)("varchar", { name: "IMAGEURL", nullable: true, length: 300 }),
+    __metadata("design:type", Object)
+], TbloperatingLocations.prototype, "imageurl", void 0);
 TbloperatingLocations = __decorate([
     (0, typeorm_1.Entity)("tbloperating_locations", { schema: "kitchenDB" })
 ], TbloperatingLocations);

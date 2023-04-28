@@ -6,6 +6,8 @@ export class TblRestaurantThirdPartyLinks {
     id : number;
     @Column("varchar", {
         name: "ThirdPartyName",
+        default:null,
+
         nullable: true,
         length: 50
     })
@@ -13,6 +15,8 @@ export class TblRestaurantThirdPartyLinks {
     @Column("varchar", {
         name: "RestaurantName",
         nullable: true,
+        default:null,
+
         length: 50
     })
     RestaurantName : string | null;

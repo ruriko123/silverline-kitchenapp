@@ -64,16 +64,41 @@ let sess = {
     name:"app",
     cookie: {
         secure: true, // This will only work if you have https enabled!
-        httpOnly: false,
+        httpOnly: true,
         sameSite: 'none'
     }
 };
-// if (app.get('env') === 'production') {
-//     app.set('trust proxy', 1); // trust first proxy
-//     sess.cookie.secure = true; // serve secure cookies
-// };
+if (process.env.NODE_ENV === 'PRODUCTION') {
+    let sess = {
+        secret: '2C44-4D44-WppQ38S',
+        saveUninitialized: true,
+        resave: false,
+        proxy: true,
+        name:"app",
+        cookie: {
+            secure: true, // This will only work if you have https enabled!
+            httpOnly: true,
+            sameSite: 'none'
+        }
+    };
 
-app.use(session(sess));
+    app.use(session(sess));
+};
+
+if (process.env.NODE_ENV === 'DEVELOPMENT') {
+    let sess = {
+        secret: '2C44-4D44-WppQ38S',
+        saveUninitialized: true,
+        resave: false,
+        proxy: true,
+        name:"app",
+        cookie: {
+            httpOnly: true,
+        }
+    };
+
+    app.use(session(sess));
+};
 
 server.listen(process.env.PORT, async() => {
     // let a = await adminHash("test") console.log(a, " password") let b = "test"

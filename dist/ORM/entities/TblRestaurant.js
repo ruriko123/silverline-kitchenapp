@@ -21,6 +21,7 @@ __decorate([
     (0, typeorm_1.Column)("varchar", {
         name: "Name",
         nullable: true,
+        default: null,
         length: 150
     }),
     __metadata("design:type", Object)
@@ -29,6 +30,7 @@ __decorate([
     (0, typeorm_1.Column)("varchar", {
         name: "Address",
         nullable: true,
+        default: null,
         length: 70
     }),
     __metadata("design:type", Object)
@@ -37,6 +39,7 @@ __decorate([
     (0, typeorm_1.Column)("varchar", {
         name: "Phone",
         nullable: true,
+        default: null,
         length: 20
     }),
     __metadata("design:type", Object)
@@ -45,6 +48,7 @@ __decorate([
     (0, typeorm_1.Column)("varchar", {
         name: "Pan",
         nullable: true,
+        default: null,
         length: 50
     }),
     __metadata("design:type", Object)
@@ -53,6 +57,7 @@ __decorate([
     (0, typeorm_1.Column)("varchar", {
         name: "AltPhone",
         nullable: true,
+        default: null,
         length: 50
     }),
     __metadata("design:type", Object)
@@ -61,6 +66,7 @@ __decorate([
     (0, typeorm_1.Column)("varchar", {
         name: "Email",
         nullable: true,
+        default: null,
         length: 50
     }),
     __metadata("design:type", Object)
@@ -69,6 +75,7 @@ __decorate([
     (0, typeorm_1.Column)("varchar", {
         name: "long",
         nullable: true,
+        default: null,
         length: 20
     }),
     __metadata("design:type", Object)
@@ -77,6 +84,7 @@ __decorate([
     (0, typeorm_1.Column)("varchar", {
         name: "lat",
         nullable: true,
+        default: null,
         length: 20
     }),
     __metadata("design:type", Object)
@@ -85,7 +93,8 @@ __decorate([
     (0, typeorm_1.Column)("varchar", {
         name: "details",
         nullable: true,
-        length: 90
+        default: null,
+        length: 100
     }),
     __metadata("design:type", Object)
 ], TblRestaurant.prototype, "details", void 0);
@@ -93,6 +102,7 @@ __decorate([
     (0, typeorm_1.Column)("varchar", {
         name: "logo",
         nullable: true,
+        default: null,
         length: 250
     }),
     __metadata("design:type", Object)
@@ -101,6 +111,7 @@ __decorate([
     (0, typeorm_1.Column)("varchar", {
         name: "coverimage",
         nullable: true,
+        default: null,
         length: 250
     }),
     __metadata("design:type", Object)
@@ -109,6 +120,7 @@ __decorate([
     (0, typeorm_1.Column)("varchar", {
         name: "contactPerson",
         nullable: true,
+        default: null,
         length: 50
     }),
     __metadata("design:type", Object)
@@ -117,6 +129,7 @@ __decorate([
     (0, typeorm_1.Column)("varchar", {
         name: "commission",
         nullable: true,
+        default: null,
         length: 50
     }),
     __metadata("design:type", Object)
@@ -125,6 +138,7 @@ __decorate([
     (0, typeorm_1.Column)("varchar", {
         name: "slogan",
         nullable: true,
+        default: null,
         length: 150
     }),
     __metadata("design:type", Object)
@@ -140,6 +154,7 @@ __decorate([
     (0, typeorm_1.Column)("varchar", {
         name: "deletedBy",
         nullable: true,
+        default: null,
         length: 50
     }),
     __metadata("design:type", Object)
@@ -148,6 +163,7 @@ __decorate([
     (0, typeorm_1.Column)("varchar", {
         name: "addedBy",
         nullable: true,
+        default: null,
         length: 50
     }),
     __metadata("design:type", Object)
@@ -156,6 +172,7 @@ __decorate([
     (0, typeorm_1.Column)("varchar", {
         name: "addedDate",
         nullable: true,
+        default: null,
         length: 50
     }),
     __metadata("design:type", Object)
@@ -164,6 +181,7 @@ __decorate([
     (0, typeorm_1.Column)("varchar", {
         name: "deletedDate",
         nullable: true,
+        default: null,
         length: 50
     }),
     __metadata("design:type", Object)
@@ -172,6 +190,7 @@ __decorate([
     (0, typeorm_1.Column)("varchar", {
         name: "lastModifiedBy",
         nullable: true,
+        default: null,
         length: 50
     }),
     __metadata("design:type", Object)
@@ -180,6 +199,7 @@ __decorate([
     (0, typeorm_1.Column)("varchar", {
         name: "baseURL",
         nullable: true,
+        default: null,
         length: 50
     }),
     __metadata("design:type", Object)
@@ -188,6 +208,7 @@ __decorate([
     (0, typeorm_1.Column)("varchar", {
         name: "openingTime",
         nullable: true,
+        default: null,
         length: 50
     }),
     __metadata("design:type", Object)
@@ -196,10 +217,20 @@ __decorate([
     (0, typeorm_1.Column)("varchar", {
         name: "closingTime",
         nullable: true,
+        default: null,
         length: 50
     }),
     __metadata("design:type", Object)
 ], TblRestaurant.prototype, "closingTime", void 0);
+__decorate([
+    (0, typeorm_1.Column)("varchar", {
+        name: "operatingLocation",
+        nullable: true,
+        default: "KATHMANDU",
+        length: 70
+    }),
+    __metadata("design:type", Object)
+], TblRestaurant.prototype, "operatingLocation", void 0);
 __decorate([
     (0, typeorm_1.Column)("boolean", {
         name: "isActive",
@@ -207,6 +238,13 @@ __decorate([
     }),
     __metadata("design:type", Object)
 ], TblRestaurant.prototype, "isActive", void 0);
+__decorate([
+    (0, typeorm_1.Column)("boolean", {
+        name: "isPopular",
+        default: false
+    }),
+    __metadata("design:type", Object)
+], TblRestaurant.prototype, "isPopular", void 0);
 TblRestaurant = __decorate([
     (0, typeorm_1.Entity)()
 ], TblRestaurant);

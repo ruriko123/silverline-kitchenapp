@@ -23,7 +23,6 @@ const generateToken = (tokenobject) => __awaiter(void 0, void 0, void 0, functio
 });
 exports.generateToken = generateToken;
 const decodeToken = (token) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log(token);
     try {
         let decoded = yield jwt.verify(token, process.env.JWTTOKEN_KEY);
         return decoded;

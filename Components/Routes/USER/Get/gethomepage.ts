@@ -1,5 +1,6 @@
-import { viewAllAdmin } from '@base/Components/Controllers/Admin/viewAllAdmin';
-import {adminSessionChecker} from '@base/Components/Middlewares/Admin/sessionChecker';
+import { gethomepage } from '@base/Components/Controllers/USER/gethomepage';
+import { userTokenMiddleware } from '@base/Components/Middlewares/USER/tokenChecker';
+
 
 
 import express from 'express';
@@ -9,6 +10,5 @@ var path = require('path');
 var scriptName = path
     .basename(__filename)
     .replace(/\.[^.]*$/, '');
-
-router.get(`/${scriptName}`, adminSessionChecker, viewAllAdmin);
+router.get(`/${scriptName}`, userTokenMiddleware,gethomepage);
 export {router};

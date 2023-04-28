@@ -13,7 +13,7 @@ export class TbloperatingLocations {
     @Column("varchar", {
         name: "IMAGEURL",
         nullable: true,
-        length: 50
+        length: 300
     })
     IMAGEURL : string | null;
     

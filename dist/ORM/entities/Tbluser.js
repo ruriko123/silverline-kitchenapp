@@ -39,7 +39,7 @@ __decorate([
     (0, typeorm_1.Column)("varchar", {
         name: "displayname",
         nullable: true,
-        length: 350,
+        length: 70,
         default: null
     }),
     __metadata("design:type", Object)
@@ -48,7 +48,7 @@ __decorate([
     (0, typeorm_1.Column)("varchar", {
         name: "email",
         nullable: true,
-        length: 254,
+        length: 100,
         default: null
     }),
     __metadata("design:type", Object)
@@ -99,7 +99,7 @@ __decorate([
     (0, typeorm_1.Column)("varchar", {
         name: "otp",
         nullable: true,
-        length: 4,
+        length: 5,
         default: null
     }),
     __metadata("design:type", Object)
@@ -227,7 +227,7 @@ __decorate([
     (0, typeorm_1.Column)("varchar", {
         name: "locationName",
         nullable: true,
-        length: 50,
+        length: 300,
         default: null
     }),
     __metadata("design:type", Object)
@@ -236,7 +236,7 @@ __decorate([
     (0, typeorm_1.Column)("varchar", {
         name: "deviceID",
         nullable: true,
-        length: 50,
+        length: 100,
         default: null
     }),
     __metadata("design:type", Object)

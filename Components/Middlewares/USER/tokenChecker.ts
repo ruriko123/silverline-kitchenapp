@@ -7,10 +7,11 @@ const userTokenMiddleware:RequestHandler = async(req, res,next) => {
     if(!req){
         return 
     };
-    if(!(req?.body?.token)){
+    if(!(req?.headers?.token)){
         res.status(400).json({detail:"No token provided."})
+        return;
     }
-    let token  = req?.body?.token;
+    let token  = req?.headers?.token;
     let tokenresult = await decodeToken(token);
     if(tokenresult?.error){
         res.status(401).json({detail:"Invalid token."});

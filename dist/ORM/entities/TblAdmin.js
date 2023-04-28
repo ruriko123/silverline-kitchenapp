@@ -21,6 +21,7 @@ __decorate([
     (0, typeorm_1.Column)("varchar", {
         name: "userName",
         nullable: true,
+        default: null,
         length: 50
     }),
     __metadata("design:type", Object)
@@ -29,6 +30,7 @@ __decorate([
     (0, typeorm_1.Column)("varchar", {
         name: "Password",
         nullable: true,
+        default: null,
         length: 200
     }),
     __metadata("design:type", Object)
@@ -44,6 +46,7 @@ __decorate([
     (0, typeorm_1.Column)("varchar", {
         name: "PermissionType",
         nullable: true,
+        default: null,
         length: 30
     }),
     __metadata("design:type", Object)
@@ -52,6 +55,7 @@ __decorate([
     (0, typeorm_1.Column)("varchar", {
         name: "Token",
         nullable: true,
+        default: null,
         length: 200
     }),
     __metadata("design:type", Object)
@@ -67,6 +71,7 @@ __decorate([
     (0, typeorm_1.Column)("varchar", {
         name: "addedBy",
         nullable: true,
+        default: null,
         length: 50
     }),
     __metadata("design:type", Object)
@@ -75,6 +80,7 @@ __decorate([
     (0, typeorm_1.Column)("varchar", {
         name: "addedDate",
         nullable: true,
+        default: null,
         length: 50
     }),
     __metadata("design:type", Object)

@@ -8,20 +8,26 @@ export class TblThirdparty {
     @Column("varchar", {
         name: "CompanyName",
         nullable: true,
-        length: 50
+        default:null,
+
+        length: 100
     })
     CompanyName : string | null;
 
     @Column("varchar", {
         name: "Address",
         nullable: true,
-        length: 50
+        default:null,
+
+        length: 100
     })
     Address : string | null;
 
     @Column("varchar", {
         name: "Phone",
         nullable: true,
+        default:null,
+
         length: 20
     })
     Phone : string | null;
@@ -29,6 +35,8 @@ export class TblThirdparty {
     @Column("varchar", {
         name: "Pan",
         nullable: true,
+        default:null,
+
         length: 50
     })
     Pan : string | null;
@@ -36,6 +44,8 @@ export class TblThirdparty {
     @Column("varchar", {
         name: "AltPhone",
         nullable: true,
+        default:null,
+
         length: 50
     })
     AltPhone : string | null;
@@ -43,14 +53,18 @@ export class TblThirdparty {
     @Column("varchar", {
         name: "Email",
         nullable: true,
-        length: 50
+        default:null,
+
+        length: 70
     })
     Email : string | null;
 
     @Column("varchar", {
         name: "baseURL",
         nullable: true,
-        length: 50
+        default:null,
+
+        length: 100
     })
     baseURL : string | null;
 
@@ -59,6 +73,8 @@ export class TblThirdparty {
     @Column("varchar", {
         name: "Token",
         nullable: true,
+        default:null,
+
         length: 200
     })
     Token : string | null;
@@ -66,12 +82,16 @@ export class TblThirdparty {
     @Column("varchar", {
         name: "deletedBy",
         nullable: true,
+        default:null,
+
         length: 50
     })
     deletedBy : string | null;
 
     @Column("varchar", {
         name: "addedBy",
+        default:null,
+
         nullable: true,
         length: 50
     })
@@ -79,12 +99,16 @@ export class TblThirdparty {
 
     @Column("varchar", {
         name: "addedDate",
+        default:null,
+
         nullable: true,
         length: 50
     })
     addedDate : string | null;
 
     @Column("varchar", {
+        default:null,
+
         name: "deletedDate",
         nullable: true,
         length: 50

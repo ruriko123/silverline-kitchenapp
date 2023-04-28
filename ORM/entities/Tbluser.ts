@@ -24,7 +24,7 @@ export class Tbluser {
     @Column("varchar", {
         name: "displayname",
         nullable: true,
-        length: 350,
+        length: 70,
         default:null
     })
     displayname : string | null;
@@ -32,7 +32,7 @@ export class Tbluser {
     @Column("varchar", {
         name: "email",
         nullable: true,
-        length: 254,
+        length: 100,
         default:null
     })
     email : string | null;
@@ -78,7 +78,7 @@ export class Tbluser {
     @Column("varchar", {
         name: "otp",
         nullable: true,
-        length: 4,
+        length:5,
         default:null
     })
     otp : string | null;
@@ -197,7 +197,7 @@ export class Tbluser {
     @Column("varchar", {
         name: "locationName",
         nullable: true,
-        length: 50,
+        length: 300,
         default:null
 
     })
@@ -206,7 +206,7 @@ export class Tbluser {
     @Column("varchar", {
         name: "deviceID",
         nullable: true,
-        length: 50,
+        length: 100,
         default:null
 
     })

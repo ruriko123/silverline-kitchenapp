@@ -29,7 +29,7 @@ __decorate([
     (0, typeorm_1.Column)("varchar", {
         name: "IMAGEURL",
         nullable: true,
-        length: 50
+        length: 300
     }),
     __metadata("design:type", Object)
 ], TbloperatingLocations.prototype, "IMAGEURL", void 0);
