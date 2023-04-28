@@ -1,6 +1,3 @@
-let dummy = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYiLCJkaXNwbGF5bmFtZSI6InRlc3QiLCJpYXQiOjE2ODI1ODk3MjAsImV4cCI6MTY4NTE4MTcyMH0.dC695qsL733LcdwwPJO_0iJ1HDRaiTmG83nyVcf4tjo"
-
-
 import { decodeToken } from "@utils/USER/token";
 import { RequestHandler } from "express";
 const userTokenMiddleware:RequestHandler = async(req, res,next) => {
@@ -18,13 +15,8 @@ const userTokenMiddleware:RequestHandler = async(req, res,next) => {
         return;
     }else {
         next();
-    }
+    };
 
-    // if (req.session &&  req.session.admin) {
-    //     next();
-    // } else {
-    //     res.redirect('/login');
-    // };
 };
 
 

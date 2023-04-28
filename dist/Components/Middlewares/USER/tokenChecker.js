@@ -10,7 +10,6 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.userTokenMiddleware = void 0;
-let dummy = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYiLCJkaXNwbGF5bmFtZSI6InRlc3QiLCJpYXQiOjE2ODI1ODk3MjAsImV4cCI6MTY4NTE4MTcyMH0.dC695qsL733LcdwwPJO_0iJ1HDRaiTmG83nyVcf4tjo";
 const token_1 = require("../../utils/USER/token");
 const userTokenMiddleware = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     var _a, _b;
@@ -31,10 +30,6 @@ const userTokenMiddleware = (req, res, next) => __awaiter(void 0, void 0, void 0
     else {
         next();
     }
-    // if (req.session &&  req.session.admin) {
-    //     next();
-    // } else {
-    //     res.redirect('/login');
-    // };
+    ;
 });
 exports.userTokenMiddleware = userTokenMiddleware;

@@ -210,7 +210,7 @@ __decorate([
         name: "lat",
         nullable: true,
         length: 50,
-        default: null
+        default: "27.7172"
     }),
     __metadata("design:type", Object)
 ], Tbluser.prototype, "lat", void 0);
@@ -219,7 +219,7 @@ __decorate([
         name: "long",
         nullable: true,
         length: 50,
-        default: null
+        default: "85.3240"
     }),
     __metadata("design:type", Object)
 ], Tbluser.prototype, "long", void 0);

@@ -43,8 +43,8 @@ const filterwithdistance = async(restaurantData : keyable, userlat : string, use
                     ?.lat;
                 if (await checkFloatParsable(restaurantlat, restaurantlong)) {
                     let restaurantCoords = {
-                        lat: parseFloat(restaurantlong),
-                        lon: parseFloat(restaurantlat)
+                        lat: parseFloat(restaurantlat),
+                        lon: parseFloat(restaurantlong)
                     };
                     let distanceresult = await haversine(userCoords, restaurantCoords);
                     restaurantData[x].distanceFromUser = distanceresult;
@@ -63,13 +63,16 @@ const filterwithdistance = async(restaurantData : keyable, userlat : string, use
 
 };
 
-const filterPopular = async(restaurantdataarrayFiltered : Array < any >) => {
+const filterPopular = async(restaurantdataarrayFiltered : keyable) => {
     try {
-        let newfilteredArray = await restaurantdataarrayFiltered.sort((a : any, b : any) => {
-            return a
-                ?.isPopular;
-        });
-        return newfilteredArray;
+        let populararray:Array<any> = [];
+        for (let k in restaurantdataarrayFiltered){
+            let restaurantdata  =restaurantdataarrayFiltered[k];
+            if(restaurantdata?.isPopular){
+                populararray.push(restaurantdata);
+            };
+        };
+        return populararray;
     } catch (error) {
         throw new Error('Error while filtering popular restaurants.');
     };

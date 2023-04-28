@@ -17,6 +17,7 @@ const app_data_source_1 = __importDefault(require("../../../app-data-source"));
 const token_1 = require("../../utils/USER/token");
 const Tbluser_1 = require("../../../ORM/entities/Tbluser");
 const TblRestaurant_1 = require("../../../ORM/entities/TblRestaurant");
+const homepagefilters_1 = require("../../utils/USER/homepagefilters");
 const gethomepage = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     var _a;
     try {
@@ -47,17 +48,23 @@ const gethomepage = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
         }
         ;
         let userPreferredLocation = userData === null || userData === void 0 ? void 0 : userData.preferredlocation;
-        let userLat = userData === null || userData === void 0 ? void 0 : userData.lat;
-        let userlong = userData === null || userData === void 0 ? void 0 : userData.long;
-        console.log(userPreferredLocation);
+        let userLat = (userData === null || userData === void 0 ? void 0 : userData.lat) || "27.7172";
+        let userlong = (userData === null || userData === void 0 ? void 0 : userData.long) || "85.3240";
         let restaurantData = yield app_data_source_1.default
             .getRepository(TblRestaurant_1.TblRestaurant)
             .createQueryBuilder("t")
-            .select(["t.Name", "t.Address", "t.long", "t.lat", "t.coverimage", "t.openingTime", "t.closingTime"])
-            .where({ isActive: true,
-            operatingLocation: `${userPreferredLocation}` })
+            .select([
+            "t.Name",
+            "t.Address",
+            "t.long",
+            "t.lat",
+            "t.coverimage",
+            "t.openingTime",
+            "t.closingTime",
+            "t.isPopular"
+        ])
+            .where({ isActive: true, operatingLocation: `${userPreferredLocation}` })
             .getMany();
-        console.log(restaurantData);
         if (!restaurantData || restaurantData.length < 1) {
             res
                 .status(400)
@@ -65,10 +72,26 @@ const gethomepage = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
             return;
         }
         ;
-        res
-            .status(200)
-            .json(restaurantData);
-        return;
+        try {
+            let restaurantDataFilteredWithDistance = yield (0, homepagefilters_1.filterwithdistance)(restaurantData, userLat, userlong);
+            restaurantDataFilteredWithDistance = yield (0, homepagefilters_1.findOpenClose)(restaurantDataFilteredWithDistance);
+            let popularonly = yield (0, homepagefilters_1.filterPopular)(restaurantDataFilteredWithDistance);
+            let returnobject = {
+                near_you: restaurantDataFilteredWithDistance || [],
+                popular: popularonly || []
+            };
+            res
+                .status(200)
+                .json(returnobject);
+            return;
+        }
+        catch (error) {
+            res
+                .status(400)
+                .json({ "error": error });
+            return;
+        }
+        ;
     }
     catch (error) {
         res

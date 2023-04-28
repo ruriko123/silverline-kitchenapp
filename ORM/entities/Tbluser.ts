@@ -180,7 +180,7 @@ export class Tbluser {
         name: "lat",
         nullable: true,
         length: 50,
-        default:null
+        default:"27.7172"
 
     })
     lat : string | null;
@@ -189,7 +189,7 @@ export class Tbluser {
         name: "long",
         nullable: true,
         length: 50,
-        default:null
+        default:"85.3240"
 
     })
     long : string | null;
