@@ -94,7 +94,7 @@ __decorate([
         name: "details",
         nullable: true,
         default: null,
-        length: 100
+        length: 150
     }),
     __metadata("design:type", Object)
 ], TblRestaurant.prototype, "details", void 0);

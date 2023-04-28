@@ -85,14 +85,13 @@ export class TblRestaurant {
         name: "details",
         nullable: true,
         default:null,
-
-        length: 100
+        length: 150
     })
     details : string | null;
     @Column("varchar", {
         name: "logo",
         nullable: true,
-        default:null,
+        default:"https://cdn.logojoy.com/wp-content/uploads/2018/05/30151524/822.png",
 
         length: 250
     })
@@ -102,7 +101,7 @@ export class TblRestaurant {
     @Column("varchar", {
         name: "coverimage",
         nullable: true,
-        default:null,
+        default:"https://cdn.logojoy.com/wp-content/uploads/2018/05/30151524/822.png",
 
         length: 250
     })

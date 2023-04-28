@@ -49,7 +49,7 @@ export class Tbluser {
         name: "preferredlocation",
         nullable: true,
         length: 50,
-        default:null
+        default:"KATHMANDU"
     })
     preferredlocation : string | null;
 

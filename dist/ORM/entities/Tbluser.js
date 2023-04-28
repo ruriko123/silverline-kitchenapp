@@ -67,7 +67,7 @@ __decorate([
         name: "preferredlocation",
         nullable: true,
         length: 50,
-        default: null
+        default: "KATHMANDU"
     }),
     __metadata("design:type", Object)
 ], Tbluser.prototype, "preferredlocation", void 0);

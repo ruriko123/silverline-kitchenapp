@@ -17,9 +17,16 @@ const socialLogin : RequestHandler = async(req, res) => {
         let phone = userdata
             ?.phone || "";
         let long = userdata
-            ?.long || "";
+            ?.long||"";
         let lat = userdata
-            ?.lat || "";
+            ?.lat||"";
+
+        if(!long || long===""){
+            long = "85.3240";
+        };
+        if(!lat||lat===""){
+            lat="27.7172";
+        };
         let address = userdata
             ?.address || "";
         let deviceid = userdata

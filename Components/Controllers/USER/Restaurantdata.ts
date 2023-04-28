@@ -3,9 +3,9 @@ import myDataSource from "@base/app-data-source";
 import {decodeToken} from '@utils/USER/token';
 import {Tbluser} from "@model/Tbluser";
 import {TblRestaurant} from "@model/TblRestaurant";
-import {filterPopular, filterwithdistance, findOpenClose} from "@utils/USER/homepagefilters";
+import {getdistancefromuser, findOpenClose} from "@utils/USER/restaurantdatafilters";
 
-const gethomepage : RequestHandler = async(req, res) => {
+const getRestaurant : RequestHandler = async(req, res) => {
 
     try {
 
@@ -20,6 +20,16 @@ const gethomepage : RequestHandler = async(req, res) => {
                 .json({detail: "error while reading token."});
             return;
         };
+
+        let restaurantID = req?.body?.id;
+        if(!restaurantID){
+            res
+            .status(400)
+            .json({detail: "Restaurant ID not supplied."});
+        return;
+        }
+
+    
         let userid : number = tokendata
             ?.id;
         let userdisplayname : string = tokendata
@@ -39,16 +49,16 @@ const gethomepage : RequestHandler = async(req, res) => {
             return;
         };
         let userPreferredLocation = userData
-            ?.preferredlocation ||"KATHMANDU";
+            ?.preferredlocation;
         let userLat = userData
             ?.lat || "27.7172";
         let userlong = userData
             ?.long || "85.3240";
+        
         let restaurantData = await myDataSource
             .getRepository(TblRestaurant)
             .createQueryBuilder("t")
             .select([
-                "t.id",
                 "t.Name",
                 "t.Address",
                 "t.long",
@@ -56,9 +66,13 @@ const gethomepage : RequestHandler = async(req, res) => {
                 "t.coverimage",
                 "t.openingTime",
                 "t.closingTime",
-                "t.isPopular"
+                "t.isPopular",
+                "t.slogan",
+                "t.details",
+                "t.Address",
+                "t.logo"
             ])
-            .where({isActive: true, operatingLocation: `${userPreferredLocation}`})
+            .where({isActive: true, id:restaurantID})
             .getMany();
         if (!restaurantData || restaurantData.length < 1) {
             res
@@ -68,16 +82,11 @@ const gethomepage : RequestHandler = async(req, res) => {
         };
 
         try {
-            let restaurantDataFilteredWithDistance = await filterwithdistance(restaurantData, userLat, userlong);
+            let restaurantDataFilteredWithDistance = await getdistancefromuser(restaurantData, userLat, userlong);
             restaurantDataFilteredWithDistance = await findOpenClose(restaurantDataFilteredWithDistance);
-            let popularonly = await filterPopular(restaurantDataFilteredWithDistance);
-            let returnobject : any = {
-                near_you: restaurantDataFilteredWithDistance || [],
-                popular: popularonly || []
-            };
             res
                 .status(200)
-                .json(returnobject);
+                .json(restaurantDataFilteredWithDistance[0]||{});
             return;
 
         } catch (error) {
@@ -97,4 +106,4 @@ const gethomepage : RequestHandler = async(req, res) => {
 
 };
 
-export {gethomepage};
+export {getRestaurant};

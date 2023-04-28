@@ -12,14 +12,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.gethomepage = void 0;
+exports.getRestaurant = void 0;
 const app_data_source_1 = __importDefault(require("../../../app-data-source"));
 const token_1 = require("../../utils/USER/token");
 const Tbluser_1 = require("../../../ORM/entities/Tbluser");
 const TblRestaurant_1 = require("../../../ORM/entities/TblRestaurant");
-const homepagefilters_1 = require("../../utils/USER/homepagefilters");
-const gethomepage = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    var _a;
+const restaurantdatafilters_1 = require("../../utils/USER/restaurantdatafilters");
+const getRestaurant = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    var _a, _b;
     try {
         let token = (_a = req === null || req === void 0 ? void 0 : req.headers) === null || _a === void 0 ? void 0 : _a.token;
         let tokendata = yield (0, token_1.decodeToken)(token);
@@ -30,6 +30,13 @@ const gethomepage = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
             return;
         }
         ;
+        let restaurantID = (_b = req === null || req === void 0 ? void 0 : req.body) === null || _b === void 0 ? void 0 : _b.id;
+        if (!restaurantID) {
+            res
+                .status(400)
+                .json({ detail: "Restaurant ID not supplied." });
+            return;
+        }
         let userid = tokendata === null || tokendata === void 0 ? void 0 : tokendata.id;
         let userdisplayname = tokendata === null || tokendata === void 0 ? void 0 : tokendata.displayname;
         let userData = yield app_data_source_1.default
@@ -47,14 +54,13 @@ const gethomepage = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
             return;
         }
         ;
-        let userPreferredLocation = (userData === null || userData === void 0 ? void 0 : userData.preferredlocation) || "KATHMANDU";
+        let userPreferredLocation = userData === null || userData === void 0 ? void 0 : userData.preferredlocation;
         let userLat = (userData === null || userData === void 0 ? void 0 : userData.lat) || "27.7172";
         let userlong = (userData === null || userData === void 0 ? void 0 : userData.long) || "85.3240";
         let restaurantData = yield app_data_source_1.default
             .getRepository(TblRestaurant_1.TblRestaurant)
             .createQueryBuilder("t")
             .select([
-            "t.id",
             "t.Name",
             "t.Address",
             "t.long",
@@ -62,9 +68,13 @@ const gethomepage = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
             "t.coverimage",
             "t.openingTime",
             "t.closingTime",
-            "t.isPopular"
+            "t.isPopular",
+            "t.slogan",
+            "t.details",
+            "t.Address",
+            "t.logo"
         ])
-            .where({ isActive: true, operatingLocation: `${userPreferredLocation}` })
+            .where({ isActive: true, id: restaurantID })
             .getMany();
         if (!restaurantData || restaurantData.length < 1) {
             res
@@ -74,16 +84,11 @@ const gethomepage = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
         }
         ;
         try {
-            let restaurantDataFilteredWithDistance = yield (0, homepagefilters_1.filterwithdistance)(restaurantData, userLat, userlong);
-            restaurantDataFilteredWithDistance = yield (0, homepagefilters_1.findOpenClose)(restaurantDataFilteredWithDistance);
-            let popularonly = yield (0, homepagefilters_1.filterPopular)(restaurantDataFilteredWithDistance);
-            let returnobject = {
-                near_you: restaurantDataFilteredWithDistance || [],
-                popular: popularonly || []
-            };
+            let restaurantDataFilteredWithDistance = yield (0, restaurantdatafilters_1.getdistancefromuser)(restaurantData, userLat, userlong);
+            restaurantDataFilteredWithDistance = yield (0, restaurantdatafilters_1.findOpenClose)(restaurantDataFilteredWithDistance);
             res
                 .status(200)
-                .json(returnobject);
+                .json(restaurantDataFilteredWithDistance[0] || {});
             return;
         }
         catch (error) {
@@ -102,4 +107,4 @@ const gethomepage = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
     }
     ;
 });
-exports.gethomepage = gethomepage;
+exports.getRestaurant = getRestaurant;
