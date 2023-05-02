@@ -102,8 +102,8 @@ __decorate([
     (0, typeorm_1.Column)("varchar", {
         name: "logo",
         nullable: true,
-        default: null,
-        length: 250
+        default: "https://cdn.logojoy.com/wp-content/uploads/2018/05/30151524/822.png",
+        length: 500
     }),
     __metadata("design:type", Object)
 ], TblRestaurant.prototype, "logo", void 0);
@@ -111,8 +111,8 @@ __decorate([
     (0, typeorm_1.Column)("varchar", {
         name: "coverimage",
         nullable: true,
-        default: null,
-        length: 250
+        default: "https://cdn.logojoy.com/wp-content/uploads/2018/05/30151524/822.png",
+        length: 500
     }),
     __metadata("design:type", Object)
 ], TblRestaurant.prototype, "coverimage", void 0);

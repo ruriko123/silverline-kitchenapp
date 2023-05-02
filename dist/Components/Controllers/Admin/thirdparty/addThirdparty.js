@@ -34,6 +34,7 @@ const addThirdParty = (req, res) => __awaiter(void 0, void 0, void 0, function* 
                 .json({ "error": "Missing parameters." });
             return;
         }
+        ;
         let userData = yield app_data_source_1.default
             .getRepository(TblThirdparty_1.TblThirdparty)
             .findOne({
@@ -68,6 +69,7 @@ const addThirdParty = (req, res) => __awaiter(void 0, void 0, void 0, function* 
                 .json({ "success": "Third party added successfully." });
             return;
         }
+        ;
     }
     catch (error) {
         res
@@ -75,5 +77,6 @@ const addThirdParty = (req, res) => __awaiter(void 0, void 0, void 0, function* 
             .json({ "error": error });
         return;
     }
+    ;
 });
 exports.addThirdParty = addThirdParty;

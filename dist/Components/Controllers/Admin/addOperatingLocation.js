@@ -23,6 +23,7 @@ const addOperatingLocation = (req, res) => __awaiter(void 0, void 0, void 0, fun
                 .status(400)
                 .send('No files were uploaded.');
         }
+        ;
         let filepath = `/uploads/${req.file.filename}`;
         var fullUrl = req.protocol + '://' + req.get('host') + filepath;
         let locationName = (_a = req === null || req === void 0 ? void 0 : req.body) === null || _a === void 0 ? void 0 : _a.locationName;
@@ -53,6 +54,7 @@ const addOperatingLocation = (req, res) => __awaiter(void 0, void 0, void 0, fun
                 .json({ success: "File uploaded.", url: fullUrl });
             return;
         }
+        ;
     }
     catch (error) {
         res

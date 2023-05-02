@@ -25,6 +25,7 @@ const AdminActive = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
                 .json({ "error": "Admin ID not supplied." });
             return;
         }
+        ;
         let userData = yield app_data_source_1.default
             .getRepository(TblAdmin_1.TblAdmin)
             .findOne({

@@ -25,6 +25,7 @@ const restaurantActive = (req, res) => __awaiter(void 0, void 0, void 0, functio
                 .json({ "error": "Restaurant ID not supplied." });
             return;
         }
+        ;
         let userData = yield app_data_source_1.default
             .getRepository(TblRestaurant_1.TblRestaurant)
             .findOne({

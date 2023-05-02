@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.findOpenClose = exports.getdistancefromuser = void 0;
+exports.sortMenu = exports.findOpenClose = exports.getdistancefromuser = void 0;
 const haversine_distance_1 = __importDefault(require("haversine-distance"));
 const moment_timezone_1 = __importDefault(require("moment-timezone"));
 (0, moment_timezone_1.default)().format();
@@ -63,9 +63,8 @@ const getdistancefromuser = (restaurantData, userlat, userlong) => __awaiter(voi
                 ;
             }
             ;
-            // restaurantData.sort((a : any, b : any) => {
-            //     return a.distanceFromUser - b.distanceFromUser;
-            // });
+            // restaurantData.sort((a : any, b : any) => {     return a.distanceFromUser -
+            // b.distanceFromUser; });
             return restaurantData;
         }
         else {
@@ -111,3 +110,46 @@ const findOpenClose = (restaurantData) => __awaiter(void 0, void 0, void 0, func
     }
 });
 exports.findOpenClose = findOpenClose;
+const sortMenu = (menuData) => __awaiter(void 0, void 0, void 0, function* () {
+    var _a;
+    if (!menuData || menuData.length === 0) {
+        return [];
+    }
+    else {
+        let menu = menuData;
+        try {
+            let menusortedobject = {};
+            for (let x in menu) {
+                let menuobject = menu[x];
+                let menucategory = menuobject === null || menuobject === void 0 ? void 0 : menuobject.Category;
+                if (menusortedobject[menucategory] || ((_a = menusortedobject[menucategory]) === null || _a === void 0 ? void 0 : _a.length) > 0) {
+                    menusortedobject[menucategory] = [
+                        ...menusortedobject[menucategory],
+                        menuobject
+                    ];
+                }
+                else {
+                    menusortedobject[menucategory] = [menuobject];
+                }
+                ;
+            }
+            ;
+            let returnjsonarray = [];
+            Object
+                .keys(menusortedobject)
+                .forEach(function (key) {
+                let keyitem = menusortedobject[key];
+                let returnjsonobject = {
+                    title: `${key}`,
+                    items: keyitem
+                };
+                returnjsonarray.push(returnjsonobject);
+            });
+            return returnjsonarray;
+        }
+        catch (error) {
+            throw new Error('Error occured while sorting menu.');
+        }
+    }
+});
+exports.sortMenu = sortMenu;

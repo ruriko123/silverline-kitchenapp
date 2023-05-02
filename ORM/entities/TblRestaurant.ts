@@ -93,7 +93,7 @@ export class TblRestaurant {
         nullable: true,
         default:"https://cdn.logojoy.com/wp-content/uploads/2018/05/30151524/822.png",
 
-        length: 250
+        length: 500
     })
     logo : string | null;
 
@@ -103,7 +103,7 @@ export class TblRestaurant {
         nullable: true,
         default:"https://cdn.logojoy.com/wp-content/uploads/2018/05/30151524/822.png",
 
-        length: 250
+        length: 500
     })
     coverimage : string | null;
 

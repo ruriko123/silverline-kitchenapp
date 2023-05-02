@@ -3,8 +3,8 @@ import myDataSource from "@base/app-data-source";
 import {decodeToken} from '@utils/USER/token';
 import {Tbluser} from "@model/Tbluser";
 import {TblRestaurant} from "@model/TblRestaurant";
-import {getdistancefromuser, findOpenClose} from "@utils/USER/restaurantdatafilters";
-
+import {getdistancefromuser, findOpenClose,sortMenu} from "@utils/USER/restaurantdatafilters";
+import {TblMenu} from "@model/TblMenu";
 const getRestaurant : RequestHandler = async(req, res) => {
     try {
         let token = req
@@ -72,12 +72,36 @@ const getRestaurant : RequestHandler = async(req, res) => {
                 .json({"error": "No data available."});
             return;
         };
+
+        let menudata = await myDataSource
+            .getRepository(TblMenu)
+            .createQueryBuilder("t")
+            .select([
+                "t.IDMenu",
+                "t.Category",
+                "t.ItemName",
+                "t.costPrice",
+                "t.sellingPrice",
+                "t.sellingPricewithTax",
+                "t.description",
+                "t.restaurantID",
+                "t.Taxable",
+                "t.isActive",
+            ])
+            .where({isActive: true, restaurantID:restaurantID})
+            .getMany() || [];
+
+
         try {
+            let sortedMenu = await sortMenu(menudata)||[];
+
             let restaurantDataFilteredWithDistance = await getdistancefromuser(restaurantData, userLat, userlong);
             restaurantDataFilteredWithDistance = await findOpenClose(restaurantDataFilteredWithDistance);
+            
+            let responsejson = {restaurantDetails:restaurantDataFilteredWithDistance[0]||{},menu:sortedMenu||[]};
             res
                 .status(200)
-                .json(restaurantDataFilteredWithDistance[0]||{});
+                .json(responsejson);
             return;
         } catch (error) {
             res

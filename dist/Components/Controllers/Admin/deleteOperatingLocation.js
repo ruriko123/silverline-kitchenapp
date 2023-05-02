@@ -25,6 +25,7 @@ const deleteOperatingLocation = (req, res) => __awaiter(void 0, void 0, void 0, 
                 .json({ "error": "ID not supplied." });
             return;
         }
+        ;
         let locationexists = yield app_data_source_1.default
             .getRepository(TbloperatingLocations_1.TbloperatingLocations)
             .findOne({

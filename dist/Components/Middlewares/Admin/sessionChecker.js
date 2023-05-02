@@ -14,8 +14,6 @@ const adminSessionChecker = (req, res, next) => __awaiter(void 0, void 0, void 0
     if (!req) {
         return "";
     }
-    console.log(`Session Checker: ${req.session.id}`);
-    console.log(req.session);
     if (req.session && req.session.admin) {
         next();
     }

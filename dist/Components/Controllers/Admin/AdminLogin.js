@@ -36,6 +36,7 @@ const adminLogin = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
                 .json({ "error": "Inactive Admin." });
             return;
         }
+        ;
         let userData = yield app_data_source_1.default
             .getRepository(TblAdmin_1.TblAdmin)
             .findOne({
@@ -54,7 +55,6 @@ const adminLogin = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
             if (checkDB) {
                 req.session.admin = true;
                 req.session.adminName = userName;
-                console.log(req.sessionID, "sessionid");
                 res
                     .status(200)
                     .json({ username: userName, password: password });

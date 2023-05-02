@@ -53,6 +53,7 @@ const addAdmin = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
                 .json({ "success": "Admin account created." });
             return;
         }
+        ;
     }
     catch (error) {
         res
@@ -60,5 +61,6 @@ const addAdmin = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             .json({ "error": error });
         return;
     }
+    ;
 });
 exports.addAdmin = addAdmin;

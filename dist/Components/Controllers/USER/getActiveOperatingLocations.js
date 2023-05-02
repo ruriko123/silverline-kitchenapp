@@ -27,6 +27,7 @@ const getActiveOperatingLocations = (req, res) => __awaiter(void 0, void 0, void
                 .json({ "error": "No data available." });
             return;
         }
+        ;
         res
             .status(200)
             .json(userData);

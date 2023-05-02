@@ -21,18 +21,13 @@ const thirdPartyupdate = (req, res) => __awaiter(void 0, void 0, void 0, functio
     try {
         let id = parseInt((_a = req.body) === null || _a === void 0 ? void 0 : _a.id);
         let Name = (_b = req.body) === null || _b === void 0 ? void 0 : _b.CompanyName;
-        // let Address : string = req.body     ?.Address; let Phone : string = req.body
-        //    ?.Phone; let Pan : string = req.body     ?.Pan; let AltPhone : string =
-        // req.body     ?.AltPhone || ""; let Email : string = req.body     ?.Email; let
-        // addedBy : string = req.session     ?.adminName || ""; let
-        // baseURL:string=req.body?.baseURL;
         if (!id || !Name) {
             res
                 .status(401)
                 .json({ "error": "Company ID or name not supplied." });
             return;
         }
-        // req.body["CompanyName"] = Name;
+        ;
         delete req.body["id"];
         let userData = yield app_data_source_1.default
             .getRepository(TblThirdparty_1.TblThirdparty)
@@ -49,7 +44,6 @@ const thirdPartyupdate = (req, res) => __awaiter(void 0, void 0, void 0, functio
             return;
         }
         else {
-            // delete req.body["Name"];
             yield app_data_source_1.default
                 .createQueryBuilder()
                 .update(TblThirdparty_1.TblThirdparty)
@@ -61,6 +55,7 @@ const thirdPartyupdate = (req, res) => __awaiter(void 0, void 0, void 0, functio
                 .json({ "success": "Third party updated successfully." });
             return;
         }
+        ;
     }
     catch (error) {
         console.log(error);
@@ -69,5 +64,6 @@ const thirdPartyupdate = (req, res) => __awaiter(void 0, void 0, void 0, functio
             .json({ "error": error });
         return;
     }
+    ;
 });
 exports.thirdPartyupdate = thirdPartyupdate;

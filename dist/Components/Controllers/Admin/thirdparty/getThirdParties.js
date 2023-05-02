@@ -17,8 +17,6 @@ const TblThirdparty_1 = require("../../../../ORM/entities/TblThirdparty");
 const app_data_source_1 = __importDefault(require("../../../../app-data-source"));
 const getThirdParties = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        let tableName = app_data_source_1.default
-            .getRepository(TblThirdparty_1.TblThirdparty).metadata.tableName;
         let userData = yield app_data_source_1.default
             .getRepository(TblThirdparty_1.TblThirdparty).createQueryBuilder("*")
             .getMany();

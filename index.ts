@@ -9,7 +9,7 @@ dotenv.config();
 const http = require('http');
 const {Server} = require("socket.io");
 var bodyparser = require('body-parser');
-var urlencodedParser = bodyparser.urlencoded({extended: true});
+var urlencodedParser = bodyparser.urlencoded({limit: '150mb',extended: true});
 import {createOutletHash} from "@socket/socketJoinToken";
 import {createDefaultAdmin} from './Components/utils/AddDefaultAdmin';
 var session = require('express-session');
@@ -46,6 +46,7 @@ const io = new Server(server);
 
 const port = process.env.PORT;
 app.use(express.json());
+app.use(bodyparser.json({limit: '150mb'}));
 app.use(urlencodedParser);
 
 app.get('/', (req : Request, res : Response) => {

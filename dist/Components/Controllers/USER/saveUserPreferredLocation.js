@@ -62,6 +62,7 @@ const saveUserPreferredLocation = (req, res) => __awaiter(void 0, void 0, void 0
                 .json({ detail: "Wrong preferred loation ID supplied." });
             return;
         }
+        ;
         let user = new Tbluser_1.Tbluser();
         user.preferredlocation = locationData.LocationName;
         yield app_data_source_1.default

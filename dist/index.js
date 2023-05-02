@@ -24,7 +24,7 @@ dotenv_1.default.config();
 const http = require('http');
 const { Server } = require("socket.io");
 var bodyparser = require('body-parser');
-var urlencodedParser = bodyparser.urlencoded({ extended: true });
+var urlencodedParser = bodyparser.urlencoded({ limit: '150mb', extended: true });
 const socketJoinToken_1 = require("./Components/Socket/socketJoinToken");
 const AddDefaultAdmin_1 = require("./Components/utils/AddDefaultAdmin");
 var session = require('express-session');
@@ -58,6 +58,7 @@ const io = new Server(server);
 exports.io = io;
 const port = process.env.PORT;
 app.use(express_1.default.json());
+app.use(bodyparser.json({ limit: '150mb' }));
 app.use(urlencodedParser);
 app.get('/', (req, res) => {
     res.send('Express + TypeScript Server');

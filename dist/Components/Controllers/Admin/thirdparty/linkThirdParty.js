@@ -100,7 +100,6 @@ const linkThirdParty = (req, res) => __awaiter(void 0, void 0, void 0, function*
         ;
     }
     catch (error) {
-        console.log(error);
         res
             .status(500)
             .json({ "error": error });

@@ -27,6 +27,7 @@ const LinkedThirdParties = (req, res) => __awaiter(void 0, void 0, void 0, funct
                 .json({ "error": "Missing parameters." });
             return;
         }
+        ;
         let allThirdPartyNames = yield app_data_source_1.default
             .getRepository(TblThirdparty_1.TblThirdparty)
             .createQueryBuilder("t")

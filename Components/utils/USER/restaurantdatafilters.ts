@@ -47,12 +47,11 @@ const getdistancefromuser = async(restaurantData : keyable, userlat : string, us
                         lon: parseFloat(restaurantlong)
                     };
                     let distanceresult = await haversine(userCoords, restaurantCoords);
-                    restaurantData[x].distanceFromUser = Math.round(distanceresult/1000 * 10)  / 10;
+                    restaurantData[x].distanceFromUser = Math.round(distanceresult / 1000 * 10) / 10;
                 };
             };
-            // restaurantData.sort((a : any, b : any) => {
-            //     return a.distanceFromUser - b.distanceFromUser;
-            // });
+            // restaurantData.sort((a : any, b : any) => {     return a.distanceFromUser -
+            // b.distanceFromUser; });
             return restaurantData;
         } else {
             throw new Error('Error while parsing user coordinates.');
@@ -62,7 +61,6 @@ const getdistancefromuser = async(restaurantData : keyable, userlat : string, us
     };
 
 };
-
 
 const findOpenClose = async(restaurantData : keyable) => {
     try {
@@ -77,12 +75,12 @@ const findOpenClose = async(restaurantData : keyable) => {
             restaurantclosingTime = `${restaurantclosingTime}:00`;
             if (await checkopeningclosingtimevalid(restaurantopeningTime, restaurantclosingTime)) {
                 if (currentTime >= restaurantopeningTime && currentTime <= restaurantclosingTime) {
-                    restaurantdata.openingTime=await moment(restaurantopeningTime, "hh:mm:ss").format("hh:mm a");
-                    restaurantdata.closingTime=await moment(restaurantclosingTime, "hh:mm:ss").format("hh:mm a");
+                    restaurantdata.openingTime = await moment(restaurantopeningTime, "hh:mm:ss").format("hh:mm a");
+                    restaurantdata.closingTime = await moment(restaurantclosingTime, "hh:mm:ss").format("hh:mm a");
                     restaurantData[x].openState = "OPEN";
                 } else {
-                    restaurantdata.openingTime=await moment(restaurantopeningTime, "hh:mm:ss").format("hh:mm a");
-                    restaurantdata.closingTime=await moment(restaurantclosingTime, "hh:mm:ss").format("hh:mm a");
+                    restaurantdata.openingTime = await moment(restaurantopeningTime, "hh:mm:ss").format("hh:mm a");
+                    restaurantdata.closingTime = await moment(restaurantclosingTime, "hh:mm:ss").format("hh:mm a");
                     restaurantData[x].openState = "CLOSED";
                 };
             };
@@ -94,4 +92,43 @@ const findOpenClose = async(restaurantData : keyable) => {
 
 };
 
-export {getdistancefromuser, findOpenClose}
+const sortMenu = async(menuData : any) => {
+    if (!menuData || menuData.length === 0) {
+        return [];
+    } else {
+        let menu:any = menuData;
+        try {
+            let menusortedobject : any = {};
+            for (let x in menu) {
+                let menuobject = menu[x];
+                let menucategory = menuobject
+                    ?.Category;
+                if (menusortedobject[menucategory] || menusortedobject[menucategory]
+                    ?.length > 0) {
+                    menusortedobject[menucategory] = [
+                        ...menusortedobject[menucategory],
+                        menuobject
+                    ]
+                } else {
+                    menusortedobject[menucategory] = [menuobject];
+                };
+            };
+            let returnjsonarray : any = [];
+            Object
+                .keys(menusortedobject)
+                .forEach(function (key) {
+                    let keyitem = menusortedobject[key];
+                    let returnjsonobject = {
+                        title: `${key}`,
+                        items: keyitem
+                    };
+                    returnjsonarray.push(returnjsonobject);
+                });
+            return returnjsonarray
+        } catch (error) {
+            throw new Error('Error occured while sorting menu.');
+        }
+    }
+}
+
+export {getdistancefromuser, findOpenClose, sortMenu}

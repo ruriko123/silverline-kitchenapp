@@ -25,6 +25,14 @@ const socialLogin = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
         let phone = (userdata === null || userdata === void 0 ? void 0 : userdata.phone) || "";
         let long = (userdata === null || userdata === void 0 ? void 0 : userdata.long) || "";
         let lat = (userdata === null || userdata === void 0 ? void 0 : userdata.lat) || "";
+        if (!long || long === "") {
+            long = "85.3240";
+        }
+        ;
+        if (!lat || lat === "") {
+            lat = "27.7172";
+        }
+        ;
         let address = (userdata === null || userdata === void 0 ? void 0 : userdata.address) || "";
         let deviceid = (userdata === null || userdata === void 0 ? void 0 : userdata.deviceid) || "";
         let devicetype = (userdata === null || userdata === void 0 ? void 0 : userdata.devicetype) || "";
@@ -33,6 +41,7 @@ const socialLogin = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
             res
                 .status(400)
                 .json({ "error": "Missing parameters." });
+            return;
         }
         ;
         let userData = yield app_data_source_1.default
@@ -81,6 +90,7 @@ const socialLogin = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
                 });
                 return;
             }
+            ;
         }
         else {
             let userid = userData === null || userData === void 0 ? void 0 : userData.id;

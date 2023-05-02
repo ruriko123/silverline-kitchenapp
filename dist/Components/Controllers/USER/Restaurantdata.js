@@ -18,6 +18,7 @@ const token_1 = require("../../utils/USER/token");
 const Tbluser_1 = require("../../../ORM/entities/Tbluser");
 const TblRestaurant_1 = require("../../../ORM/entities/TblRestaurant");
 const restaurantdatafilters_1 = require("../../utils/USER/restaurantdatafilters");
+const TblMenu_1 = require("../../../ORM/entities/TblMenu");
 const getRestaurant = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     var _a, _b;
     try {
@@ -37,6 +38,7 @@ const getRestaurant = (req, res) => __awaiter(void 0, void 0, void 0, function* 
                 .json({ detail: "Restaurant ID not supplied." });
             return;
         }
+        ;
         let userid = tokendata === null || tokendata === void 0 ? void 0 : tokendata.id;
         let userdisplayname = tokendata === null || tokendata === void 0 ? void 0 : tokendata.displayname;
         let userData = yield app_data_source_1.default
@@ -54,7 +56,6 @@ const getRestaurant = (req, res) => __awaiter(void 0, void 0, void 0, function* 
             return;
         }
         ;
-        let userPreferredLocation = userData === null || userData === void 0 ? void 0 : userData.preferredlocation;
         let userLat = (userData === null || userData === void 0 ? void 0 : userData.lat) || "27.7172";
         let userlong = (userData === null || userData === void 0 ? void 0 : userData.long) || "85.3240";
         let restaurantData = yield app_data_source_1.default
@@ -83,12 +84,31 @@ const getRestaurant = (req, res) => __awaiter(void 0, void 0, void 0, function* 
             return;
         }
         ;
+        let menudata = (yield app_data_source_1.default
+            .getRepository(TblMenu_1.TblMenu)
+            .createQueryBuilder("t")
+            .select([
+            "t.IDMenu",
+            "t.Category",
+            "t.ItemName",
+            "t.costPrice",
+            "t.sellingPrice",
+            "t.sellingPricewithTax",
+            "t.description",
+            "t.restaurantID",
+            "t.Taxable",
+            "t.isActive",
+        ])
+            .where({ isActive: true, restaurantID: restaurantID })
+            .getMany()) || [];
         try {
+            let sortedMenu = (yield (0, restaurantdatafilters_1.sortMenu)(menudata)) || [];
             let restaurantDataFilteredWithDistance = yield (0, restaurantdatafilters_1.getdistancefromuser)(restaurantData, userLat, userlong);
             restaurantDataFilteredWithDistance = yield (0, restaurantdatafilters_1.findOpenClose)(restaurantDataFilteredWithDistance);
+            let responsejson = { restaurantDetails: restaurantDataFilteredWithDistance[0] || {}, menu: sortedMenu || [] };
             res
                 .status(200)
-                .json(restaurantDataFilteredWithDistance[0] || {});
+                .json(responsejson);
             return;
         }
         catch (error) {

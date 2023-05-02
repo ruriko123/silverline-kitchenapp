@@ -25,6 +25,7 @@ const thirdPartyactive = (req, res) => __awaiter(void 0, void 0, void 0, functio
                 .json({ "error": "Third Party ID not supplied." });
             return;
         }
+        ;
         let userData = yield app_data_source_1.default
             .getRepository(TblThirdparty_1.TblThirdparty)
             .findOne({
@@ -50,6 +51,7 @@ const thirdPartyactive = (req, res) => __awaiter(void 0, void 0, void 0, functio
                 .json({ "success": "Third party made active." });
             return;
         }
+        ;
     }
     catch (error) {
         res
@@ -57,5 +59,6 @@ const thirdPartyactive = (req, res) => __awaiter(void 0, void 0, void 0, functio
             .json({ "error": error });
         return;
     }
+    ;
 });
 exports.thirdPartyactive = thirdPartyactive;
