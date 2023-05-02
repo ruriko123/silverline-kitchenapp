@@ -34,7 +34,10 @@ const updateMenuItem : RequestHandler = async(req, res) => {
             return;
         } else {
             delete updatedata["itemid"];
-            costPrice===0?costPrice=
+            costPrice===0?costPrice= menuItemdata?.costPrice:costPrice=costPrice;
+            sellingPrice===0?sellingPrice= menuItemdata?.sellingPrice:sellingPrice=sellingPrice;
+            sellingPricewithTax===0?sellingPricewithTax= menuItemdata?.sellingPricewithTax:sellingPricewithTax=sellingPricewithTax;
+            description===""?description=menuItemdata?.description:description=description;
             await myDataSource
             .createQueryBuilder()
             .update(TblMenu)
