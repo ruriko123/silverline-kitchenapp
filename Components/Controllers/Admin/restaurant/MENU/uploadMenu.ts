@@ -44,31 +44,28 @@ const uploadMenu : RequestHandler = async(req, res) => {
                                     restaurantID: restaurantID
                                 }
                             });
-                            if (!checkItemExists) {
-                                const menuTable = new TblMenu();
-                                menuTable.Category = e[0] || "";
-                                menuTable.ItemName = e[1] || "";
-                                menuTable.costPrice = e[2] || "";
-                                menuTable.sellingPrice = e[3] || "";
-                                menuTable.sellingPricewithTax = e[4] || "";
-                                menuTable.description = e[5] || "";
-                                menuTable.Taxable = e[6] || true;
-                                menuTable.restaurantID = restaurantID;
-                                await myDataSource
+                        if (!checkItemExists) {
+                            const menuTable = new TblMenu();
+                            menuTable.Category = e[0] || "";
+                            menuTable.ItemName = e[1] || "";
+                            menuTable.costPrice = e[2] || "";
+                            menuTable.sellingPrice = e[3] || "";
+                            menuTable.sellingPricewithTax = e[4] || "";
+                            menuTable.description = e[5] || "";
+                            menuTable.Taxable = e[6] || true;
+                            menuTable.restaurantID = restaurantID;
+                            await myDataSource
                                 .manager
                                 .save(menuTable);
-                            } else {
-                                if(itemname==="Alu tama "){
-                                    console.log(itemname,e)
-
-                                }
-                                let Category = e[0] || "";
+                        } else {
+                            let Category = e[0] || "";
                             let ItemName = e[1] || "";
                             let costPrice = e[2] || "";
                             let sellingPrice = e[3] || "";
                             let sellingPricewithTax = e[4] || "";
                             let description = e[5] || "";
                             let Taxable = e[6] || true;
+
                             await myDataSource
                                 .createQueryBuilder()
                                 .update(TblMenu)
@@ -82,12 +79,22 @@ const uploadMenu : RequestHandler = async(req, res) => {
                                     Category: Category,
                                     ItemName: ItemName
                                 })
-                                .where({id: restaurantID, itemname: itemname})
+                                .where({idMenu: checkItemExists.idMenu})
                                 .execute();
+
                         }
                     } catch (error) {}
                 };
             });
+
+            await myDataSource
+            .createQueryBuilder()
+            .update(TblRestaurant)
+            .set({
+                menuUploaded: true,
+            })
+            .where({id: restaurantID})
+            .execute();
 
             res
                 .status(200)

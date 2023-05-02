@@ -245,6 +245,13 @@ __decorate([
     }),
     __metadata("design:type", Object)
 ], TblRestaurant.prototype, "isPopular", void 0);
+__decorate([
+    (0, typeorm_1.Column)("boolean", {
+        name: "menuUploaded",
+        default: false
+    }),
+    __metadata("design:type", Object)
+], TblRestaurant.prototype, "menuUploaded", void 0);
 TblRestaurant = __decorate([
     (0, typeorm_1.Entity)()
 ], TblRestaurant);

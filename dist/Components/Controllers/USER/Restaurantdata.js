@@ -86,21 +86,21 @@ const getRestaurant = (req, res) => __awaiter(void 0, void 0, void 0, function* 
         ;
         let menudata = (yield app_data_source_1.default
             .getRepository(TblMenu_1.TblMenu)
-            .createQueryBuilder("t")
+            .createQueryBuilder("")
             .select([
-            "t.IDMenu",
-            "t.Category",
-            "t.ItemName",
-            "t.costPrice",
-            "t.sellingPrice",
-            "t.sellingPricewithTax",
-            "t.description",
-            "t.restaurantID",
-            "t.Taxable",
-            "t.isActive",
+            "IDMenu",
+            "Category",
+            "ItemName",
+            "costPrice",
+            "sellingPrice",
+            "sellingPricewithTax",
+            "description",
+            "restaurantID",
+            "Taxable",
+            "isActive",
         ])
-            .where({ isActive: true, restaurantID: restaurantID })
-            .getMany()) || [];
+            .where({ restaurantID: restaurantID }).andWhere({ isActive: true })
+            .getRawMany()) || [];
         try {
             let sortedMenu = (yield (0, restaurantdatafilters_1.sortMenu)(menudata)) || [];
             let restaurantDataFilteredWithDistance = yield (0, restaurantdatafilters_1.getdistancefromuser)(restaurantData, userLat, userlong);

@@ -75,21 +75,24 @@ const getRestaurant : RequestHandler = async(req, res) => {
 
         let menudata = await myDataSource
             .getRepository(TblMenu)
-            .createQueryBuilder("t")
+            .createQueryBuilder("")
             .select([
-                "t.IDMenu",
-                "t.Category",
-                "t.ItemName",
-                "t.costPrice",
-                "t.sellingPrice",
-                "t.sellingPricewithTax",
-                "t.description",
-                "t.restaurantID",
-                "t.Taxable",
-                "t.isActive",
+                "IDMenu",
+                "Category",
+                "ItemName",
+                "costPrice",
+                "sellingPrice",
+                "sellingPricewithTax",
+                "description",
+                "restaurantID",
+                "Taxable",
+                "isActive",
             ])
-            .where({isActive: true, restaurantID:restaurantID})
-            .getMany() || [];
+            .where({restaurantID:restaurantID}).andWhere({isActive: true})
+            .getRawMany() || [];
+
+
+
 
 
         try {
@@ -97,7 +100,7 @@ const getRestaurant : RequestHandler = async(req, res) => {
 
             let restaurantDataFilteredWithDistance = await getdistancefromuser(restaurantData, userLat, userlong);
             restaurantDataFilteredWithDistance = await findOpenClose(restaurantDataFilteredWithDistance);
-            
+
             let responsejson = {restaurantDetails:restaurantDataFilteredWithDistance[0]||{},menu:sortedMenu||[]};
             res
                 .status(200)

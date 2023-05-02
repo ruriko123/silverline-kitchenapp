@@ -236,5 +236,9 @@ export class TblRestaurant {
         default:false
     })
     isPopular : boolean | null;
-
+    @Column("boolean", {
+        name: "menuUploaded",
+        default:false
+    })
+    menuUploaded : boolean | null;
 }

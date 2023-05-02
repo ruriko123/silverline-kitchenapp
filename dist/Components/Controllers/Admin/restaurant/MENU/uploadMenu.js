@@ -71,9 +71,6 @@ const uploadMenu = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
                                 .save(menuTable);
                         }
                         else {
-                            if (itemname === "Alu tama ") {
-                                console.log(itemname, e);
-                            }
                             let Category = e[0] || "";
                             let ItemName = e[1] || "";
                             let costPrice = e[2] || "";
@@ -94,7 +91,7 @@ const uploadMenu = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
                                 Category: Category,
                                 ItemName: ItemName
                             })
-                                .where({ id: restaurantID, itemname: itemname })
+                                .where({ idMenu: checkItemExists.idMenu })
                                 .execute();
                         }
                     }
@@ -102,6 +99,14 @@ const uploadMenu = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
                 }
                 ;
             }));
+            yield app_data_source_1.default
+                .createQueryBuilder()
+                .update(TblRestaurant_1.TblRestaurant)
+                .set({
+                menuUploaded: true,
+            })
+                .where({ id: restaurantID })
+                .execute();
             res
                 .status(200)
                 .json({ "success": "Menu uploaded successfully." });
