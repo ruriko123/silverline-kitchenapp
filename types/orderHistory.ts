@@ -1,6 +1,42 @@
 /* Types for orderhistory post api */
 
 
+export interface user_orderHistory {
+    Id:number|null|string;
+    outlet_orderid: number;
+    orderedat:string;
+    currentstate:string;
+    outletName:string;
+    customerName:string|null;
+    customerPhone:string|null;
+    Address:string|null;
+    deliveryVia:string;
+    outletID:number|null;
+    OrderItemDetailsList:Array<user_orderHistoryDetails>
+
+};
+
+export interface user_orderHistoryDetails{
+    idtblordertracker_details:string|null|number;
+    orderedat:string|null;
+    itemname:string;
+    quantity:string|null;
+    modification:string|null;
+    itemPrice:string;
+    category:string|null;
+    description:string|null;
+    unit:string|null;
+    isTaxable:boolean;
+    itemID:number;
+
+
+};
+
+
+
+
+
+
 
 export interface TopcartItems {
     items : Array<cartItemsObject>;
@@ -62,7 +98,7 @@ export interface orderHistory {
 
 export interface orderHistoryDetails{
     idtblordertracker_details:string|null|number;
-    orderedat:string;
+    orderedat:string|null;
     itemname:string;
     quantity:string|null;
     modification:string|null;

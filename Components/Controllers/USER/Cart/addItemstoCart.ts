@@ -55,14 +55,30 @@ const addItemstoCart : RequestHandler = async(req, res) => {
             return;
         };
 
-        let cart = new TblCart();
+        let cartExists = await myDataSource
+        .getRepository(TblCart)
+        .findOne({
+            where: {
+                customerID: userid,
+                restaurantID: restaurantID,
+                isActive:true
+            }
+        });
+        let cartID:number;
+        if(cartExists){
+            cartID = cartExists.idCart;
+        } else {
+            let cart = new TblCart();
         cart.customerID = userid;
         cart.restaurantID = restaurantID;
+
         let savedCart = await myDataSource
             .manager
             .save(cart);
-        let cartID = savedCart
+        cartID = savedCart
             ?.idCart;
+        }
+
         let insertCount = 0;
         cartItems["cartID"] = cartID;
         for (let i = 0; i < cartItems.items.length; i++) {
@@ -81,7 +97,6 @@ const addItemstoCart : RequestHandler = async(req, res) => {
                 ?.Taxable;
             let quantity : string | number = cartItem
                 ?.quantity;
-
             if (isItNumber(quantity) && isItNumber(sellingPricewithTax) && isItNumber(sellingPrice) && isItNumber(costPrice) && Taxable && sellingPricewithTax && itemID && ItemName && costPrice && sellingPrice) {
                 costPrice = parseFloat(costPrice);
                 sellingPrice = parseFloat(sellingPrice);
@@ -128,7 +143,7 @@ const addItemstoCart : RequestHandler = async(req, res) => {
                 .execute();
             res
                 .status(400)
-                .json({"detail": "Couldn't save items to cart. Make sure that the restaurant ID is correct."});
+                .json({"detail": "Couldn't save items to cart. Make sure that the data correct."});
             return;
         };
 

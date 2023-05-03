@@ -7,8 +7,6 @@ import {
     OneToOne,
     PrimaryGeneratedColumn
 } from "typeorm";
-import {TblRestaurant} from "./TblRestaurant";
-import {Tbluser} from './Tbluser';
 import {TblMenu} from './TblMenu';
 import {TblCart} from './TblCart';
 

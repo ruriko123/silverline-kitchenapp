@@ -4,6 +4,7 @@ import myDataSource from "@base/app-data-source";
 import {decodeToken} from '@utils/USER/token';
 import {TblCart} from '@base/ORM/entities/TblCart';
 import {TblCartItems} from "@base/ORM/entities/TblCartItems";
+import {TblRestaurant} from '@model/TblRestaurant';
 
 const restaurantCart : RequestHandler = async(req, res) => {
     try {
@@ -51,6 +52,20 @@ const restaurantCart : RequestHandler = async(req, res) => {
             return;
         };
 
+        let restaurantExists = await myDataSource
+            .getRepository(TblRestaurant)
+            .findOne({
+                where: {
+                    id: restaurantID
+                }
+            });
+
+        if (!restaurantExists) {
+            res
+                .status(400)
+                .json({detail: "Restaurant does not exist."});
+            return;
+        };
         let cartExists = await myDataSource
             .getRepository(TblCart)
             .findOne({
@@ -92,11 +107,24 @@ const restaurantCart : RequestHandler = async(req, res) => {
                 .json({detail: "Error while fetching cart items."});
             return;
         }
-        
-        let receiptjson = {total:"",subtotal:"",deliverycharge:""}
+
+        let receiptjson = {
+            total: "",
+            subtotal: "",
+            deliverycharge: ""
+        }
+        let restaurantdetails = {
+            Name: restaurantExists
+                ?.Name || "",
+            description: restaurantExists
+                ?.slogan || restaurantExists
+                    ?.details || "",
+            location: restaurantExists
+                ?.Address || ""
+        }
         res
             .status(200)
-            .json({items:cartItems,receipt:receiptjson});
+            .json({items: cartItems, receipt: receiptjson, restaurant: restaurantdetails});
         return;
     } catch (error) {
         res

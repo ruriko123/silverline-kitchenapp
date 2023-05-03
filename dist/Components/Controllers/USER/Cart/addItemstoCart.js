@@ -123,7 +123,7 @@ const addItemstoCart = (req, res) => __awaiter(void 0, void 0, void 0, function*
                 .execute();
             res
                 .status(400)
-                .json({ "detail": "Couldn't save items to cart. Make sure that the restaurant ID is correct." });
+                .json({ "detail": "Couldn't save items to cart. Make sure that the data correct." });
             return;
         }
         ;

@@ -1,28 +1,24 @@
-import {Tblordertracker} from "@model/Tblordertracker";
-import {Tblordertrackerdetails} from '@model/Tblordertrackerdetails';
 import myDataSource from "@base/app-data-source";
-import {orderHistory, orderHistoryDetails} from "@reqtypes/orderHistory"
-import {emitOrder} from "../Socket/EmitOrder";
+import {user_orderHistory, user_orderHistoryDetails} from "@reqtypes/orderHistory"
+import {emitOrder} from "../../Socket/EmitOrder";
+import { user_Tblordertracker } from '@model/user_Tblordertracker';
+import { user_Tblordertrackerdetails } from '@model/user_Tblordertrackerdetails';
 
 
-const saveOrder = async(orderObject : orderHistory) => {
+const saveClientOrder = async(orderObject : user_orderHistory) => {
     try {
         let returnObject:any={};
-        let order : orderHistory = orderObject;
-        const orderTracker = new Tblordertracker();
+        let order : user_orderHistory = orderObject;
+        const orderTracker = new user_Tblordertracker();
         orderTracker.outletOrderid = order.outlet_orderid;
-        // orderTracker.kotid = order.kotid;
         orderTracker.orderedat = order.orderedat;
-        // orderTracker.tablenum = order.tablenum;
-        // orderTracker.employee = order.employee;
-        // orderTracker.ordertype = order.ordertype;
         orderTracker.currentstate = order.currentstate;
         orderTracker.outletName = order.outletName;
-        // orderTracker.guestCount = order.guestCount;
         orderTracker.customerName=order.customerName;
         orderTracker.customerPhone=order.customerPhone;
         orderTracker.Address=order.Address;
         orderTracker.deliveryVia=order.deliveryVia;
+        orderTracker.restaurantID=order.outletID;
         await myDataSource
             .manager
             .save(orderTracker);
@@ -31,6 +27,7 @@ const saveOrder = async(orderObject : orderHistory) => {
 
         order["Id"] = primarykey;
         returnObject["outletOrderid"]=order.outlet_orderid;
+        returnObject["outletID"]=order.outletID;
         returnObject["orderedat"]=order.orderedat;
         returnObject["currentstate"]=order.currentstate;
         returnObject["outletName"]=order.outletName;
@@ -44,9 +41,10 @@ const saveOrder = async(orderObject : orderHistory) => {
         let orderDetails = order["OrderItemDetailsList"];
         for (let x = 0; x < orderDetails.length; x++) {
             let orderDetailsjson:any={};
-            let orderTrackerDetails = new Tblordertrackerdetails();
-            let e : orderHistoryDetails = orderDetails[x];
-            orderTrackerDetails.orderedat = e.orderedat;
+            let orderTrackerDetails = new user_Tblordertrackerdetails();
+            let e : user_orderHistoryDetails = orderDetails[x];
+            orderTrackerDetails.itemID = e.itemID;
+            orderTrackerDetails.orderedat = order.orderedat;
             orderTrackerDetails.ordertrackerId = primarykey;
             orderTrackerDetails.itemname = e.itemname;
             orderTrackerDetails.quantity = e.quantity;
@@ -56,7 +54,7 @@ const saveOrder = async(orderObject : orderHistory) => {
             orderTrackerDetails.category = e.category;
             orderTrackerDetails.description = e.description;
             // orderTrackerDetails.productId = e.productId;
-            orderTrackerDetails.unit = e.unit;
+            // orderTrackerDetails.unit = e.unit;
             orderTrackerDetails.isTaxable = e.isTaxable;
             await myDataSource
                 .manager
@@ -65,6 +63,7 @@ const saveOrder = async(orderObject : orderHistory) => {
                     order["OrderItemDetailsList"][x]["idtblordertracker_details"] = orderTrackerDetails.idtblordertrackerDetails;
                     orderDetailsjson["idtblordertracker_details"]= orderTrackerDetails.idtblordertrackerDetails;
                     orderDetailsjson["orderedat"]=e.orderedat;
+                    orderDetailsjson["itemID"]=e.itemID;
                     orderDetailsjson["ordertrackerId"]=primarykey;
                     orderDetailsjson["itemname"]=e.itemname;
                     orderDetailsjson["quantity"]=e.quantity;
@@ -73,11 +72,8 @@ const saveOrder = async(orderObject : orderHistory) => {
                     orderDetailsjson["category"]=e.category;
                     orderDetailsjson["description"]=e.description;
                     orderDetailsjson["isTaxable"]=e.isTaxable;
-                    orderDetailsjson["unit"]=e.unit;
+                    // orderDetailsjson["unit"]=e.unit;
                     orderDetailsArr.push(orderDetailsjson)
-
-
-
                 });
         };
         returnObject["OrderItemDetailsList"]=orderDetailsArr;
@@ -86,7 +82,6 @@ const saveOrder = async(orderObject : orderHistory) => {
         let successdata = {
             "success": returnObject
         };
-
 
         /* After sending the data to the socket, it is also returned back to the route. */
         return successdata;
@@ -100,4 +95,4 @@ const saveOrder = async(orderObject : orderHistory) => {
 
 };
 
-export {saveOrder};
+export {saveClientOrder};
