@@ -20,13 +20,13 @@ export class TblCart {
         name: "customerID",
         nullable: true
     })
-    customerID : number | string | null;
+    customerID : number  | null;
 
     @Column("int", {
         name: "restaurantID",
         nullable: true
     })
-    restaurantID : number | string | null;
+    restaurantID : number | null;
 
 
     @Column("boolean", {

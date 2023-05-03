@@ -13,7 +13,7 @@ exports.TblCart = void 0;
 const typeorm_1 = require("typeorm");
 const TblRestaurant_1 = require("./TblRestaurant");
 const Tbluser_1 = require("./Tbluser");
-const TblMenu_1 = require("./TblMenu");
+const TblCartItems_1 = require("./TblCartItems");
 let TblCart = class TblCart {
 };
 __decorate([
@@ -23,70 +23,17 @@ __decorate([
 __decorate([
     (0, typeorm_1.Column)("int", {
         name: "customerID",
-        nullable: true,
+        nullable: true
     }),
     __metadata("design:type", Object)
 ], TblCart.prototype, "customerID", void 0);
 __decorate([
     (0, typeorm_1.Column)("int", {
         name: "restaurantID",
-        nullable: true,
+        nullable: true
     }),
     __metadata("design:type", Object)
 ], TblCart.prototype, "restaurantID", void 0);
-__decorate([
-    (0, typeorm_1.Column)("int", {
-        name: "itemID",
-        nullable: true,
-    }),
-    __metadata("design:type", Object)
-], TblCart.prototype, "itemID", void 0);
-__decorate([
-    (0, typeorm_1.Column)("varchar", {
-        name: "ItemName",
-        nullable: true,
-        length: 100,
-        default: null
-    }),
-    __metadata("design:type", Object)
-], TblCart.prototype, "ItemName", void 0);
-__decorate([
-    (0, typeorm_1.Column)("decimal", {
-        name: "costPrice",
-        nullable: true,
-        default: 0.00,
-        precision: 10,
-        scale: 2
-    }),
-    __metadata("design:type", Object)
-], TblCart.prototype, "costPrice", void 0);
-__decorate([
-    (0, typeorm_1.Column)("decimal", {
-        name: "sellingPrice",
-        nullable: true,
-        default: 0.00,
-        precision: 10,
-        scale: 2
-    }),
-    __metadata("design:type", Object)
-], TblCart.prototype, "sellingPrice", void 0);
-__decorate([
-    (0, typeorm_1.Column)("decimal", {
-        name: "sellingPricewithTax",
-        nullable: true,
-        default: 0.00,
-        precision: 10,
-        scale: 2
-    }),
-    __metadata("design:type", Object)
-], TblCart.prototype, "sellingPricewithTax", void 0);
-__decorate([
-    (0, typeorm_1.Column)("boolean", {
-        name: "Taxable",
-        default: true
-    }),
-    __metadata("design:type", Object)
-], TblCart.prototype, "Taxable", void 0);
 __decorate([
     (0, typeorm_1.Column)("boolean", {
         name: "isActive",
@@ -95,20 +42,46 @@ __decorate([
     __metadata("design:type", Object)
 ], TblCart.prototype, "isActive", void 0);
 __decorate([
-    (0, typeorm_1.ManyToOne)(() => TblMenu_1.TblMenu, (item) => item.idMenu, { onDelete: "NO ACTION", onUpdate: "NO ACTION" }),
-    (0, typeorm_1.JoinColumn)([{ name: "itemID", referencedColumnName: "idMenu" }]),
-    __metadata("design:type", TblMenu_1.TblMenu)
-], TblCart.prototype, "item", void 0);
+    (0, typeorm_1.Column)("boolean", {
+        name: "isRemoved",
+        default: false
+    }),
+    __metadata("design:type", Object)
+], TblCart.prototype, "isRemoved", void 0);
 __decorate([
-    (0, typeorm_1.ManyToOne)(() => Tbluser_1.Tbluser, (user) => user.id, { onDelete: "NO ACTION", onUpdate: "NO ACTION" }),
-    (0, typeorm_1.JoinColumn)([{ name: "customerID", referencedColumnName: "id" }]),
+    (0, typeorm_1.ManyToOne)(() => Tbluser_1.Tbluser, (user) => user.id, {
+        onDelete: "NO ACTION",
+        onUpdate: "NO ACTION"
+    }),
+    (0, typeorm_1.JoinColumn)([
+        {
+            name: "customerID",
+            referencedColumnName: "id"
+        }
+    ]),
     __metadata("design:type", Tbluser_1.Tbluser)
 ], TblCart.prototype, "customer", void 0);
 __decorate([
-    (0, typeorm_1.ManyToOne)(() => TblRestaurant_1.TblRestaurant, (restaurant) => restaurant.id, { onDelete: "NO ACTION", onUpdate: "NO ACTION" }),
-    (0, typeorm_1.JoinColumn)([{ name: "restaurantID", referencedColumnName: "id" }]),
+    (0, typeorm_1.ManyToOne)(() => TblRestaurant_1.TblRestaurant, (restaurant) => restaurant.id, {
+        onDelete: "NO ACTION",
+        onUpdate: "NO ACTION"
+    }),
+    (0, typeorm_1.JoinColumn)([
+        {
+            name: "restaurantID",
+            referencedColumnName: "id"
+        }
+    ]),
     __metadata("design:type", TblRestaurant_1.TblRestaurant)
 ], TblCart.prototype, "restaurant", void 0);
+__decorate([
+    (0, typeorm_1.OneToMany)(() => TblCartItems_1.TblCartItems, cartitem => cartitem.idCartitem, {
+        onDelete: "NO ACTION",
+        onUpdate: "NO ACTION"
+    }),
+    (0, typeorm_1.JoinColumn)(),
+    __metadata("design:type", TblCartItems_1.TblCartItems)
+], TblCart.prototype, "cartItems", void 0);
 TblCart = __decorate([
     (0, typeorm_1.Entity)()
 ], TblCart);

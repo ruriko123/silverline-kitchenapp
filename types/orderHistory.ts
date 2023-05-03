@@ -2,6 +2,26 @@
 
 
 
+export interface TopcartItems {
+    items : Array<cartItemsObject>;
+    restaurantID:number;
+    cartID:string|number|null;
+};
+
+export interface cartItemsObject {
+    idCartitem:number|string|null;
+    itemID:number;
+    ItemName:string;
+    costPrice:string;
+    sellingPrice:string;
+    sellingPricewithTax:string;
+    Taxable:boolean;
+
+};
+
+
+
+
 export interface socialLogin {
     full_name:string;
     social_token:string;
@@ -13,7 +33,7 @@ export interface socialLogin {
     deviceid:string|null;
     devicetype:string|null;
     firebasetoken:string|null;
-}
+};
 
 
 
@@ -35,10 +55,9 @@ export interface orderHistory {
     customerPhone:string|null;
     Address:string|null;
     deliveryVia:string;
-    
     OrderItemDetailsList:Array<orderHistoryDetails>
 
-}
+};
 
 export interface orderHistoryDetails{
     idtblordertracker_details:string|null|number;
@@ -54,7 +73,7 @@ export interface orderHistoryDetails{
     unit:string|null;
     isTaxable:boolean;
 
-}
+};
 
 
 export interface orderHistoryThirdParty extends orderHistory{
@@ -68,7 +87,7 @@ export interface orderHistoryThirdParty extends orderHistory{
     Token?:string|null;
     CompanyisActive?:boolean|string|number|null;
 
-}
+};
 
 export interface thirdParty {
     id:number|null;
@@ -86,7 +105,7 @@ export interface thirdParty {
     deletedDate:string|null;
     baseURL:string|null;
 
-}
+};
 
 export interface typeTblRestaurant{
     id:number|null;
@@ -112,4 +131,4 @@ export interface typeTblRestaurant{
     addedDate:string|null;
     deletedDate:string|null;
     baseURL:string|null;
-}
+};
