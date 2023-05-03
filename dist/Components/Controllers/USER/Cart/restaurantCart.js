@@ -84,7 +84,8 @@ const restaurantCart = (req, res) => __awaiter(void 0, void 0, void 0, function*
             "t.ItemName",
             "t.costPrice",
             "t.sellingPrice",
-            "t.sellingPricewithTax"
+            "t.sellingPricewithTax",
+            "t.quantity"
         ])
             .where({ cartID: IDCart, isRemoved: false, isActive: true })
             .getMany();
@@ -94,9 +95,10 @@ const restaurantCart = (req, res) => __awaiter(void 0, void 0, void 0, function*
                 .json({ detail: "Error while fetching cart items." });
             return;
         }
+        let receiptjson = { total: "", subtotal: "", deliverycharge: "" };
         res
             .status(200)
-            .json({ items: cartItems });
+            .json({ items: cartItems, receipt: receiptjson });
         return;
     }
     catch (error) {

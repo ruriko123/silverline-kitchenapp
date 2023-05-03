@@ -16,6 +16,7 @@ export interface cartItemsObject {
     sellingPrice:string;
     sellingPricewithTax:string;
     Taxable:boolean;
+    quantity:string;
 
 };
 

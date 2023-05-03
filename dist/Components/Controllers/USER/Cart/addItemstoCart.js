@@ -68,6 +68,7 @@ const addItemstoCart = (req, res) => __awaiter(void 0, void 0, void 0, function*
             .manager
             .save(cart);
         let cartID = savedCart === null || savedCart === void 0 ? void 0 : savedCart.idCart;
+        let insertCount = 0;
         cartItems["cartID"] = cartID;
         for (let i = 0; i < cartItems.items.length; i++) {
             let cartItem = cartItems.items[i];
@@ -77,35 +78,53 @@ const addItemstoCart = (req, res) => __awaiter(void 0, void 0, void 0, function*
             let sellingPrice = cartItem === null || cartItem === void 0 ? void 0 : cartItem.sellingPrice;
             let sellingPricewithTax = cartItem === null || cartItem === void 0 ? void 0 : cartItem.sellingPricewithTax;
             let Taxable = cartItem === null || cartItem === void 0 ? void 0 : cartItem.Taxable;
-            if (isItNumber(sellingPricewithTax) && isItNumber(sellingPrice) && isItNumber(costPrice) && Taxable && sellingPricewithTax && itemID && ItemName && costPrice && sellingPrice) {
+            let quantity = cartItem === null || cartItem === void 0 ? void 0 : cartItem.quantity;
+            if (isItNumber(quantity) && isItNumber(sellingPricewithTax) && isItNumber(sellingPrice) && isItNumber(costPrice) && Taxable && sellingPricewithTax && itemID && ItemName && costPrice && sellingPrice) {
                 costPrice = parseFloat(costPrice);
                 sellingPrice = parseFloat(sellingPrice);
                 sellingPricewithTax = parseFloat(sellingPricewithTax);
-                let cartitementity = new TblCartItems_1.TblCartItems();
-                cartitementity.cartID = cartID;
-                cartitementity.itemID = itemID;
-                let menutada = yield app_data_source_1.default
+                quantity = parseFloat(quantity);
+                let menudata = yield app_data_source_1.default
                     .getRepository(TblMenu_1.TblMenu)
                     .findOne({
                     where: {
-                        idMenu: restaurantID
+                        idMenu: itemID,
+                        restaurantID: restaurantID
                     }
                 });
-                if (menutada) {
+                if (menudata) {
+                    let cartitementity = new TblCartItems_1.TblCartItems();
+                    cartitementity.cartID = cartID;
+                    cartitementity.itemID = itemID;
                     cartitementity.ItemName = ItemName;
                     cartitementity.costPrice = costPrice;
                     cartitementity.sellingPrice = sellingPrice;
                     cartitementity.sellingPricewithTax = sellingPricewithTax;
                     cartitementity.Taxable = Taxable;
+                    cartitementity.quantity = quantity;
                     yield app_data_source_1.default
                         .manager
                         .save(cartitementity)
                         .then((e) => __awaiter(void 0, void 0, void 0, function* () {
                         cartItems.items[i]["idCartitem"] = e.idCartitem;
                     }));
+                    insertCount++;
                 }
                 ;
             }
+        }
+        ;
+        if (insertCount === 0) {
+            yield app_data_source_1.default
+                .createQueryBuilder()
+                .delete()
+                .from(TblCart_1.TblCart)
+                .where({ idCart: cartID })
+                .execute();
+            res
+                .status(400)
+                .json({ "detail": "Couldn't save items to cart. Make sure that the restaurant ID is correct." });
+            return;
         }
         ;
         res

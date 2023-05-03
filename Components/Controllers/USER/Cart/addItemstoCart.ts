@@ -7,10 +7,9 @@ import {TblCartItems} from "@base/ORM/entities/TblCartItems";
 import {TopcartItems, cartItemsObject} from '@reqtypes/orderHistory';
 import {TblMenu} from "@model/TblMenu";
 
-function isItNumber(str:string  ) {
+function isItNumber(str : string) {
     return /^\-?[0-9]+(e[0-9]+)?(\.[0-9]+)?$/.test(str);
 };
-
 
 const addItemstoCart : RequestHandler = async(req, res) => {
     try {
@@ -64,52 +63,73 @@ const addItemstoCart : RequestHandler = async(req, res) => {
             .save(cart);
         let cartID = savedCart
             ?.idCart;
-
-        cartItems["cartID"]=cartID;
+        let insertCount = 0;
+        cartItems["cartID"] = cartID;
         for (let i = 0; i < cartItems.items.length; i++) {
             let cartItem : cartItemsObject = cartItems.items[i];
             let itemID : number = cartItem
                 ?.itemID;
             let ItemName : string = cartItem
                 ?.ItemName;
-            let costPrice : string|number = cartItem
+            let costPrice : string | number = cartItem
                 ?.costPrice;
-            let sellingPrice : string|number = cartItem
+            let sellingPrice : string | number = cartItem
                 ?.sellingPrice;
-            let sellingPricewithTax : string|number = cartItem
+            let sellingPricewithTax : string | number = cartItem
                 ?.sellingPricewithTax;
             let Taxable : boolean = cartItem
                 ?.Taxable;
-            
-            if (isItNumber(sellingPricewithTax) && isItNumber(sellingPrice) && isItNumber(costPrice) && Taxable && sellingPricewithTax && itemID && ItemName && costPrice && sellingPrice) {
+            let quantity : string | number = cartItem
+                ?.quantity;
+
+            if (isItNumber(quantity) && isItNumber(sellingPricewithTax) && isItNumber(sellingPrice) && isItNumber(costPrice) && Taxable && sellingPricewithTax && itemID && ItemName && costPrice && sellingPrice) {
                 costPrice = parseFloat(costPrice);
                 sellingPrice = parseFloat(sellingPrice);
                 sellingPricewithTax = parseFloat(sellingPricewithTax);
+                quantity = parseFloat(quantity);
 
-                let cartitementity = new TblCartItems();
-                cartitementity.cartID = cartID
-                cartitementity.itemID = itemID;
-                let menutada = await myDataSource
-                .getRepository(TblMenu)
-                .findOne({
-                    where: {
-                        idMenu: restaurantID
-                    }
-                });
-                if(menutada){
+                let menudata = await myDataSource
+                    .getRepository(TblMenu)
+                    .findOne({
+                        where: {
+                            idMenu: itemID,
+                            restaurantID: restaurantID
+                        }
+                    });
+
+                if (menudata) {
+                    let cartitementity = new TblCartItems();
+                    cartitementity.cartID = cartID
+                    cartitementity.itemID = itemID;
                     cartitementity.ItemName = ItemName;
                     cartitementity.costPrice = costPrice;
                     cartitementity.sellingPrice = sellingPrice;
                     cartitementity.sellingPricewithTax = sellingPricewithTax;
                     cartitementity.Taxable = Taxable;
+                    cartitementity.quantity = quantity;
                     await myDataSource
                         .manager
                         .save(cartitementity)
                         .then(async(e) => {
                             cartItems.items[i]["idCartitem"] = e.idCartitem;
                         });
+                        insertCount++;
                 };
-                }
+            }
+        };
+
+        if (insertCount === 0) {
+
+            await myDataSource
+                .createQueryBuilder()
+                .delete()
+                .from(TblCart)
+                .where({idCart: cartID})
+                .execute();
+            res
+                .status(400)
+                .json({"detail": "Couldn't save items to cart. Make sure that the restaurant ID is correct."});
+            return;
         };
 
         res

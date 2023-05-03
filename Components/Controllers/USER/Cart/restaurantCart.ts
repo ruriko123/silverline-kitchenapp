@@ -80,7 +80,8 @@ const restaurantCart : RequestHandler = async(req, res) => {
                 "t.ItemName",
                 "t.costPrice",
                 "t.sellingPrice",
-                "t.sellingPricewithTax"
+                "t.sellingPricewithTax",
+                "t.quantity"
             ])
             .where({cartID: IDCart, isRemoved: false, isActive: true})
             .getMany();
@@ -91,10 +92,11 @@ const restaurantCart : RequestHandler = async(req, res) => {
                 .json({detail: "Error while fetching cart items."});
             return;
         }
-
+        
+        let receiptjson = {total:"",subtotal:"",deliverycharge:""}
         res
             .status(200)
-            .json({items:cartItems});
+            .json({items:cartItems,receipt:receiptjson});
         return;
     } catch (error) {
         res
