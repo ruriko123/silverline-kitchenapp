@@ -58,7 +58,6 @@ const getMenu = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             ])
                 .where({ restaurantID: restaurantID })
                 .getRawMany()) || [];
-            console.log(menudata);
             res
                 .status(200)
                 .json(menudata);

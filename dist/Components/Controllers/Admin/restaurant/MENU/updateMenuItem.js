@@ -19,7 +19,7 @@ const updateMenuItem = (req, res) => __awaiter(void 0, void 0, void 0, function*
     var _a;
     try {
         let itemid = (_a = req.body) === null || _a === void 0 ? void 0 : _a.itemid;
-        let updatedata = req === null || req === void 0 ? void 0 : req.body;
+        let updateditems = req === null || req === void 0 ? void 0 : req.body;
         if (!itemid) {
             res
                 .status(400)
@@ -41,11 +41,11 @@ const updateMenuItem = (req, res) => __awaiter(void 0, void 0, void 0, function*
             return;
         }
         else {
-            delete updatedata["itemid"];
+            delete updateditems["itemid"];
             yield app_data_source_1.default
                 .createQueryBuilder()
                 .update(TblMenu_1.TblMenu)
-                .set(updatedata)
+                .set(updateditems)
                 .where({ idMenu: itemid })
                 .execute();
             res

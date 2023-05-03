@@ -7,12 +7,7 @@ const updateMenuItem : RequestHandler = async(req, res) => {
     try {
         let itemid = req.body
             ?.itemid;
-        let updatedata:any = req?.body;
-        let costPrice = updatedata?.costPrice;
-        let sellingPrice=updatedata?.sellingPrice;
-        let sellingPricewithTax = updatedata?.sellingPricewithTax;
-        let description= updatedata?.description;
-
+        let updateditems = req?.body;
 
         if (!itemid ) {
             res
@@ -33,15 +28,11 @@ const updateMenuItem : RequestHandler = async(req, res) => {
                 .json({"error": "Item does not exist."});
             return;
         } else {
-            delete updatedata["itemid"];
-            costPrice===0?costPrice= menuItemdata?.costPrice:costPrice=costPrice;
-            sellingPrice===0?sellingPrice= menuItemdata?.sellingPrice:sellingPrice=sellingPrice;
-            sellingPricewithTax===0?sellingPricewithTax= menuItemdata?.sellingPricewithTax:sellingPricewithTax=sellingPricewithTax;
-            description===""?description=menuItemdata?.description:description=description;
+            delete updateditems["itemid"];
             await myDataSource
             .createQueryBuilder()
             .update(TblMenu)
-            .set(updatedata)
+            .set(updateditems)
             .where({idMenu:itemid})
             .execute();
 
