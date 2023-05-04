@@ -3,7 +3,6 @@ import {Tbluser} from "@model/Tbluser";
 import myDataSource from "@base/app-data-source";
 import {decodeToken} from '@utils/USER/token';
 import {TblCart} from '@base/ORM/entities/TblCart';
-import {TblCartItems} from "@base/ORM/entities/TblCartItems";
 import {TblRestaurant} from '@model/TblRestaurant';
 
 const customerCart : RequestHandler = async(req, res) => {
@@ -73,7 +72,8 @@ const customerCart : RequestHandler = async(req, res) => {
                 .select([
                     "x.Name",
                     "x.Address",
-                    "x.logo"
+                    "x.logo",
+                    "x.details"
                 ])
                 .where({id:restaurantid,isActive:true})
                 .getOne();

@@ -129,7 +129,7 @@ __decorate([
     (0, typeorm_1.Column)("varchar", {
         name: "orderedat",
         nullable: true,
-        length: 20
+        length: 50
     }),
     __metadata("design:type", Object)
 ], user_Tblordertracker.prototype, "orderedat", void 0);

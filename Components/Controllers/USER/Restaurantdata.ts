@@ -62,7 +62,8 @@ const getRestaurant : RequestHandler = async(req, res) => {
                 "t.slogan",
                 "t.details",
                 "t.Address",
-                "t.logo"
+                "t.logo",
+                "t.id"
             ])
             .where({isActive: true, id:restaurantID})
             .getMany();

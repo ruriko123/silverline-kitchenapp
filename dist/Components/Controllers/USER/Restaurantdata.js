@@ -73,7 +73,8 @@ const getRestaurant = (req, res) => __awaiter(void 0, void 0, void 0, function* 
             "t.slogan",
             "t.details",
             "t.Address",
-            "t.logo"
+            "t.logo",
+            "t.id"
         ])
             .where({ isActive: true, id: restaurantID })
             .getMany();

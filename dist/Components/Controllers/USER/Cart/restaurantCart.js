@@ -94,7 +94,6 @@ const restaurantCart = (req, res) => __awaiter(void 0, void 0, void 0, function*
             .createQueryBuilder("t")
             .select([
             "t.idCartitem",
-            "t.cartID",
             "t.itemID",
             "t.ItemName",
             "t.costPrice",
@@ -116,10 +115,13 @@ const restaurantCart = (req, res) => __awaiter(void 0, void 0, void 0, function*
             subtotal: "",
             deliverycharge: ""
         };
+        let restaurantid = restaurantExists.id;
         let restaurantdetails = {
             Name: (restaurantExists === null || restaurantExists === void 0 ? void 0 : restaurantExists.Name) || "",
             description: (restaurantExists === null || restaurantExists === void 0 ? void 0 : restaurantExists.slogan) || (restaurantExists === null || restaurantExists === void 0 ? void 0 : restaurantExists.details) || "",
-            location: (restaurantExists === null || restaurantExists === void 0 ? void 0 : restaurantExists.Address) || ""
+            location: (restaurantExists === null || restaurantExists === void 0 ? void 0 : restaurantExists.Address) || "",
+            cartID: cartExists.idCart,
+            restaurantID: restaurantid
         };
         res
             .status(200)

@@ -90,7 +90,6 @@ const restaurantCart : RequestHandler = async(req, res) => {
             .createQueryBuilder("t")
             .select([
                 "t.idCartitem",
-                "t.cartID",
                 "t.itemID",
                 "t.ItemName",
                 "t.costPrice",
@@ -113,7 +112,8 @@ const restaurantCart : RequestHandler = async(req, res) => {
             total: "",
             subtotal: "",
             deliverycharge: ""
-        }
+        };
+        let restaurantid = restaurantExists.id;
         let restaurantdetails = {
             Name: restaurantExists
                 ?.Name || "",
@@ -121,8 +121,10 @@ const restaurantCart : RequestHandler = async(req, res) => {
                 ?.slogan || restaurantExists
                     ?.details || "",
             location: restaurantExists
-                ?.Address || ""
-        }
+                ?.Address || "",
+            cartID:cartExists.idCart,
+            restaurantID:restaurantid
+        };
         res
             .status(200)
             .json({items: cartItems, receipt: receiptjson, restaurant: restaurantdetails});

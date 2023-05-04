@@ -116,7 +116,7 @@ export class user_Tblordertracker {
     @Column("varchar", {
         name: "orderedat",
         nullable: true,
-        length: 20
+        length: 50
     })
     orderedat : string | null;
 
