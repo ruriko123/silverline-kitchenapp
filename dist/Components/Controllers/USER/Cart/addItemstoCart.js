@@ -61,13 +61,28 @@ const addItemstoCart = (req, res) => __awaiter(void 0, void 0, void 0, function*
             return;
         }
         ;
-        let cart = new TblCart_1.TblCart();
-        cart.customerID = userid;
-        cart.restaurantID = restaurantID;
-        let savedCart = yield app_data_source_1.default
-            .manager
-            .save(cart);
-        let cartID = savedCart === null || savedCart === void 0 ? void 0 : savedCart.idCart;
+        let cartExists = yield app_data_source_1.default
+            .getRepository(TblCart_1.TblCart)
+            .findOne({
+            where: {
+                customerID: userid,
+                restaurantID: restaurantID,
+                isActive: true
+            }
+        });
+        let cartID;
+        if (cartExists) {
+            cartID = cartExists.idCart;
+        }
+        else {
+            let cart = new TblCart_1.TblCart();
+            cart.customerID = userid;
+            cart.restaurantID = restaurantID;
+            let savedCart = yield app_data_source_1.default
+                .manager
+                .save(cart);
+            cartID = savedCart === null || savedCart === void 0 ? void 0 : savedCart.idCart;
+        }
         let insertCount = 0;
         cartItems["cartID"] = cartID;
         for (let i = 0; i < cartItems.items.length; i++) {
@@ -79,7 +94,28 @@ const addItemstoCart = (req, res) => __awaiter(void 0, void 0, void 0, function*
             let sellingPricewithTax = cartItem === null || cartItem === void 0 ? void 0 : cartItem.sellingPricewithTax;
             let Taxable = cartItem === null || cartItem === void 0 ? void 0 : cartItem.Taxable;
             let quantity = cartItem === null || cartItem === void 0 ? void 0 : cartItem.quantity;
-            if (isItNumber(quantity) && isItNumber(sellingPricewithTax) && isItNumber(sellingPrice) && isItNumber(costPrice) && Taxable && sellingPricewithTax && itemID && ItemName && costPrice && sellingPrice) {
+            let cartItemExists = yield app_data_source_1.default
+                .getRepository(TblCartItems_1.TblCartItems)
+                .findOne({
+                where: {
+                    cartID: cartID,
+                    itemID: itemID,
+                    isActive: true,
+                    isRemoved: false
+                }
+            });
+            if (cartItemExists) {
+                let cartQuantity = cartItemExists.quantity;
+                isItNumber(cartQuantity) && isItNumber(quantity) ? quantity = parseFloat(quantity) + parseFloat(cartQuantity) : quantity = quantity;
+                yield app_data_source_1.default
+                    .createQueryBuilder()
+                    .update(TblCartItems_1.TblCartItems)
+                    .set({ quantity: quantity, Taxable: Taxable, costPrice: costPrice, sellingPrice: sellingPrice, sellingPricewithTax: sellingPricewithTax })
+                    .where({ itemID: itemID, cartID: cartID, isActive: true, isRemoved: false })
+                    .execute();
+                insertCount++;
+            }
+            else if (!cartItemExists && isItNumber(quantity) && isItNumber(sellingPricewithTax) && isItNumber(sellingPrice) && isItNumber(costPrice) && Taxable && sellingPricewithTax && itemID && ItemName && costPrice && sellingPrice) {
                 costPrice = parseFloat(costPrice);
                 sellingPrice = parseFloat(sellingPrice);
                 sellingPricewithTax = parseFloat(sellingPricewithTax);

@@ -30,7 +30,7 @@ __decorate([
     (0, typeorm_1.Column)("varchar", {
         name: "customerName",
         nullable: true,
-        length: 50
+        length: 70
     }),
     __metadata("design:type", Object)
 ], user_Tblordertracker.prototype, "customerName", void 0);
@@ -38,10 +38,42 @@ __decorate([
     (0, typeorm_1.Column)("varchar", {
         name: "customerPhone",
         nullable: true,
-        length: 20
+        length: 30
     }),
     __metadata("design:type", Object)
 ], user_Tblordertracker.prototype, "customerPhone", void 0);
+__decorate([
+    (0, typeorm_1.Column)("varchar", {
+        name: "deliverycustomerName",
+        nullable: true,
+        length: 70
+    }),
+    __metadata("design:type", Object)
+], user_Tblordertracker.prototype, "deliverycustomerName", void 0);
+__decorate([
+    (0, typeorm_1.Column)("varchar", {
+        name: "deliverycustomerPhone",
+        nullable: true,
+        length: 30
+    }),
+    __metadata("design:type", Object)
+], user_Tblordertracker.prototype, "deliverycustomerPhone", void 0);
+__decorate([
+    (0, typeorm_1.Column)("varchar", {
+        name: "altdeliverycustomerPhone",
+        nullable: true,
+        length: 30
+    }),
+    __metadata("design:type", Object)
+], user_Tblordertracker.prototype, "altdeliverycustomerPhone", void 0);
+__decorate([
+    (0, typeorm_1.Column)("varchar", {
+        name: "deliverycustomerAddress",
+        nullable: true,
+        length: 250
+    }),
+    __metadata("design:type", Object)
+], user_Tblordertracker.prototype, "deliverycustomerAddress", void 0);
 __decorate([
     (0, typeorm_1.Column)("int", {
         name: "restaurantID",
@@ -66,7 +98,7 @@ __decorate([
     (0, typeorm_1.Column)("varchar", {
         name: "Address",
         nullable: true,
-        length: 100
+        length: 200
     }),
     __metadata("design:type", Object)
 ], user_Tblordertracker.prototype, "Address", void 0);
@@ -97,7 +129,7 @@ __decorate([
     (0, typeorm_1.Column)("varchar", {
         name: "orderedat",
         nullable: true,
-        length: 10
+        length: 20
     }),
     __metadata("design:type", Object)
 ], user_Tblordertracker.prototype, "orderedat", void 0);
@@ -146,7 +178,7 @@ __decorate([
     (0, typeorm_1.Column)("varchar", {
         name: "outlet_name",
         nullable: true,
-        length: 50
+        length: 150
     }),
     __metadata("design:type", Object)
 ], user_Tblordertracker.prototype, "outletName", void 0);

@@ -31,7 +31,7 @@ __decorate([
     (0, typeorm_1.Column)("varchar", {
         name: "orderedat",
         nullable: true,
-        length: 10
+        length: 20
     }),
     __metadata("design:type", Object)
 ], user_Tblordertrackerdetails.prototype, "orderedat", void 0);
@@ -39,7 +39,7 @@ __decorate([
     (0, typeorm_1.Column)("varchar", {
         name: "completedat",
         nullable: true,
-        length: 10
+        length: 20
     }),
     __metadata("design:type", Object)
 ], user_Tblordertrackerdetails.prototype, "completedat", void 0);
@@ -47,7 +47,7 @@ __decorate([
     (0, typeorm_1.Column)("varchar", {
         name: "totaltime",
         nullable: true,
-        length: 10
+        length: 20
     }),
     __metadata("design:type", Object)
 ], user_Tblordertrackerdetails.prototype, "totaltime", void 0);
@@ -64,7 +64,7 @@ __decorate([
     (0, typeorm_1.Column)("varchar", {
         name: "modification",
         nullable: true,
-        length: 50,
+        length: 250,
         default: "",
     }),
     __metadata("design:type", Object)
@@ -97,7 +97,7 @@ __decorate([
     (0, typeorm_1.Column)("varchar", {
         name: "item_price",
         nullable: true,
-        length: 10
+        length: 25
     }),
     __metadata("design:type", Object)
 ], user_Tblordertrackerdetails.prototype, "itemPrice", void 0);
@@ -136,7 +136,7 @@ __decorate([
     (0, typeorm_1.Column)("varchar", {
         name: "description",
         nullable: true,
-        length: 100
+        length: 200
     }),
     __metadata("design:type", Object)
 ], user_Tblordertrackerdetails.prototype, "description", void 0);

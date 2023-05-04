@@ -3,7 +3,7 @@ import {Tbluser} from "@model/Tbluser";
 import myDataSource from "@base/app-data-source";
 import {decodeToken} from '@utils/USER/token';
 import {saveClientOrder} from "@base/Components/Middlewares/USER/saveClientOrder";
-import {user_orderHistory, user_orderHistoryDetails} from '@reqtypes/orderHistory';
+import {user_orderHistory, deliverycustomerobject,user_orderHistoryDetails} from '@reqtypes/orderHistory';
 import {TblRestaurant} from '@model/TblRestaurant';
 import {TblMenu} from '@model/TblMenu';
 import {TblCart} from '@base/ORM/entities/TblCart';
@@ -49,12 +49,43 @@ const userOrder : RequestHandler = async(req, res) => {
             return;
         };
 
+       
+        let deliverycustomer:deliverycustomerobject = req?.body?.deliverycustomer;
+
+        if(!deliverycustomer?.deliverycustomer_name){
+            res
+            .status(400)
+            .json({detail: "Delivery customer name missing."});
+        return;
+        }
+
+        if(!deliverycustomer?.deliverycustomer_phone){
+            res
+            .status(400)
+            .json({detail: "Delivery customer phone missing."});
+        return;
+        }
+        if(!deliverycustomer?.deliverycustomerAddress){
+            res
+            .status(400)
+            .json({detail: "Delivery customer address missing."});
+        return;
+        }
+
+
         let cartID = req
             ?.body
                 ?.outlet_orderid;
         let restaurantID = req
             ?.body
                 ?.outletID;
+
+        if(!cartID||!restaurantID){
+            res
+            .status(400)
+            .json({detail: "outletID or outlet_orderid missing."});
+        return;
+        }
         let cartExists = await myDataSource
             .getRepository(TblCart)
             .findOne({

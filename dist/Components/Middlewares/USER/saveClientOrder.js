@@ -18,6 +18,7 @@ const EmitOrder_1 = require("../../Socket/EmitOrder");
 const user_Tblordertracker_1 = require("../../../ORM/entities/user_Tblordertracker");
 const user_Tblordertrackerdetails_1 = require("../../../ORM/entities/user_Tblordertrackerdetails");
 const saveClientOrder = (orderObject) => __awaiter(void 0, void 0, void 0, function* () {
+    var _a, _b, _c, _d, _e, _f, _g, _h, _j;
     try {
         let returnObject = {};
         let order = orderObject;
@@ -31,6 +32,10 @@ const saveClientOrder = (orderObject) => __awaiter(void 0, void 0, void 0, funct
         orderTracker.Address = order.Address;
         orderTracker.deliveryVia = order.deliveryVia;
         orderTracker.restaurantID = order.outletID;
+        orderTracker.deliverycustomerName = ((_a = order === null || order === void 0 ? void 0 : order.deliverycustomer) === null || _a === void 0 ? void 0 : _a.deliverycustomer_name) || order.customerName;
+        orderTracker.deliverycustomerAddress = ((_b = order === null || order === void 0 ? void 0 : order.deliverycustomer) === null || _b === void 0 ? void 0 : _b.deliverycustomerAddress) || order.Address;
+        orderTracker.deliverycustomerPhone = ((_c = order === null || order === void 0 ? void 0 : order.deliverycustomer) === null || _c === void 0 ? void 0 : _c.deliverycustomer_phone) || order.customerPhone;
+        orderTracker.altdeliverycustomerPhone = ((_d = order === null || order === void 0 ? void 0 : order.deliverycustomer) === null || _d === void 0 ? void 0 : _d.altdeliverycustomerPhone) || ((_e = order === null || order === void 0 ? void 0 : order.deliverycustomer) === null || _e === void 0 ? void 0 : _e.deliverycustomer_phone) || order.customerPhone;
         yield app_data_source_1.default
             .manager
             .save(orderTracker);
@@ -41,11 +46,15 @@ const saveClientOrder = (orderObject) => __awaiter(void 0, void 0, void 0, funct
         returnObject["orderedat"] = order.orderedat;
         returnObject["currentstate"] = order.currentstate;
         returnObject["outletName"] = order.outletName;
-        returnObject["customerName"] = order.customerName;
-        returnObject["customerPhone"] = order.customerPhone;
-        returnObject["Address"] = order.Address;
+        returnObject["customerName"] = ((_f = order === null || order === void 0 ? void 0 : order.deliverycustomer) === null || _f === void 0 ? void 0 : _f.deliverycustomer_name) || order.customerName;
+        ;
+        returnObject["customerPhone"] = ((_g = order === null || order === void 0 ? void 0 : order.deliverycustomer) === null || _g === void 0 ? void 0 : _g.deliverycustomer_phone) || ((_h = order === null || order === void 0 ? void 0 : order.deliverycustomer) === null || _h === void 0 ? void 0 : _h.altdeliverycustomerPhone) || order.customerPhone;
+        ;
+        returnObject["Address"] = ((_j = order === null || order === void 0 ? void 0 : order.deliverycustomer) === null || _j === void 0 ? void 0 : _j.deliverycustomerAddress) || order.Address;
+        ;
         returnObject["deliveryVia"] = order.deliveryVia;
         returnObject["Id"] = primarykey;
+        returnObject["deliverycustomer"] = order.deliverycustomer;
         // returnObject["OrderItemDetailsList"]=[];
         let orderDetailsArr = [];
         let orderDetails = order["OrderItemDetailsList"];
@@ -64,7 +73,7 @@ const saveClientOrder = (orderObject) => __awaiter(void 0, void 0, void 0, funct
             orderTrackerDetails.category = e.category;
             orderTrackerDetails.description = e.description;
             // orderTrackerDetails.productId = e.productId;
-            orderTrackerDetails.unit = e.unit;
+            // orderTrackerDetails.unit = e.unit;
             orderTrackerDetails.isTaxable = e.isTaxable;
             yield app_data_source_1.default
                 .manager
@@ -82,7 +91,7 @@ const saveClientOrder = (orderObject) => __awaiter(void 0, void 0, void 0, funct
                 orderDetailsjson["category"] = e.category;
                 orderDetailsjson["description"] = e.description;
                 orderDetailsjson["isTaxable"] = e.isTaxable;
-                orderDetailsjson["unit"] = e.unit;
+                // orderDetailsjson["unit"]=e.unit;
                 orderDetailsArr.push(orderDetailsjson);
             });
         }

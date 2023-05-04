@@ -96,7 +96,8 @@ const restaurantCart : RequestHandler = async(req, res) => {
                 "t.costPrice",
                 "t.sellingPrice",
                 "t.sellingPricewithTax",
-                "t.quantity"
+                "t.quantity",
+                "t.Taxable"
             ])
             .where({cartID: IDCart, isRemoved: false, isActive: true})
             .getMany();

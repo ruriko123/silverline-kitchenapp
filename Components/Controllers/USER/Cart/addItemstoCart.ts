@@ -56,27 +56,27 @@ const addItemstoCart : RequestHandler = async(req, res) => {
         };
 
         let cartExists = await myDataSource
-        .getRepository(TblCart)
-        .findOne({
-            where: {
-                customerID: userid,
-                restaurantID: restaurantID,
-                isActive:true
-            }
-        });
-        let cartID:number;
-        if(cartExists){
+            .getRepository(TblCart)
+            .findOne({
+                where: {
+                    customerID: userid,
+                    restaurantID: restaurantID,
+                    isActive: true
+                }
+            });
+        let cartID : number;
+        if (cartExists) {
             cartID = cartExists.idCart;
         } else {
             let cart = new TblCart();
-        cart.customerID = userid;
-        cart.restaurantID = restaurantID;
+            cart.customerID = userid;
+            cart.restaurantID = restaurantID;
 
-        let savedCart = await myDataSource
-            .manager
-            .save(cart);
-        cartID = savedCart
-            ?.idCart;
+            let savedCart = await myDataSource
+                .manager
+                .save(cart);
+            cartID = savedCart
+                ?.idCart;
         }
 
         let insertCount = 0;
@@ -97,7 +97,29 @@ const addItemstoCart : RequestHandler = async(req, res) => {
                 ?.Taxable;
             let quantity : string | number = cartItem
                 ?.quantity;
-            if (isItNumber(quantity) && isItNumber(sellingPricewithTax) && isItNumber(sellingPrice) && isItNumber(costPrice) && Taxable && sellingPricewithTax && itemID && ItemName && costPrice && sellingPrice) {
+
+            let cartItemExists = await myDataSource
+                .getRepository(TblCartItems)
+                .findOne({
+                    where: {
+                        cartID: cartID,
+                        itemID: itemID,
+                        isActive: true,
+                        isRemoved: false
+                    }
+                });
+            if (cartItemExists) {
+                let cartQuantity:any = cartItemExists.quantity;
+                isItNumber(cartQuantity) && isItNumber(quantity)?quantity=parseFloat(quantity)+parseFloat(cartQuantity):quantity=quantity;
+
+                await myDataSource
+                    .createQueryBuilder()
+                    .update(TblCartItems)
+                    .set({quantity: quantity, Taxable: Taxable, costPrice: costPrice, sellingPrice: sellingPrice, sellingPricewithTax: sellingPricewithTax})
+                    .where({itemID: itemID, cartID: cartID, isActive: true, isRemoved: false})
+                    .execute();
+                insertCount++;
+            } else if (!cartItemExists && isItNumber(quantity) && isItNumber(sellingPricewithTax) && isItNumber(sellingPrice) && isItNumber(costPrice) && Taxable && sellingPricewithTax && itemID && ItemName && costPrice && sellingPrice) {
                 costPrice = parseFloat(costPrice);
                 sellingPrice = parseFloat(sellingPrice);
                 sellingPricewithTax = parseFloat(sellingPricewithTax);
@@ -128,7 +150,7 @@ const addItemstoCart : RequestHandler = async(req, res) => {
                         .then(async(e) => {
                             cartItems.items[i]["idCartitem"] = e.idCartitem;
                         });
-                        insertCount++;
+                    insertCount++;
                 };
             }
         };

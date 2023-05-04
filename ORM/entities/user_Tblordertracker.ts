@@ -24,16 +24,45 @@ export class user_Tblordertracker {
     @Column("varchar", {
         name: "customerName",
         nullable: true,
-        length: 50
+        length: 70
     })
     customerName : string | null;
 
     @Column("varchar", {
         name: "customerPhone",
         nullable: true,
-        length: 20
+        length: 30
     })
     customerPhone : string | null;
+
+
+    @Column("varchar", {
+        name: "deliverycustomerName",
+        nullable: true,
+        length:70
+    })
+    deliverycustomerName : string | null;
+
+    @Column("varchar", {
+        name: "deliverycustomerPhone",
+        nullable: true,
+        length: 30
+    })
+    deliverycustomerPhone : string | null;
+
+    @Column("varchar", {
+        name: "altdeliverycustomerPhone",
+        nullable: true,
+        length: 30
+    })
+    altdeliverycustomerPhone : string | null;
+
+    @Column("varchar", {
+        name: "deliverycustomerAddress",
+        nullable: true,
+        length: 250
+    })
+    deliverycustomerAddress : string | null;
 
 
     @Column("int", {
@@ -60,7 +89,7 @@ export class user_Tblordertracker {
     @Column("varchar", {
         name: "Address",
         nullable: true,
-        length: 100
+        length: 200
     })
     Address : string | null;
 
@@ -87,7 +116,7 @@ export class user_Tblordertracker {
     @Column("varchar", {
         name: "orderedat",
         nullable: true,
-        length: 10
+        length: 20
     })
     orderedat : string | null;
 
@@ -130,7 +159,7 @@ export class user_Tblordertracker {
     @Column("varchar", {
         name: "outlet_name",
         nullable: true,
-        length: 50
+        length: 150
     })
     outletName : string | null;
 

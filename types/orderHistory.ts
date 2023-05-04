@@ -13,9 +13,16 @@ export interface user_orderHistory {
     deliveryVia:string;
     outletID:number|null;
     OrderItemDetailsList:Array<user_orderHistoryDetails>
+    deliverycustomer:deliverycustomerobject
 
 };
 
+export interface deliverycustomerobject {
+    deliverycustomer_name:string;
+    deliverycustomer_phone:string;
+    altdeliverycustomerPhone:string|null;
+    deliverycustomerAddress:string;
+}
 export interface user_orderHistoryDetails{
     idtblordertracker_details:string|null|number;
     orderedat:string|null;

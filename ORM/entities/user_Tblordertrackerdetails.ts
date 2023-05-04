@@ -27,21 +27,21 @@ export class user_Tblordertrackerdetails {
     @Column("varchar", {
         name: "orderedat",
         nullable: true,
-        length: 10
+        length: 20
     })
     orderedat : string | null;
 
     @Column("varchar", {
         name: "completedat",
         nullable: true,
-        length: 10
+        length: 20
     })
     completedat : string | null;
 
     @Column("varchar", {
         name: "totaltime",
         nullable: true,
-        length: 10
+        length: 20
     })
     totaltime : string | null;
 
@@ -56,7 +56,7 @@ export class user_Tblordertrackerdetails {
     @Column("varchar", {
         name: "modification",
         nullable: true,
-        length: 50,
+        length: 250,
         default:"",
     })
     modification : string | null;
@@ -85,7 +85,7 @@ export class user_Tblordertrackerdetails {
     @Column("varchar", {
         name: "item_price",
         nullable: true,
-        length: 10
+        length: 25
     })
     itemPrice : string | null;
 
@@ -119,7 +119,7 @@ export class user_Tblordertrackerdetails {
     @Column("varchar", {
         name: "description",
         nullable: true,
-        length: 100
+        length: 200
     })
     description : string | null;
 

@@ -18,6 +18,7 @@ const app_data_source_1 = __importDefault(require("../../../../app-data-source")
 const token_1 = require("../../../utils/USER/token");
 const TblCart_1 = require("../../../../ORM/entities/TblCart");
 const TblCartItems_1 = require("../../../../ORM/entities/TblCartItems");
+const TblRestaurant_1 = require("../../../../ORM/entities/TblRestaurant");
 const restaurantCart = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     var _a, _b, _c;
     try {
@@ -56,6 +57,20 @@ const restaurantCart = (req, res) => __awaiter(void 0, void 0, void 0, function*
             return;
         }
         ;
+        let restaurantExists = yield app_data_source_1.default
+            .getRepository(TblRestaurant_1.TblRestaurant)
+            .findOne({
+            where: {
+                id: restaurantID
+            }
+        });
+        if (!restaurantExists) {
+            res
+                .status(400)
+                .json({ detail: "Restaurant does not exist." });
+            return;
+        }
+        ;
         let cartExists = yield app_data_source_1.default
             .getRepository(TblCart_1.TblCart)
             .findOne({
@@ -85,7 +100,8 @@ const restaurantCart = (req, res) => __awaiter(void 0, void 0, void 0, function*
             "t.costPrice",
             "t.sellingPrice",
             "t.sellingPricewithTax",
-            "t.quantity"
+            "t.quantity",
+            "t.Taxable"
         ])
             .where({ cartID: IDCart, isRemoved: false, isActive: true })
             .getMany();
@@ -95,10 +111,19 @@ const restaurantCart = (req, res) => __awaiter(void 0, void 0, void 0, function*
                 .json({ detail: "Error while fetching cart items." });
             return;
         }
-        let receiptjson = { total: "", subtotal: "", deliverycharge: "" };
+        let receiptjson = {
+            total: "",
+            subtotal: "",
+            deliverycharge: ""
+        };
+        let restaurantdetails = {
+            Name: (restaurantExists === null || restaurantExists === void 0 ? void 0 : restaurantExists.Name) || "",
+            description: (restaurantExists === null || restaurantExists === void 0 ? void 0 : restaurantExists.slogan) || (restaurantExists === null || restaurantExists === void 0 ? void 0 : restaurantExists.details) || "",
+            location: (restaurantExists === null || restaurantExists === void 0 ? void 0 : restaurantExists.Address) || ""
+        };
         res
             .status(200)
-            .json({ items: cartItems, receipt: receiptjson });
+            .json({ items: cartItems, receipt: receiptjson, restaurant: restaurantdetails });
         return;
     }
     catch (error) {

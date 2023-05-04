@@ -1,5 +1,5 @@
 import myDataSource from "@base/app-data-source";
-import {user_orderHistory, user_orderHistoryDetails} from "@reqtypes/orderHistory"
+import {user_orderHistory, user_orderHistoryDetails,deliverycustomerobject} from "@reqtypes/orderHistory"
 import {emitOrder} from "../../Socket/EmitOrder";
 import { user_Tblordertracker } from '@model/user_Tblordertracker';
 import { user_Tblordertrackerdetails } from '@model/user_Tblordertrackerdetails';
@@ -9,6 +9,7 @@ const saveClientOrder = async(orderObject : user_orderHistory) => {
     try {
         let returnObject:any={};
         let order : user_orderHistory = orderObject;
+        
         const orderTracker = new user_Tblordertracker();
         orderTracker.outletOrderid = order.outlet_orderid;
         orderTracker.orderedat = order.orderedat;
@@ -19,6 +20,13 @@ const saveClientOrder = async(orderObject : user_orderHistory) => {
         orderTracker.Address=order.Address;
         orderTracker.deliveryVia=order.deliveryVia;
         orderTracker.restaurantID=order.outletID;
+        orderTracker.deliverycustomerName = order?.deliverycustomer?.deliverycustomer_name||order.customerName;
+        orderTracker.deliverycustomerAddress = order?.deliverycustomer?.deliverycustomerAddress||order.Address;
+        orderTracker.deliverycustomerPhone = order?.deliverycustomer?.deliverycustomer_phone || order.customerPhone;
+        orderTracker.altdeliverycustomerPhone= order?.deliverycustomer?.altdeliverycustomerPhone|| order?.deliverycustomer?.deliverycustomer_phone ||order.customerPhone;
+
+
+
         await myDataSource
             .manager
             .save(orderTracker);
@@ -31,11 +39,12 @@ const saveClientOrder = async(orderObject : user_orderHistory) => {
         returnObject["orderedat"]=order.orderedat;
         returnObject["currentstate"]=order.currentstate;
         returnObject["outletName"]=order.outletName;
-        returnObject["customerName"]=order.customerName;
-        returnObject["customerPhone"]=order.customerPhone;
-        returnObject["Address"]=order.Address;
+        returnObject["customerName"]=order?.deliverycustomer?.deliverycustomer_name||order.customerName;;
+        returnObject["customerPhone"]=order?.deliverycustomer?.deliverycustomer_phone ||order?.deliverycustomer?.altdeliverycustomerPhone|| order.customerPhone;;
+        returnObject["Address"]=order?.deliverycustomer?.deliverycustomerAddress||order.Address;;
         returnObject["deliveryVia"]=order.deliveryVia;
         returnObject["Id"]=primarykey;
+        returnObject["deliverycustomer"]=order.deliverycustomer;
         // returnObject["OrderItemDetailsList"]=[];
         let orderDetailsArr:any=[];
         let orderDetails = order["OrderItemDetailsList"];

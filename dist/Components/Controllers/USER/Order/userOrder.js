@@ -16,12 +16,13 @@ exports.userOrder = void 0;
 const Tbluser_1 = require("../../../../ORM/entities/Tbluser");
 const app_data_source_1 = __importDefault(require("../../../../app-data-source"));
 const token_1 = require("../../../utils/USER/token");
+const saveClientOrder_1 = require("../../../../Components/Middlewares/USER/saveClientOrder");
 const TblRestaurant_1 = require("../../../../ORM/entities/TblRestaurant");
 const TblMenu_1 = require("../../../../ORM/entities/TblMenu");
 const TblCart_1 = require("../../../../ORM/entities/TblCart");
 const TblCartItems_1 = require("../../../../ORM/entities/TblCartItems");
 const userOrder = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    var _a, _b, _c;
+    var _a, _b, _c, _d;
     try {
         let token = (_a = req === null || req === void 0 ? void 0 : req.headers) === null || _a === void 0 ? void 0 : _a.token;
         if (!token) {
@@ -56,8 +57,33 @@ const userOrder = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             return;
         }
         ;
-        let cartID = (_b = req === null || req === void 0 ? void 0 : req.body) === null || _b === void 0 ? void 0 : _b.outlet_orderid;
-        let restaurantID = (_c = req === null || req === void 0 ? void 0 : req.body) === null || _c === void 0 ? void 0 : _c.outletID;
+        let deliverycustomer = (_b = req === null || req === void 0 ? void 0 : req.body) === null || _b === void 0 ? void 0 : _b.deliverycustomer;
+        if (!(deliverycustomer === null || deliverycustomer === void 0 ? void 0 : deliverycustomer.deliverycustomer_name)) {
+            res
+                .status(400)
+                .json({ detail: "Delivery customer name missing." });
+            return;
+        }
+        if (!(deliverycustomer === null || deliverycustomer === void 0 ? void 0 : deliverycustomer.deliverycustomer_phone)) {
+            res
+                .status(400)
+                .json({ detail: "Delivery customer phone missing." });
+            return;
+        }
+        if (!(deliverycustomer === null || deliverycustomer === void 0 ? void 0 : deliverycustomer.deliverycustomerAddress)) {
+            res
+                .status(400)
+                .json({ detail: "Delivery customer address missing." });
+            return;
+        }
+        let cartID = (_c = req === null || req === void 0 ? void 0 : req.body) === null || _c === void 0 ? void 0 : _c.outlet_orderid;
+        let restaurantID = (_d = req === null || req === void 0 ? void 0 : req.body) === null || _d === void 0 ? void 0 : _d.outletID;
+        if (!cartID || !restaurantID) {
+            res
+                .status(400)
+                .json({ detail: "outletID or outlet_orderid missing." });
+            return;
+        }
         let cartExists = yield app_data_source_1.default
             .getRepository(TblCart_1.TblCart)
             .findOne({
@@ -146,15 +172,23 @@ const userOrder = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             .where({ restaurantID: restaurantID, idCart: cartID, customerID: userid, isActive: true, isRemoved: false })
             .execute();
         returnobject["OrderItemDetailsList"] = cartitemarray;
-        res
-            .status(200)
-            .json(returnobject);
-        return;
-        // let result = await saveClientOrder(order); if ("error" in result) {     res
-        //       .status(500)         .json(result);     return; } else {     /* After
-        // the middleware emits the data to the device through socket connection, the
-        // same data is sent back to the user who post it  */     res
-        // .status(200)         .json(result["success"]);     return; };
+        let result = yield (0, saveClientOrder_1.saveClientOrder)(returnobject);
+        if ("error" in result) {
+            res
+                .status(500)
+                .json(result);
+            return;
+        }
+        else {
+            /* After
+        the middleware emits the data to the device through socket connection, the
+        same data is sent back to the user who post it  */
+            res
+                .status(200)
+                .json(result["success"]);
+            return;
+        }
+        ;
     }
     catch (err) {
         res
