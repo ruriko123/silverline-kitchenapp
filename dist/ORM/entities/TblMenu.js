@@ -93,9 +93,8 @@ __decorate([
     (0, typeorm_1.Column)("int", {
         name: "restaurantID",
         nullable: true,
-        default: null
     }),
-    __metadata("design:type", Object)
+    __metadata("design:type", Number)
 ], TblMenu.prototype, "restaurantID", void 0);
 __decorate([
     (0, typeorm_1.ManyToOne)(() => TblRestaurant_1.TblRestaurant, (restaurant) => restaurant.id, { onDelete: "NO ACTION", onUpdate: "NO ACTION" }),

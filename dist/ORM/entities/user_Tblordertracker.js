@@ -16,7 +16,7 @@ const TblRestaurant_1 = require("./TblRestaurant");
 let user_Tblordertracker = class user_Tblordertracker {
 };
 __decorate([
-    (0, typeorm_1.PrimaryGeneratedColumn)({ type: "bigint", name: "id" }),
+    (0, typeorm_1.PrimaryGeneratedColumn)({ type: "int", name: "id" }),
     __metadata("design:type", Number)
 ], user_Tblordertracker.prototype, "id", void 0);
 __decorate([

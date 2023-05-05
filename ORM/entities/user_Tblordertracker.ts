@@ -12,7 +12,7 @@ import {TblRestaurant} from "./TblRestaurant";
 
 @Entity()
 export class user_Tblordertracker {
-    @PrimaryGeneratedColumn({type: "bigint", name: "id"})
+    @PrimaryGeneratedColumn({type: "int", name: "id"})
     id : number;
 
     @Column("int", {

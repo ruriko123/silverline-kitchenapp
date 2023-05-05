@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.sortMenu = exports.findOpenClose = exports.getdistancefromuser = void 0;
+exports.checkOpenOrClosed = exports.sortMenu = exports.findOpenClose = exports.getdistancefromuser = void 0;
 const haversine_distance_1 = __importDefault(require("haversine-distance"));
 const moment_timezone_1 = __importDefault(require("moment-timezone"));
 (0, moment_timezone_1.default)().format();
@@ -41,6 +41,38 @@ const checkopeningclosingtimevalid = (openingtime, closingtime) => __awaiter(voi
     }
     ;
 });
+const checkOpenOrClosed = (restaurantData) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const currentTime = moment_timezone_1.default.tz((0, moment_timezone_1.default)(), 'Asia/Kathmandu').format('HH:mm:ss');
+        for (let x in restaurantData) {
+            let restaurantdata = restaurantData[x];
+            let restaurantopeningTime = restaurantdata === null || restaurantdata === void 0 ? void 0 : restaurantdata.openingTime;
+            let restaurantclosingTime = restaurantdata === null || restaurantdata === void 0 ? void 0 : restaurantdata.closingTime;
+            restaurantopeningTime = `${restaurantopeningTime}:00`;
+            restaurantclosingTime = `${restaurantclosingTime}:00`;
+            if (yield checkopeningclosingtimevalid(restaurantopeningTime, restaurantclosingTime)) {
+                if (currentTime >= restaurantopeningTime && currentTime <= restaurantclosingTime) {
+                    restaurantdata.openingTime = yield (0, moment_timezone_1.default)(restaurantopeningTime, "hh:mm:ss").format("hh:mm a");
+                    restaurantdata.closingTime = yield (0, moment_timezone_1.default)(restaurantclosingTime, "hh:mm:ss").format("hh:mm a");
+                    return true;
+                }
+                else {
+                    restaurantdata.openingTime = yield (0, moment_timezone_1.default)(restaurantopeningTime, "hh:mm:ss").format("hh:mm a");
+                    restaurantdata.closingTime = yield (0, moment_timezone_1.default)(restaurantclosingTime, "hh:mm:ss").format("hh:mm a");
+                    return false;
+                }
+                ;
+            }
+            ;
+        }
+        ;
+        return restaurantData;
+    }
+    catch (error) {
+        throw new Error('Error while checking restaurant open/close status.');
+    }
+});
+exports.checkOpenOrClosed = checkOpenOrClosed;
 const getdistancefromuser = (restaurantData, userlat, userlong) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         if (yield checkFloatParsable(userlat, userlong)) {

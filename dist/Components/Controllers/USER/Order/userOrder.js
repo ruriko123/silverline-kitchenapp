@@ -21,6 +21,7 @@ const TblRestaurant_1 = require("../../../../ORM/entities/TblRestaurant");
 const TblMenu_1 = require("../../../../ORM/entities/TblMenu");
 const TblCart_1 = require("../../../../ORM/entities/TblCart");
 const TblCartItems_1 = require("../../../../ORM/entities/TblCartItems");
+const restaurantdatafilters_1 = require("../../../utils/USER/restaurantdatafilters");
 const userOrder = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     var _a, _b, _c, _d;
     try {
@@ -113,6 +114,13 @@ const userOrder = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             res
                 .status(400)
                 .json({ detail: "Incorrect restaurant id supplied." });
+            return;
+        }
+        let checkopen = yield (0, restaurantdatafilters_1.checkOpenOrClosed)(restaurantExists);
+        if (!checkopen) {
+            res
+                .status(400)
+                .json({ detail: "Restaurant is currently closed." });
             return;
         }
         let order = req === null || req === void 0 ? void 0 : req.body;

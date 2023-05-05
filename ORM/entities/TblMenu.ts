@@ -83,9 +83,8 @@ export class TblMenu {
     @Column("int", {
         name: "restaurantID",
         nullable: true,
-        default:null
     })
-    restaurantID : string | null;
+    restaurantID : number ;
 
 
 

@@ -14,8 +14,8 @@ const typeorm_1 = require("typeorm");
 let TblThirdparty = class TblThirdparty {
 };
 __decorate([
-    (0, typeorm_1.PrimaryGeneratedColumn)({ type: "bigint", name: "id" }),
-    __metadata("design:type", String)
+    (0, typeorm_1.PrimaryGeneratedColumn)({ type: "int", name: "id" }),
+    __metadata("design:type", Number)
 ], TblThirdparty.prototype, "id", void 0);
 __decorate([
     (0, typeorm_1.Column)("varchar", { name: "Phone", nullable: true, length: 20 }),

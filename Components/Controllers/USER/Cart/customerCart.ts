@@ -57,7 +57,7 @@ const customerCart : RequestHandler = async(req, res) => {
         .getMany();
 
 
-        if (!cart) {
+        if (!cart || cart?.length===0) {
             res
                 .status(400)
                 .json({detail: "Cart is empty."});

@@ -3,7 +3,7 @@ import { Tblordertrackerdetails } from "./Tblordertrackerdetails";
 
 @Entity()
 export class Tblordertracker {
-  @PrimaryGeneratedColumn({ type: "bigint", name: "id" })
+  @PrimaryGeneratedColumn({ type: "int", name: "id" })
   id: number;
 
   @Column("int", { name: "outlet_orderid", nullable: true })

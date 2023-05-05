@@ -63,7 +63,7 @@ const customerCart = (req, res) => __awaiter(void 0, void 0, void 0, function* (
         ])
             .where({ customerID: userid, isRemoved: false, isActive: true })
             .getMany();
-        if (!cart) {
+        if (!cart || (cart === null || cart === void 0 ? void 0 : cart.length) === 0) {
             res
                 .status(400)
                 .json({ detail: "Cart is empty." });

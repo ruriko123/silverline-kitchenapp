@@ -14,7 +14,7 @@ const typeorm_1 = require("typeorm");
 let TblRestaurantThirdPartyLinks = class TblRestaurantThirdPartyLinks {
 };
 __decorate([
-    (0, typeorm_1.PrimaryGeneratedColumn)({ type: "bigint", name: "id" }),
+    (0, typeorm_1.PrimaryGeneratedColumn)({ type: "int", name: "id" }),
     __metadata("design:type", Number)
 ], TblRestaurantThirdPartyLinks.prototype, "id", void 0);
 __decorate([

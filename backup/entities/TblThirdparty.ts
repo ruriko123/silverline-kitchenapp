@@ -2,8 +2,8 @@ import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity("tbl_thirdparty", { schema: "kitchenDB" })
 export class TblThirdparty {
-  @PrimaryGeneratedColumn({ type: "bigint", name: "id" })
-  id: string;
+  @PrimaryGeneratedColumn({ type: "int", name: "id" })
+  id: number;
 
   @Column("varchar", { name: "Phone", nullable: true, length: 20 })
   phone: string | null;

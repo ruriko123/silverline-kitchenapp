@@ -110,7 +110,7 @@ export class user_Tblordertrackerdetails {
     })
     voidtotaltime : string | null;
 
-    @Column("bigint", {
+    @Column("int", {
         name: "ordertracker_id",
         nullable: true
     })

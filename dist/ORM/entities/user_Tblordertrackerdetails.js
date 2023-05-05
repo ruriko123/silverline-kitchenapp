@@ -126,7 +126,7 @@ __decorate([
     __metadata("design:type", Object)
 ], user_Tblordertrackerdetails.prototype, "voidtotaltime", void 0);
 __decorate([
-    (0, typeorm_1.Column)("bigint", {
+    (0, typeorm_1.Column)("int", {
         name: "ordertracker_id",
         nullable: true
     }),
