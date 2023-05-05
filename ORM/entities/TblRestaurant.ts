@@ -9,7 +9,6 @@ export class TblRestaurant {
         name: "Name",
         nullable: true,
         default:null,
-
         length: 150
     })
     Name : string | null;
@@ -18,7 +17,6 @@ export class TblRestaurant {
         name: "Address",
         nullable: true,
         default:null,
-
         length: 70
     })
     Address : string | null;
@@ -27,7 +25,6 @@ export class TblRestaurant {
         name: "Phone",
         nullable: true,
         default:null,
-
         length: 20
     })
     Phone : string | null;
@@ -36,7 +33,6 @@ export class TblRestaurant {
         name: "Pan",
         nullable: true,
         default:null,
-
         length: 50
 
     })
@@ -46,7 +42,6 @@ export class TblRestaurant {
         name: "AltPhone",
         nullable: true,
         default:null,
-
         length: 50
     })
     AltPhone : string | null;
@@ -55,7 +50,6 @@ export class TblRestaurant {
         name: "Email",
         nullable: true,
         default:null,
-
         length: 50
     })
     Email : string | null;
@@ -64,7 +58,6 @@ export class TblRestaurant {
         name: "long",
         nullable: true,
         default:null,
-
         length: 20
     })
     long : string | null;
@@ -75,9 +68,7 @@ export class TblRestaurant {
         name: "lat",
         nullable: true,
         default:null,
-
         length: 20
-        
     })
     lat : string | null;
 
@@ -92,7 +83,6 @@ export class TblRestaurant {
         name: "logo",
         nullable: true,
         default:"https://cdn.logojoy.com/wp-content/uploads/2018/05/30151524/822.png",
-
         length: 500
     })
     logo : string | null;
@@ -102,7 +92,6 @@ export class TblRestaurant {
         name: "coverimage",
         nullable: true,
         default:"https://cdn.logojoy.com/wp-content/uploads/2018/05/30151524/822.png",
-
         length: 500
     })
     coverimage : string | null;
@@ -112,7 +101,6 @@ export class TblRestaurant {
         name: "contactPerson",
         nullable: true,
         default:null,
-
         length: 50
     })
     contactPerson : string | null;
@@ -122,7 +110,6 @@ export class TblRestaurant {
         name: "commission",
         nullable: true,
         default:null,
-
         length: 50
 
     })
@@ -132,7 +119,6 @@ export class TblRestaurant {
         name: "slogan",
         nullable: true,
         default:null,
-
         length: 150
     })
     slogan : string | null;
@@ -148,7 +134,6 @@ export class TblRestaurant {
         name: "deletedBy",
         nullable: true,
         default:null,
-
         length: 50
     })
     deletedBy : string | null;
@@ -157,7 +142,6 @@ export class TblRestaurant {
         name: "addedBy",
         nullable: true,
         default:null,
-
         length: 50
     })
     addedBy : string | null;
@@ -166,7 +150,6 @@ export class TblRestaurant {
         name: "addedDate",
         nullable: true,
         default:null,
-
         length: 50
     })
     addedDate : string | null;
@@ -175,7 +158,6 @@ export class TblRestaurant {
         name: "deletedDate",
         nullable: true,
         default:null,
-
         length: 50
     })
     deletedDate : string | null;
@@ -184,7 +166,6 @@ export class TblRestaurant {
         name: "lastModifiedBy",
         nullable: true,
         default:null,
-
         length: 50
     })
     lastModifiedBy : string | null;
@@ -192,7 +173,6 @@ export class TblRestaurant {
         name: "baseURL",
         nullable: true,
         default:null,
-
         length: 50
     })
     baseURL : string | null;
@@ -201,7 +181,6 @@ export class TblRestaurant {
         name: "openingTime",
         nullable: true,
         default:null,
-
         length: 50
     })
     openingTime : string | null;
@@ -210,7 +189,6 @@ export class TblRestaurant {
         name: "closingTime",
         nullable: true,
         default:null,
-
         length: 50
     })
     closingTime : string | null;
@@ -230,6 +208,12 @@ export class TblRestaurant {
         default:false
     })
     isActive : boolean | null;
+
+    @Column("boolean", {
+        name: "isCloudKitchen",
+        default:false
+    })
+    isCloudKitchen : boolean | null;
 
     @Column("boolean", {
         name: "isPopular",

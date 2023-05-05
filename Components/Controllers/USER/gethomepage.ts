@@ -3,7 +3,7 @@ import myDataSource from "@base/app-data-source";
 import {decodeToken} from '@utils/USER/token';
 import {Tbluser} from "@model/Tbluser";
 import {TblRestaurant} from "@model/TblRestaurant";
-import {filterPopular, filterwithdistance, findOpenClose} from "@utils/USER/homepagefilters";
+import {filterPopular, filterCloudKitchen,filterwithdistance, findOpenClose} from "@utils/USER/homepagefilters";
 
 const gethomepage : RequestHandler = async(req, res) => {
 
@@ -56,7 +56,8 @@ const gethomepage : RequestHandler = async(req, res) => {
                 "t.coverimage",
                 "t.openingTime",
                 "t.closingTime",
-                "t.isPopular"
+                "t.isPopular",
+                "t.isCloudKitchen"
             ])
             .where({isActive: true, operatingLocation: `${userPreferredLocation}`})
             .getMany();
@@ -70,10 +71,15 @@ const gethomepage : RequestHandler = async(req, res) => {
         try {
             let restaurantDataFilteredWithDistance = await filterwithdistance(restaurantData, userLat, userlong);
             restaurantDataFilteredWithDistance = await findOpenClose(restaurantDataFilteredWithDistance);
+            let cloudKitchen = await filterCloudKitchen(restaurantDataFilteredWithDistance);
             let popularonly = await filterPopular(restaurantDataFilteredWithDistance);
+
+
             let returnobject : any = {
                 near_you: restaurantDataFilteredWithDistance || [],
-                popular: popularonly || []
+                popular: popularonly || [],
+                cloudKitchen:cloudKitchen||[]
+
             };
             res
                 .status(200)

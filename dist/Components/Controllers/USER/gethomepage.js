@@ -62,7 +62,8 @@ const gethomepage = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
             "t.coverimage",
             "t.openingTime",
             "t.closingTime",
-            "t.isPopular"
+            "t.isPopular",
+            "t.isCloudKitchen"
         ])
             .where({ isActive: true, operatingLocation: `${userPreferredLocation}` })
             .getMany();
@@ -76,10 +77,12 @@ const gethomepage = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
         try {
             let restaurantDataFilteredWithDistance = yield (0, homepagefilters_1.filterwithdistance)(restaurantData, userLat, userlong);
             restaurantDataFilteredWithDistance = yield (0, homepagefilters_1.findOpenClose)(restaurantDataFilteredWithDistance);
+            let cloudKitchen = yield (0, homepagefilters_1.filterCloudKitchen)(restaurantDataFilteredWithDistance);
             let popularonly = yield (0, homepagefilters_1.filterPopular)(restaurantDataFilteredWithDistance);
             let returnobject = {
                 near_you: restaurantDataFilteredWithDistance || [],
-                popular: popularonly || []
+                popular: popularonly || [],
+                cloudKitchen: cloudKitchen || []
             };
             res
                 .status(200)

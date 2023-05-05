@@ -28,6 +28,47 @@ const checkopeningclosingtimevalid = async(openingtime : string, closingtime : s
     };
 };
 
+
+
+
+
+
+
+const checkOpenOrClosed = async(restaurantData : keyable) => {
+    try {
+        const currentTime = moment.tz(moment(), 'Asia/Kathmandu').format('HH:mm:ss');
+        for (let x in restaurantData) {
+            let restaurantdata = restaurantData[x];
+            let restaurantopeningTime = restaurantdata
+                ?.openingTime;
+            let restaurantclosingTime = restaurantdata
+                ?.closingTime;
+            restaurantopeningTime = `${restaurantopeningTime}:00`;
+            restaurantclosingTime = `${restaurantclosingTime}:00`;
+            if (await checkopeningclosingtimevalid(restaurantopeningTime, restaurantclosingTime)) {
+                if (currentTime >= restaurantopeningTime && currentTime <= restaurantclosingTime) {
+                    restaurantdata.openingTime = await moment(restaurantopeningTime, "hh:mm:ss").format("hh:mm a");
+                    restaurantdata.closingTime = await moment(restaurantclosingTime, "hh:mm:ss").format("hh:mm a");
+                    return true;
+                } else {
+                    restaurantdata.openingTime = await moment(restaurantopeningTime, "hh:mm:ss").format("hh:mm a");
+                    restaurantdata.closingTime = await moment(restaurantclosingTime, "hh:mm:ss").format("hh:mm a");
+                    return false;
+                };
+            };
+        };
+        return restaurantData;
+    } catch (error) {
+        throw new Error('Error while checking restaurant open/close status.');
+    }
+
+};
+
+
+
+
+
+
 const getdistancefromuser = async(restaurantData : keyable, userlat : string, userlong : string) => {
     try {
         if (await checkFloatParsable(userlat, userlong)) {
@@ -61,6 +102,11 @@ const getdistancefromuser = async(restaurantData : keyable, userlat : string, us
     };
 
 };
+
+
+
+
+
 
 const findOpenClose = async(restaurantData : keyable) => {
     try {
@@ -131,4 +177,4 @@ const sortMenu = async(menuData : any) => {
     }
 }
 
-export {getdistancefromuser, findOpenClose, sortMenu}
+export {getdistancefromuser, findOpenClose, sortMenu,checkOpenOrClosed}

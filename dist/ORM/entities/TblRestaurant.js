@@ -240,6 +240,13 @@ __decorate([
 ], TblRestaurant.prototype, "isActive", void 0);
 __decorate([
     (0, typeorm_1.Column)("boolean", {
+        name: "isCloudKitchen",
+        default: false
+    }),
+    __metadata("design:type", Object)
+], TblRestaurant.prototype, "isCloudKitchen", void 0);
+__decorate([
+    (0, typeorm_1.Column)("boolean", {
         name: "isPopular",
         default: false
     }),

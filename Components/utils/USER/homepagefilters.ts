@@ -63,6 +63,23 @@ const filterwithdistance = async(restaurantData : keyable, userlat : string, use
 
 };
 
+const filterCloudKitchen= async(restaurantdataarrayFiltered : keyable) => {
+    try {
+        let cloudKitchenArray:Array<any> = [];
+        for (let k in restaurantdataarrayFiltered){
+            let restaurantdata  =restaurantdataarrayFiltered[k];
+            if(restaurantdata?.isCloudKitchen){
+                cloudKitchenArray.push(restaurantdata);
+            };
+        };
+        return cloudKitchenArray;
+    } catch (error) {
+        throw new Error('Error while filtering popular restaurants.');
+    };
+};
+
+
+
 const filterPopular = async(restaurantdataarrayFiltered : keyable) => {
     try {
         let populararray:Array<any> = [];
@@ -104,4 +121,4 @@ const findOpenClose = async(restaurantData : keyable) => {
 
 };
 
-export {filterPopular, filterwithdistance, findOpenClose}
+export {filterPopular, filterwithdistance, findOpenClose,filterCloudKitchen}

@@ -113,8 +113,16 @@ const restaurantCart : RequestHandler = async(req, res) => {
             subtotal: "",
             deliverycharge: ""
         };
-        let restaurantid = restaurantExists.id;
-        let restaurantdetails = {
+        let idrestaurant = restaurantExists.id;
+
+        interface restaurantreturndetails {
+            Name:string;
+            description:string;
+            location:string;
+            cartID:number;
+            idrestaurant:number;
+        }
+        let restaurantdetails:restaurantreturndetails = {
             Name: restaurantExists
                 ?.Name || "",
             description: restaurantExists
@@ -123,7 +131,7 @@ const restaurantCart : RequestHandler = async(req, res) => {
             location: restaurantExists
                 ?.Address || "",
             cartID:cartExists.idCart,
-            restaurantID:restaurantid
+            idrestaurant:idrestaurant
         };
         res
             .status(200)

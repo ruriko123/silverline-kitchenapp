@@ -115,13 +115,13 @@ const restaurantCart = (req, res) => __awaiter(void 0, void 0, void 0, function*
             subtotal: "",
             deliverycharge: ""
         };
-        let restaurantid = restaurantExists.id;
+        let idrestaurant = restaurantExists.id;
         let restaurantdetails = {
             Name: (restaurantExists === null || restaurantExists === void 0 ? void 0 : restaurantExists.Name) || "",
             description: (restaurantExists === null || restaurantExists === void 0 ? void 0 : restaurantExists.slogan) || (restaurantExists === null || restaurantExists === void 0 ? void 0 : restaurantExists.details) || "",
             location: (restaurantExists === null || restaurantExists === void 0 ? void 0 : restaurantExists.Address) || "",
             cartID: cartExists.idCart,
-            restaurantID: restaurantid
+            idrestaurant: idrestaurant
         };
         res
             .status(200)

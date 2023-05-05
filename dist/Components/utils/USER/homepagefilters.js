@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.findOpenClose = exports.filterwithdistance = exports.filterPopular = void 0;
+exports.filterCloudKitchen = exports.findOpenClose = exports.filterwithdistance = exports.filterPopular = void 0;
 const haversine_distance_1 = __importDefault(require("haversine-distance"));
 const moment_timezone_1 = __importDefault(require("moment-timezone"));
 (0, moment_timezone_1.default)().format();
@@ -79,6 +79,25 @@ const filterwithdistance = (restaurantData, userlat, userlong) => __awaiter(void
     ;
 });
 exports.filterwithdistance = filterwithdistance;
+const filterCloudKitchen = (restaurantdataarrayFiltered) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        let cloudKitchenArray = [];
+        for (let k in restaurantdataarrayFiltered) {
+            let restaurantdata = restaurantdataarrayFiltered[k];
+            if (restaurantdata === null || restaurantdata === void 0 ? void 0 : restaurantdata.isCloudKitchen) {
+                cloudKitchenArray.push(restaurantdata);
+            }
+            ;
+        }
+        ;
+        return cloudKitchenArray;
+    }
+    catch (error) {
+        throw new Error('Error while filtering popular restaurants.');
+    }
+    ;
+});
+exports.filterCloudKitchen = filterCloudKitchen;
 const filterPopular = (restaurantdataarrayFiltered) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         let populararray = [];

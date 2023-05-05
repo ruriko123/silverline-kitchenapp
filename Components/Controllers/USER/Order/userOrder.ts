@@ -8,6 +8,10 @@ import {TblRestaurant} from '@model/TblRestaurant';
 import {TblMenu} from '@model/TblMenu';
 import {TblCart} from '@base/ORM/entities/TblCart';
 import {TblCartItems} from '@base/ORM/entities/TblCartItems';
+import { checkOpenOrClosed } from "@utils/USER/restaurantdatafilters";
+
+
+
 
 const userOrder : RequestHandler = async(req, res) => {
     try {
@@ -119,6 +123,17 @@ const userOrder : RequestHandler = async(req, res) => {
                 .json({detail: "Incorrect restaurant id supplied."});
             return;
         }
+
+        let checkopen = await checkOpenOrClosed(restaurantExists);
+        if(!checkopen){
+            res
+                .status(400)
+                .json({detail: "Restaurant is currently closed."});
+            return;
+        }
+
+
+
 
         let order : user_orderHistory = req
             ?.body;
