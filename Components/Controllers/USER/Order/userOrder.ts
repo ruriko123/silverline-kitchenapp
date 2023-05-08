@@ -267,6 +267,7 @@ const userOrder : RequestHandler = async(req, res) => {
             .execute();
 
         returnobject["OrderItemDetailsList"] = cartitemarray;
+        returnobject["userid"]=userid;
         let result = await saveClientOrder(returnobject);
         if ("error" in result) {
             res
@@ -274,6 +275,18 @@ const userOrder : RequestHandler = async(req, res) => {
                 .json(result);
             return;
         } else {
+            let loyalitypricepercent:number = parseInt(`${process.env.LoyalityPointPC}`)||1;
+            let pointsEarned =((loyalitypricepercent/100) *  Total)||0;
+            
+            let userpoints = userData.points||0.00;
+            userpoints = userpoints+pointsEarned;
+            await myDataSource
+            .createQueryBuilder()
+            .update(Tbluser)
+            .set({points:userpoints})
+            .where("id = :id", {id: userid})
+            .execute();
+
             /* After
         the middleware emits the data to the device through socket connection, the
         same data is sent back to the user who post it  */

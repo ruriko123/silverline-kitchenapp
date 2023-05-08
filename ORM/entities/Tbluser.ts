@@ -128,6 +128,17 @@ export class Tbluser {
     @Column("int", {name: "resendOtpAttempts", default:0, nullable: true})
     resendOtpAttempts : number;
 
+    @Column("decimal", {
+        name: "points",
+        nullable: true,
+        default: 0.00,
+        precision: 10,
+        scale: 2
+    })
+    points : number|null;
+
+
+
     @Column("varchar", {
         name: "firebaseToken",
         nullable: true,
@@ -234,7 +245,6 @@ export class Tbluser {
     @Column("longtext", {
         name: "profilepicture",
         nullable: true,
-        default:null
     })
     profilepicture : string | null;
 }

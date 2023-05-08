@@ -8,6 +8,8 @@ import {getCurrentTime} from "@utils/time/getCurrentTime";
 import {createTransporter} from "@utils/email/transporter";
 import {generateOTP} from "@base/Components/utils/otp/generateotp";
 import {getTimeDiff,getTimeAfterTimeout} from "@base/Components/utils/time/timediff";
+var toonavatar = require('cartoon-avatar');
+
 
 const registeruser : RequestHandler = async(req, res) => {
     try {
@@ -67,6 +69,7 @@ const registeruser : RequestHandler = async(req, res) => {
                 }
             });
         if (!userData) {
+            var url = await toonavatar.generate_avatar();
             let tbluser = new Tbluser();
             tbluser.username = email;
             tbluser.displayname = full_name;
@@ -82,6 +85,7 @@ const registeruser : RequestHandler = async(req, res) => {
             tbluser.firebaseToken = firebasetoken;
             tbluser.activeStatus = false;
             tbluser.registrationStatus = "STARTED";
+            tbluser.profilepicture = url;
             let currentTime = await getCurrentTime();
             tbluser.registrationDatetime = new Date(currentTime);
             let otp;

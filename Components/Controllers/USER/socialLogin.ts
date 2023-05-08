@@ -3,6 +3,9 @@ import {socialLogin} from "@reqtypes/orderHistory";
 import myDataSource from "@base/app-data-source";
 import {Tbluser} from '@model/Tbluser';
 import {generateToken} from "@utils/USER/token";
+var toonavatar = require('cartoon-avatar');
+
+
 
 const socialLogin : RequestHandler = async(req, res) => {
     try {
@@ -48,6 +51,7 @@ const socialLogin : RequestHandler = async(req, res) => {
                 }
             });
         if (!userData) {
+            var url = await toonavatar.generate_avatar()
             let tbluser = new Tbluser();
             tbluser.username = social_token;
             tbluser.displayname = full_name;
@@ -60,6 +64,7 @@ const socialLogin : RequestHandler = async(req, res) => {
             tbluser.deviceId = deviceid;
             tbluser.deviceType = devicetype;
             tbluser.firebaseToken = firebasetoken;
+            tbluser.profilepicture = url;
             let a = await myDataSource
                 .manager
                 .save(tbluser);

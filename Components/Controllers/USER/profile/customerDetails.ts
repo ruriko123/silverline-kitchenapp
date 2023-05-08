@@ -54,6 +54,8 @@ const customerDetails : RequestHandler = async(req, res) => {
                 "t.phone",
                 "t.locationName",
                 "t.altphone",
+                "t.points",
+                "t.profilepicture"
             ])
             .where({id: userid})
             .getOne();

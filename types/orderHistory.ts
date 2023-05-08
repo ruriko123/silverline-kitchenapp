@@ -21,7 +21,6 @@ export interface user_orderHistory {
     delivery_charge:number|null;
     taxable:number|null;
 
-
 };
 
 export interface deliverycustomerobject {
