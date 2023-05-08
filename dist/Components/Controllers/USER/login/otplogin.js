@@ -13,11 +13,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.otplogin = void 0;
-const app_data_source_1 = __importDefault(require("@base/app-data-source"));
-const Tbluser_1 = require("@model/Tbluser");
-const token_1 = require("@utils/USER/token");
-const getCurrentTime_1 = require("@utils/time/getCurrentTime");
-const timediff_1 = require("@base/Components/utils/time/timediff");
+const app_data_source_1 = __importDefault(require("../../../../app-data-source"));
+const Tbluser_1 = require("../../../../ORM/entities/Tbluser");
+const token_1 = require("../../../utils/USER/token");
+const getCurrentTime_1 = require("../../../utils/time/getCurrentTime");
+const timediff_1 = require("../../../../Components/utils/time/timediff");
 const otplogin = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         let userdata = req === null || req === void 0 ? void 0 : req.body;

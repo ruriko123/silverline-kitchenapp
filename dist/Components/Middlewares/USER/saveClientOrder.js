@@ -13,10 +13,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.saveClientOrder = void 0;
-const app_data_source_1 = __importDefault(require("@base/app-data-source"));
+const app_data_source_1 = __importDefault(require("../../../app-data-source"));
 const EmitOrder_1 = require("../../Socket/EmitOrder");
-const user_Tblordertracker_1 = require("@model/user_Tblordertracker");
-const user_Tblordertrackerdetails_1 = require("@model/user_Tblordertrackerdetails");
+const user_Tblordertracker_1 = require("../../../ORM/entities/user_Tblordertracker");
+const user_Tblordertrackerdetails_1 = require("../../../ORM/entities/user_Tblordertrackerdetails");
 const saveClientOrder = (orderObject) => __awaiter(void 0, void 0, void 0, function* () {
     var _a, _b, _c, _d, _e, _f, _g, _h, _j;
     try {

@@ -13,8 +13,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.thirdPartyupdate = void 0;
-const TblThirdparty_1 = require("@model/TblThirdparty");
-const app_data_source_1 = __importDefault(require("@base/app-data-source"));
+const TblThirdparty_1 = require("../../../../ORM/entities/TblThirdparty");
+const app_data_source_1 = __importDefault(require("../../../../app-data-source"));
 const typeorm_1 = require("typeorm");
 const thirdPartyupdate = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     var _a, _b;

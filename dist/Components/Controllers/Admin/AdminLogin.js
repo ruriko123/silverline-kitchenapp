@@ -13,9 +13,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.adminLogin = void 0;
-const AdminHash_1 = require("@base/Components/utils/AdminHash");
-const TblAdmin_1 = require("@model/TblAdmin");
-const app_data_source_1 = __importDefault(require("@base/app-data-source"));
+const AdminHash_1 = require("../../../Components/utils/AdminHash");
+const TblAdmin_1 = require("../../../ORM/entities/TblAdmin");
+const app_data_source_1 = __importDefault(require("../../../app-data-source"));
 const adminLogin = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     var _a, _b;
     try {

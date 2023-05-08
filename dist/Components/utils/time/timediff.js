@@ -44,7 +44,7 @@ exports.getTimeAfterTimeout = getTimeAfterTimeout;
 const resendgetTimeAfterTimeout = (firstdate) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         let addtime = parseInt(`${process.env.OTP_RESEND_TIMEOUT}`);
-        let result = yield moment_timezone_1.default.tz((0, moment_timezone_1.default)(firstdate, "YYYY-MM-DD HH:mm:ss Z"), 'Asia/Kathmandu').add(addtime, 'm').format("YYYY-MM-DD HH:mm:ss Z");
+        let result = yield moment_timezone_1.default.tz((0, moment_timezone_1.default)(firstdate, "YYYY-MM-DD HH:mm:ss Z"), 'Asia/Kathmandu').add(addtime, 'm').format("hh:mm:ss A");
         return result;
     }
     catch (error) {

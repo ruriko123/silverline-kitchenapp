@@ -27,7 +27,7 @@ const getTimeAfterTimeout = async(firstdate : Date) => {
 const resendgetTimeAfterTimeout = async(firstdate : Date) => {
     try {
         let addtime = parseInt(`${process.env.OTP_RESEND_TIMEOUT}`);
-        let result = await moment.tz(moment(firstdate, "YYYY-MM-DD HH:mm:ss Z"), 'Asia/Kathmandu').add(addtime, 'm').format("YYYY-MM-DD HH:mm:ss Z");
+        let result = await moment.tz(moment(firstdate, "YYYY-MM-DD HH:mm:ss Z"), 'Asia/Kathmandu').add(addtime, 'm').format("hh:mm:ss A");
         return result;
     } catch (error) {
         return `${process.env.OTP_RESEND_TIMEOUT} minutes`;

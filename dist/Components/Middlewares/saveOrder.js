@@ -13,9 +13,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.saveOrder = void 0;
-const Tblordertracker_1 = require("@model/Tblordertracker");
-const Tblordertrackerdetails_1 = require("@model/Tblordertrackerdetails");
-const app_data_source_1 = __importDefault(require("@base/app-data-source"));
+const Tblordertracker_1 = require("../../ORM/entities/Tblordertracker");
+const Tblordertrackerdetails_1 = require("../../ORM/entities/Tblordertrackerdetails");
+const app_data_source_1 = __importDefault(require("../../app-data-source"));
 const EmitOrder_1 = require("../Socket/EmitOrder");
 const saveOrder = (orderObject) => __awaiter(void 0, void 0, void 0, function* () {
     try {

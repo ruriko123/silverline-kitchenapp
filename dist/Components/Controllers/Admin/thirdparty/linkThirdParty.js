@@ -13,11 +13,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.linkThirdParty = void 0;
-const TblRestaurantThirdPartyLinks_1 = require("@model/TblRestaurantThirdPartyLinks");
-const app_data_source_1 = __importDefault(require("@base/app-data-source"));
-const TblThirdparty_1 = require("@model/TblThirdparty");
-const TblRestaurant_1 = require("@model/TblRestaurant");
-const RestaurantLinkDJANGOAPI_1 = require("@base/Components/utils/RestaurantLinkDJANGOAPI");
+const TblRestaurantThirdPartyLinks_1 = require("../../../../ORM/entities/TblRestaurantThirdPartyLinks");
+const app_data_source_1 = __importDefault(require("../../../../app-data-source"));
+const TblThirdparty_1 = require("../../../../ORM/entities/TblThirdparty");
+const TblRestaurant_1 = require("../../../../ORM/entities/TblRestaurant");
+const RestaurantLinkDJANGOAPI_1 = require("../../../../Components/utils/RestaurantLinkDJANGOAPI");
 const linkThirdParty = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     var _a, _b, _c;
     try {

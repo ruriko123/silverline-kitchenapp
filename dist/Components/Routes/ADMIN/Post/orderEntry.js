@@ -12,5 +12,5 @@ var path = require('path');
 var scriptName = path
     .basename(__filename)
     .replace(/\.[^.]*$/, '');
-const thirdPartyorder_1 = require("@base/Components/Controllers/thirdPartyOrder/thirdPartyorder");
+const thirdPartyorder_1 = require("../../../../Components/Controllers/thirdPartyOrder/thirdPartyorder");
 router.post(`/${scriptName}`, thirdPartyorder_1.thirdPartyorder);

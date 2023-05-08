@@ -13,11 +13,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.userRegistrationDetails = void 0;
-const app_data_source_1 = __importDefault(require("@base/app-data-source"));
-const Tbluser_1 = require("@model/Tbluser");
-const userPassword_1 = require("@utils/USER/normalLogin/userPassword");
+const app_data_source_1 = __importDefault(require("../../../../app-data-source"));
+const Tbluser_1 = require("../../../../ORM/entities/Tbluser");
+const userPassword_1 = require("../../../utils/USER/normalLogin/userPassword");
 var toonavatar = require('cartoon-avatar');
-const token_1 = require("@utils/USER/token");
+const token_1 = require("../../../utils/USER/token");
 const userRegistrationDetails = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     var _a;
     try {

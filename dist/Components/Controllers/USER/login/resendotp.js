@@ -13,12 +13,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.resendotp = void 0;
-const app_data_source_1 = __importDefault(require("@base/app-data-source"));
-const Tbluser_1 = require("@model/Tbluser");
-const getCurrentTime_1 = require("@utils/time/getCurrentTime");
-const transporter_1 = require("@utils/email/transporter");
-const generateotp_1 = require("@base/Components/utils/otp/generateotp");
-const timediff_1 = require("@base/Components/utils/time/timediff");
+const app_data_source_1 = __importDefault(require("../../../../app-data-source"));
+const Tbluser_1 = require("../../../../ORM/entities/Tbluser");
+const getCurrentTime_1 = require("../../../utils/time/getCurrentTime");
+const transporter_1 = require("../../../utils/email/transporter");
+const generateotp_1 = require("../../../../Components/utils/otp/generateotp");
+const timediff_1 = require("../../../../Components/utils/time/timediff");
 const resendotp = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     var _a;
     try {

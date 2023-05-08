@@ -13,9 +13,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.socialLogin = void 0;
-const app_data_source_1 = __importDefault(require("@base/app-data-source"));
-const Tbluser_1 = require("@model/Tbluser");
-const token_1 = require("@utils/USER/token");
+const app_data_source_1 = __importDefault(require("../../../app-data-source"));
+const Tbluser_1 = require("../../../ORM/entities/Tbluser");
+const token_1 = require("../../utils/USER/token");
 var toonavatar = require('cartoon-avatar');
 const socialLogin = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {

@@ -10,8 +10,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.emitOrder = void 0;
-const index_1 = require("@base/index");
-const socketJoinToken_1 = require("@socket/socketJoinToken");
+const index_1 = require("../../index");
+const socketJoinToken_1 = require("./socketJoinToken");
 const emitOrder = (outletName, orderObject) => __awaiter(void 0, void 0, void 0, function* () {
     let outletHash = yield (0, socketJoinToken_1.createOutletHash)(outletName);
     console.log(outletHash);
