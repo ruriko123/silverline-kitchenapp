@@ -154,8 +154,9 @@ const registeruser = (req, res) => __awaiter(void 0, void 0, void 0, function* (
                 registrationAttemptTime = new Date(registrationAttemptTime);
                 try {
                     let result = yield (0, timediff_1.getTimeDiff)(userData.registrationDatetime, registrationAttemptTime);
-                    console.log(result);
+                    // console.log(result,parseInt(`${process.env.REGISTRATION_otpTimeout}`));
                     if (result >= parseInt(`${process.env.REGISTRATION_otpTimeout}`)) {
+                        // console.log(result>=parseInt(`${process.env.REGISTRATION_otpTimeout}`));
                         let otp;
                         try {
                             otp = yield (0, generateotp_1.generateOTP)();
@@ -182,10 +183,12 @@ const registeruser = (req, res) => __awaiter(void 0, void 0, void 0, function* (
                                         else {
                                             transporter.close();
                                             let userid = userData === null || userData === void 0 ? void 0 : userData.id;
+                                            let currentTime = yield (0, getCurrentTime_1.getCurrentTime)();
+                                            let registrationDatetime = new Date(currentTime);
                                             yield app_data_source_1.default
                                                 .createQueryBuilder()
                                                 .update(Tbluser_1.Tbluser)
-                                                .set({ otpStep: otpStep, otp: otp, otpGeneratedDatetime: otpGeneratedDatetime })
+                                                .set({ registrationDatetime: registrationDatetime, otpStep: otpStep, otp: otp, otpGeneratedDatetime: otpGeneratedDatetime })
                                                 .where("id = :id", { id: userid })
                                                 .execute();
                                             res
@@ -212,7 +215,7 @@ const registeruser = (req, res) => __awaiter(void 0, void 0, void 0, function* (
                         }
                         ;
                     }
-                    else {
+                    else if (result < parseInt(`${process.env.REGISTRATION_otpTimeout}`)) {
                         let registrationtime = userData.registrationDatetime;
                         let timeouttime = yield (0, timediff_1.getTimeAfterTimeout)(registrationtime);
                         res
@@ -223,6 +226,7 @@ const registeruser = (req, res) => __awaiter(void 0, void 0, void 0, function* (
                     ;
                 }
                 catch (error) {
+                    console.log(error);
                     res
                         .status(400)
                         .json({ detail: `${error}` });
@@ -230,11 +234,13 @@ const registeruser = (req, res) => __awaiter(void 0, void 0, void 0, function* (
                 }
                 ;
             }
+            else {
+                res
+                    .status(400)
+                    .json({ detail: "User has already been registered, but account verification is incomplete." });
+                return;
+            }
             ;
-            res
-                .status(400)
-                .json({ detail: "User has already been registered, but account verification is incomplete." });
-            return;
         }
         ;
     }

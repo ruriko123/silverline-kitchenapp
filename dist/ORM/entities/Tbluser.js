@@ -108,7 +108,7 @@ __decorate([
     (0, typeorm_1.Column)("varchar", {
         name: "otp",
         nullable: true,
-        length: 5,
+        length: 10,
         default: null
     }),
     __metadata("design:type", Object)

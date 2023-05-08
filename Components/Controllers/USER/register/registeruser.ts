@@ -39,7 +39,6 @@ const registeruser : RequestHandler = async(req, res) => {
             ?.devicetype || "";
         let firebasetoken = userdata
             ?.firebasetoken || "";
-
         if (!password) {
             res
                 .status(400)
@@ -124,15 +123,14 @@ const registeruser : RequestHandler = async(req, res) => {
                             .status(200)
                             .json({success: "User has been registered. Check email for the OTP.", userid: userid});
                         return;
-                    }
+                    };
                 });
             } catch (error) {
                 res
                     .status(400)
                     .json({detail: "Error occured while sending OTP.", error: error});
                 return;
-            }
-
+            };
         } else if (userData
             ?.registrationStatus === "REGISTERED") {
             res
@@ -140,13 +138,14 @@ const registeruser : RequestHandler = async(req, res) => {
                 .json({detail: "User has already been registered. Proceed to login."});
             return;
         } else {
-            if (userData.registrationDatetime) {
+            if (userData.registrationDatetime){
                 let registrationAttemptTime : string | Date = await getCurrentTime();
                 registrationAttemptTime = new Date(registrationAttemptTime);
                 try {
                     let result = await getTimeDiff(userData.registrationDatetime, registrationAttemptTime);
-                    console.log(result);
+                    // console.log(result,parseInt(`${process.env.REGISTRATION_otpTimeout}`));
                     if (result >= parseInt(`${process.env.REGISTRATION_otpTimeout}`)) {
+                        // console.log(result>=parseInt(`${process.env.REGISTRATION_otpTimeout}`));
                         let otp:string;
                         try {
                             otp = await generateOTP();
@@ -171,13 +170,14 @@ const registeruser : RequestHandler = async(req, res) => {
                                     } else {
                                         transporter.close();
                                         let userid = userData?.id;
+                                        let currentTime = await getCurrentTime();
+                                        let registrationDatetime = new Date(currentTime);
                                         await myDataSource
                                         .createQueryBuilder()
                                             .update(Tbluser)
-                                            .set({ otpStep:otpStep,otp:otp,otpGeneratedDatetime:otpGeneratedDatetime})
+                                            .set({ registrationDatetime:registrationDatetime,otpStep:otpStep,otp:otp,otpGeneratedDatetime:otpGeneratedDatetime})
                                             .where("id = :id", {id: userid})
                                             .execute();
-
                                         res
                                             .status(200)
                                             .json({success: "Check email for the OTP.", userid: userid});
@@ -196,12 +196,12 @@ const registeruser : RequestHandler = async(req, res) => {
                                 .json({"error": "Error while generating OTP."});
                             return;
                         };
-                    } else {
+                    } else if (result<parseInt(`${process.env.REGISTRATION_otpTimeout}`)) {
                         let registrationtime = userData.registrationDatetime;
                         let timeouttime = await getTimeAfterTimeout(registrationtime);
                         res
                                 .status(400)
-                                .json({"error": `Too many registration attempts. You have been timedout until ${timeouttime}.`});
+                                .json({"error": `Too many registration attempts. You have been timed out until ${timeouttime}.`});
                             return;
                     };
                 } catch (error) {
@@ -210,11 +210,12 @@ const registeruser : RequestHandler = async(req, res) => {
                         .json({detail: `${error}`});
                     return;
                 };
+            } else {
+                res
+                    .status(400)
+                    .json({detail: "User has already been registered, but account verification is incomplete."});
+                return;
             };
-            res
-                .status(400)
-                .json({detail: "User has already been registered, but account verification is incomplete."});
-            return;
         };
     } catch (error) {
         res

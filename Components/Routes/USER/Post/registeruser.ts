@@ -1,4 +1,4 @@
-import { normalLogin } from '@base/Components/Controllers/USER/login/normalLogin';
+import { registeruser } from '@base/Components/Controllers/USER/register/registeruser';
 
 import express from 'express';
 const router = express.Router();
@@ -8,6 +8,5 @@ var scriptName = path
     .basename(__filename)
     .replace(/\.[^.]*$/, '');
 
-
-router.post(`/${scriptName}`,normalLogin);
+router.post(`/${scriptName}`,registeruser);
 export {router};

@@ -20,7 +20,7 @@ const getTimeDiff = (firstDate, secondDate) => __awaiter(void 0, void 0, void 0,
         let a = (0, moment_timezone_1.default)(firstDate, "YYYY-MM-DD HH:mm:ss Z");
         let b = (0, moment_timezone_1.default)(secondDate, "YYYY-MM-DD HH:mm:ss Z");
         let diff = a.diff(b, 'minutes');
-        return diff;
+        return Math.abs(diff);
     }
     catch (error) {
         throw new Error(`${error}`);
@@ -32,7 +32,7 @@ const getTimeAfterTimeout = (firstdate) => __awaiter(void 0, void 0, void 0, fun
     try {
         let result = yield (0, moment_timezone_1.default)(firstdate, "YYYY-MM-DD HH:mm:ss Z")
             .add(process.env.REGISTRATION_otpTimeout, 'minutes')
-            .format('LTS');
+            .format('hh:mm:ss A');
         return result;
     }
     catch (error) {

@@ -87,7 +87,7 @@ export class Tbluser {
     @Column("varchar", {
         name: "otp",
         nullable: true,
-        length:5,
+        length:10,
         default:null
     })
     otp : string | null;
