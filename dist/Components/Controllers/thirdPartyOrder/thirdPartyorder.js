@@ -10,8 +10,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.thirdPartyorder = void 0;
-const saveOrder_1 = require("../../../Components/Middlewares/saveOrder");
-const checkThirdPartytoken_1 = require("../../../Components/utils/checkThirdPartytoken");
+const saveOrder_1 = require("Components/Middlewares/saveOrder");
+const checkThirdPartytoken_1 = require("@base/Components/utils/checkThirdPartytoken");
 const thirdPartyorder = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         /* Validate the token*/

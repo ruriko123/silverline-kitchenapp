@@ -13,8 +13,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.check3Ptoken = void 0;
-const TblThirdparty_1 = require("../../ORM/entities/TblThirdparty");
-const app_data_source_1 = __importDefault(require("../../app-data-source"));
+const TblThirdparty_1 = require("@model/TblThirdparty");
+const app_data_source_1 = __importDefault(require("@base/app-data-source"));
 const check3Ptoken = (token) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         if (!token) {

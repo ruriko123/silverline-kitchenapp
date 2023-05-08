@@ -1,5 +1,5 @@
 import {RequestHandler} from "express";
-import {normalUserRegister} from "@reqtypes/orderHistory";
+import {register} from "@reqtypes/orderHistory";
 import myDataSource from "@base/app-data-source";
 import {Tbluser} from '@model/Tbluser';
 import {generateToken} from "@utils/USER/token";
@@ -7,85 +7,39 @@ import {userPasswordToken} from "@utils/USER/normalLogin/userPassword";
 import {getCurrentTime} from "@utils/time/getCurrentTime";
 import {createTransporter} from "@utils/email/transporter";
 import {generateOTP} from "@base/Components/utils/otp/generateotp";
-import {getTimeDiff,getTimeAfterTimeout} from "@base/Components/utils/time/timediff";
+import {getTimeDiff, getTimeAfterTimeout} from "@base/Components/utils/time/timediff";
 var toonavatar = require('cartoon-avatar');
-
 
 const registeruser : RequestHandler = async(req, res) => {
     try {
-        let userdata : normalUserRegister = req
+        let userdata : register = req
             ?.body;
-        let password = userdata
-            ?.password;
-        let full_name = userdata
-            ?.full_name;
+
         let email = userdata
             ?.email;
-        let phone = userdata
-            ?.phone || "";
-        let long = userdata
-            ?.long || "";
-        let lat = userdata
-            ?.lat || "";
-        if (!long || long === "") {
-            long = "85.3240";
-        };
-        if (!lat || lat === "") {
-            lat = "27.7172";
-        };
-        let address = userdata
-            ?.address || "";
-        let deviceid = userdata
-            ?.deviceid || "";
-        let devicetype = userdata
-            ?.devicetype || "";
-        let firebasetoken = userdata
-            ?.firebasetoken || "";
-        if (!password) {
-            res
-                .status(400)
-                .json({"error": "Password is missing."});
-            return;
-        };
-        if (!full_name) {
-            res
-                .status(400)
-                .json({"error": "Full name is missing."});
-            return;
-        };
+
         if (!email) {
             res
                 .status(400)
                 .json({"error": "Email is missing."});
             return;
         };
-        password = await userPasswordToken(password) || "";
+
         let userData = await myDataSource
             .getRepository(Tbluser)
             .findOne({
                 where: {
                     username: `${email}`,
-                    password: `${password}`
+                    socialflag: false
                 }
             });
         if (!userData) {
-            var url = await toonavatar.generate_avatar();
             let tbluser = new Tbluser();
             tbluser.username = email;
-            tbluser.displayname = full_name;
-            tbluser.password = password;
             tbluser.socialflag = false;
             tbluser.email = email;
-            tbluser.phone = phone;
-            tbluser.long = long;
-            tbluser.lat = lat;
-            tbluser.locationName = address;
-            tbluser.deviceId = deviceid;
-            tbluser.deviceType = devicetype;
-            tbluser.firebaseToken = firebasetoken;
             tbluser.activeStatus = false;
             tbluser.registrationStatus = "STARTED";
-            tbluser.profilepicture = url;
             let currentTime = await getCurrentTime();
             tbluser.registrationDatetime = new Date(currentTime);
             let otp;
@@ -142,7 +96,7 @@ const registeruser : RequestHandler = async(req, res) => {
                 .json({detail: "User has already been registered. Proceed to login."});
             return;
         } else {
-            if (userData.registrationDatetime){
+            if (userData.registrationDatetime) {
                 let registrationAttemptTime : string | Date = await getCurrentTime();
                 registrationAttemptTime = new Date(registrationAttemptTime);
                 try {
@@ -150,7 +104,7 @@ const registeruser : RequestHandler = async(req, res) => {
                     // console.log(result,parseInt(`${process.env.REGISTRATION_otpTimeout}`));
                     if (result >= parseInt(`${process.env.REGISTRATION_otpTimeout}`)) {
                         // console.log(result>=parseInt(`${process.env.REGISTRATION_otpTimeout}`));
-                        let otp:string;
+                        let otp : string;
                         try {
                             otp = await generateOTP();
                             // let otpFailAttempts =userData.otpFailAttempts+1;
@@ -173,13 +127,14 @@ const registeruser : RequestHandler = async(req, res) => {
                                         return;
                                     } else {
                                         transporter.close();
-                                        let userid = userData?.id;
+                                        let userid = userData
+                                            ?.id;
                                         let currentTime = await getCurrentTime();
                                         let registrationDatetime = new Date(currentTime);
                                         await myDataSource
-                                        .createQueryBuilder()
+                                            .createQueryBuilder()
                                             .update(Tbluser)
-                                            .set({ registrationDatetime:registrationDatetime,otpStep:otpStep,otp:otp,otpGeneratedDatetime:otpGeneratedDatetime})
+                                            .set({registrationDatetime: registrationDatetime, otpStep: otpStep, otp: otp, otpGeneratedDatetime: otpGeneratedDatetime})
                                             .where("id = :id", {id: userid})
                                             .execute();
                                         res
@@ -200,13 +155,13 @@ const registeruser : RequestHandler = async(req, res) => {
                                 .json({"error": "Error while generating OTP."});
                             return;
                         };
-                    } else if (result<parseInt(`${process.env.REGISTRATION_otpTimeout}`)) {
+                    } else if (result < parseInt(`${process.env.REGISTRATION_otpTimeout}`)) {
                         let registrationtime = userData.registrationDatetime;
                         let timeouttime = await getTimeAfterTimeout(registrationtime);
                         res
-                                .status(400)
-                                .json({"error": `Too many registration attempts. You have been timed out until ${timeouttime}.`});
-                            return;
+                            .status(400)
+                            .json({"error": `Too many registration attempts. You have been timed out until ${timeouttime}.`});
+                        return;
                     };
                 } catch (error) {
                     res

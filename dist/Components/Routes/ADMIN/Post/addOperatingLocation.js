@@ -4,12 +4,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.router = void 0;
-const addOperatingLocation_1 = require("../../../../Components/Controllers/Admin/addOperatingLocation");
+const addOperatingLocation_1 = require("@base/Components/Controllers/Admin/addOperatingLocation");
 const express_1 = __importDefault(require("express"));
 const router = express_1.default.Router();
 exports.router = router;
-const sessionChecker_1 = require("../../../../Components/Middlewares/Admin/sessionChecker");
-const multer_1 = require("../../../../Components/utils/multer");
+const sessionChecker_1 = require("@base/Components/Middlewares/Admin/sessionChecker");
+const multer_1 = require("@base/Components/utils/multer");
 var path = require('path');
 /* The name of the file is used as the express route endpoint */
 var scriptName = path

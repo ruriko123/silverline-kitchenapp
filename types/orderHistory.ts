@@ -99,6 +99,11 @@ export interface normalUserRegister {
     firebasetoken:string|null;
 };
 
+
+export interface register {
+    email:string;
+}
+
 export interface otpLogin {
     id:number;
     otp:string;

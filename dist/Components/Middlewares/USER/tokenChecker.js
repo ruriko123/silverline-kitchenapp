@@ -10,7 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.userTokenMiddleware = void 0;
-const token_1 = require("../../utils/USER/token");
+const token_1 = require("@utils/USER/token");
 const userTokenMiddleware = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     var _a, _b;
     if (!req) {

@@ -13,15 +13,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.userOrder = void 0;
-const Tbluser_1 = require("../../../../ORM/entities/Tbluser");
-const app_data_source_1 = __importDefault(require("../../../../app-data-source"));
-const token_1 = require("../../../utils/USER/token");
-const saveClientOrder_1 = require("../../../../Components/Middlewares/USER/saveClientOrder");
-const TblRestaurant_1 = require("../../../../ORM/entities/TblRestaurant");
-const TblMenu_1 = require("../../../../ORM/entities/TblMenu");
-const TblCart_1 = require("../../../../ORM/entities/TblCart");
-const TblCartItems_1 = require("../../../../ORM/entities/TblCartItems");
-const restaurantdatafilters_1 = require("../../../utils/USER/restaurantdatafilters");
+const Tbluser_1 = require("@model/Tbluser");
+const app_data_source_1 = __importDefault(require("@base/app-data-source"));
+const token_1 = require("@utils/USER/token");
+const saveClientOrder_1 = require("@base/Components/Middlewares/USER/saveClientOrder");
+const TblRestaurant_1 = require("@model/TblRestaurant");
+const TblMenu_1 = require("@model/TblMenu");
+const TblCart_1 = require("@base/ORM/entities/TblCart");
+const TblCartItems_1 = require("@base/ORM/entities/TblCartItems");
+const restaurantdatafilters_1 = require("@utils/USER/restaurantdatafilters");
 const moment_timezone_1 = __importDefault(require("moment-timezone"));
 (0, moment_timezone_1.default)().format();
 const userOrder = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -228,6 +228,7 @@ const userOrder = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             .where({ restaurantID: restaurantID, idCart: cartID, customerID: userid, isActive: true, isRemoved: false })
             .execute();
         returnobject["OrderItemDetailsList"] = cartitemarray;
+        returnobject["userid"] = userid;
         let result = yield (0, saveClientOrder_1.saveClientOrder)(returnobject);
         if ("error" in result) {
             res
@@ -236,6 +237,16 @@ const userOrder = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             return;
         }
         else {
+            let loyalitypricepercent = parseInt(`${process.env.LoyalityPointPC}`) || 1;
+            let pointsEarned = ((loyalitypricepercent / 100) * Total) || 0;
+            let userpoints = userData.points || 0.00;
+            userpoints = userpoints + pointsEarned;
+            yield app_data_source_1.default
+                .createQueryBuilder()
+                .update(Tbluser_1.Tbluser)
+                .set({ points: userpoints })
+                .where("id = :id", { id: userid })
+                .execute();
             /* After
         the middleware emits the data to the device through socket connection, the
         same data is sent back to the user who post it  */

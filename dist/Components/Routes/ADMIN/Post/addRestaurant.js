@@ -4,9 +4,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.router = void 0;
-const addRestaurant_1 = require("../../../../Components/Controllers/Admin/restaurant/addRestaurant");
+const addRestaurant_1 = require("@base/Components/Controllers/Admin/restaurant/addRestaurant");
 const express_1 = __importDefault(require("express"));
-const sessionChecker_1 = require("../../../../Components/Middlewares/Admin/sessionChecker");
+const sessionChecker_1 = require("@base/Components/Middlewares/Admin/sessionChecker");
 const router = express_1.default.Router();
 exports.router = router;
 var path = require('path');

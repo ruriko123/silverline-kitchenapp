@@ -13,10 +13,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.normalLogin = void 0;
-const app_data_source_1 = __importDefault(require("../../../../app-data-source"));
-const Tbluser_1 = require("../../../../ORM/entities/Tbluser");
-const token_1 = require("../../../utils/USER/token");
-const userPassword_1 = require("../../../utils/USER/normalLogin/userPassword");
+const app_data_source_1 = __importDefault(require("@base/app-data-source"));
+const Tbluser_1 = require("@model/Tbluser");
+const token_1 = require("@utils/USER/token");
+const userPassword_1 = require("@utils/USER/normalLogin/userPassword");
 const normalLogin = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         let userdata = req === null || req === void 0 ? void 0 : req.body;
@@ -35,7 +35,8 @@ const normalLogin = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
             .findOne({
             where: {
                 username: `${email}`,
-                password: `${password}`
+                password: `${password}`,
+                socialflag: false
             }
         });
         if (!userData) {

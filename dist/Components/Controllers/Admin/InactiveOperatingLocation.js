@@ -13,8 +13,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.InactiveOperatingLocation = void 0;
-const app_data_source_1 = __importDefault(require("../../../app-data-source"));
-const TbloperatingLocations_1 = require("../../../ORM/entities/TbloperatingLocations");
+const app_data_source_1 = __importDefault(require("@base/app-data-source"));
+const TbloperatingLocations_1 = require("@model/TbloperatingLocations");
 const InactiveOperatingLocation = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     var _a;
     try {

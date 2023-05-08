@@ -88,13 +88,12 @@ const otplogin : RequestHandler = async(req, res) => {
         if (userData
             ?.otp === otp) {
             let otpFailAttempts = 0;
-            let registrationStatus = "REGISTERED";
             let emailverificationStatus = true;
             let otpStep = "COMPLETED";
             await myDataSource
                 .createQueryBuilder()
                 .update(Tbluser)
-                .set({otpStep: otpStep, emailverificationStatus: emailverificationStatus, registrationStatus: registrationStatus, otpFailAttempts: otpFailAttempts})
+                .set({activeStatus:true,otpStep: otpStep, emailverificationStatus: emailverificationStatus, otpFailAttempts: otpFailAttempts})
                 .where("id = :id", {id: userid})
                 .execute();
             let full_name = userData

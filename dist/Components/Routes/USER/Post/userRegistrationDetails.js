@@ -4,8 +4,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.router = void 0;
-const updateRestaurantinfo_1 = require("@base/Components/Controllers/Admin/restaurant/updateRestaurantinfo");
-const sessionChecker_1 = require("@base/Components/Middlewares/Admin/sessionChecker");
+const userRegistrationDetails_1 = require("@base/Components/Controllers/USER/register/userRegistrationDetails");
+const tokenChecker_1 = require("@base/Components/Middlewares/USER/tokenChecker");
 const express_1 = __importDefault(require("express"));
 const router = express_1.default.Router();
 exports.router = router;
@@ -14,4 +14,4 @@ var path = require('path');
 var scriptName = path
     .basename(__filename)
     .replace(/\.[^.]*$/, '');
-router.post(`/${scriptName}`, sessionChecker_1.adminSessionChecker, updateRestaurantinfo_1.updateRestaurantinfo);
+router.post(`/${scriptName}`, tokenChecker_1.userTokenMiddleware, userRegistrationDetails_1.userRegistrationDetails);

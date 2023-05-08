@@ -58,9 +58,7 @@ const resendotp : RequestHandler = async(req, res) => {
 
         // TIMEOUT THE PERSON IF RESEND OTP HAS BEEN USED MORE THAN
         // process.env.OTP_RESEND_TIMEOUT_START_ATTEMPTS TIMES.
-        if ((!(userData
-            ?.otpFailAttempts) || userData
-            ?.otpFailAttempts >= parseInt(`${process.env.OTP_RESEND_TIMEOUT_START_ATTEMPTS}`)) && result < parseInt(`${process.env.OTP_RESEND_TIMEOUT}`)) {
+        if (userData?.resendOtpAttempts >= parseInt(`${process.env.OTP_RESEND_TIMEOUT_START_ATTEMPTS}`) && result < parseInt(`${process.env.OTP_RESEND_TIMEOUT}`)) {
             let timeouttime = await resendgetTimeAfterTimeout(userData.otpGeneratedDatetime);
             res
                 .status(400)
@@ -89,10 +87,11 @@ const resendotp : RequestHandler = async(req, res) => {
                         transporter.close();
                         let userid = userData
                             ?.id;
+                        let resendOtpAttempts = (userData?.resendOtpAttempts||0) +1;
                         await myDataSource
                             .createQueryBuilder()
                             .update(Tbluser)
-                            .set({otpStep: otpStep, otp: otp, otpGeneratedDatetime: otpGeneratedDatetime})
+                            .set({resendOtpAttempts:resendOtpAttempts,otpStep: otpStep, otp: otp, otpGeneratedDatetime: otpGeneratedDatetime})
                             .where("id = :id", {id: userid})
                             .execute();
                         res

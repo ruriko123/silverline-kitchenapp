@@ -20,7 +20,7 @@ var path = require('path');
 var scriptName = path
     .basename(__filename)
     .replace(/\.[^.]*$/, '');
-const saveOrder_1 = require("../../../../Components/Middlewares/saveOrder");
+const saveOrder_1 = require("Components/Middlewares/saveOrder");
 router.post(`/${scriptName}`, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         let order = req === null || req === void 0 ? void 0 : req.body;

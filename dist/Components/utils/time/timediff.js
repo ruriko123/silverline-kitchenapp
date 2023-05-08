@@ -12,13 +12,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getTimeAfterTimeout = exports.getTimeDiff = void 0;
+exports.resendgetTimeAfterTimeout = exports.getTimeAfterTimeout = exports.getTimeDiff = void 0;
 const moment_timezone_1 = __importDefault(require("moment-timezone"));
 (0, moment_timezone_1.default)().format();
 const getTimeDiff = (firstDate, secondDate) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        let a = (0, moment_timezone_1.default)(firstDate, "YYYY-MM-DD HH:mm:ss Z");
-        let b = (0, moment_timezone_1.default)(secondDate, "YYYY-MM-DD HH:mm:ss Z");
+        let a = yield moment_timezone_1.default.tz((0, moment_timezone_1.default)(firstDate, "YYYY-MM-DD HH:mm:ss Z"), 'Asia/Kathmandu');
+        let b = yield moment_timezone_1.default.tz((0, moment_timezone_1.default)(secondDate, "YYYY-MM-DD HH:mm:ss Z"), 'Asia/Kathmandu');
         let diff = a.diff(b, 'minutes');
         return Math.abs(diff);
     }
@@ -30,8 +30,8 @@ const getTimeDiff = (firstDate, secondDate) => __awaiter(void 0, void 0, void 0,
 exports.getTimeDiff = getTimeDiff;
 const getTimeAfterTimeout = (firstdate) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        let result = yield (0, moment_timezone_1.default)(firstdate, "YYYY-MM-DD HH:mm:ss Z")
-            .add(process.env.REGISTRATION_otpTimeout, 'minutes')
+        let result = yield moment_timezone_1.default.tz((0, moment_timezone_1.default)(firstdate, "YYYY-MM-DD HH:mm:ss Z"), 'Asia/Kathmandu')
+            .add(process.env.REGISTRATION_otpTimeout, 'm')
             .format('hh:mm:ss A');
         return result;
     }
@@ -41,3 +41,15 @@ const getTimeAfterTimeout = (firstdate) => __awaiter(void 0, void 0, void 0, fun
     ;
 });
 exports.getTimeAfterTimeout = getTimeAfterTimeout;
+const resendgetTimeAfterTimeout = (firstdate) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        let addtime = parseInt(`${process.env.OTP_RESEND_TIMEOUT}`);
+        let result = yield moment_timezone_1.default.tz((0, moment_timezone_1.default)(firstdate, "YYYY-MM-DD HH:mm:ss Z"), 'Asia/Kathmandu').add(addtime, 'm').format("YYYY-MM-DD HH:mm:ss Z");
+        return result;
+    }
+    catch (error) {
+        return `${process.env.OTP_RESEND_TIMEOUT} minutes`;
+    }
+    ;
+});
+exports.resendgetTimeAfterTimeout = resendgetTimeAfterTimeout;

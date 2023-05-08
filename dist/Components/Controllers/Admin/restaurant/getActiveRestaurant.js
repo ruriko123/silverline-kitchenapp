@@ -13,8 +13,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getActiveRestaurant = void 0;
-const TblRestaurant_1 = require("../../../../ORM/entities/TblRestaurant");
-const app_data_source_1 = __importDefault(require("../../../../app-data-source"));
+const TblRestaurant_1 = require("@model/TblRestaurant");
+const app_data_source_1 = __importDefault(require("@base/app-data-source"));
 const getActiveRestaurant = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         let userData = yield app_data_source_1.default

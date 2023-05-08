@@ -156,6 +156,16 @@ __decorate([
     __metadata("design:type", Number)
 ], Tbluser.prototype, "resendOtpAttempts", void 0);
 __decorate([
+    (0, typeorm_1.Column)("decimal", {
+        name: "points",
+        nullable: true,
+        default: 0.00,
+        precision: 10,
+        scale: 2
+    }),
+    __metadata("design:type", Object)
+], Tbluser.prototype, "points", void 0);
+__decorate([
     (0, typeorm_1.Column)("varchar", {
         name: "firebaseToken",
         nullable: true,
@@ -263,7 +273,6 @@ __decorate([
     (0, typeorm_1.Column)("longtext", {
         name: "profilepicture",
         nullable: true,
-        default: null
     }),
     __metadata("design:type", Object)
 ], Tbluser.prototype, "profilepicture", void 0);
