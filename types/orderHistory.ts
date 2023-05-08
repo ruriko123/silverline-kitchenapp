@@ -88,6 +88,11 @@ export interface socialLogin {
 
 
 
+export interface normalLogin {
+
+    email:string;
+    password:string;
+};
 
 
 
