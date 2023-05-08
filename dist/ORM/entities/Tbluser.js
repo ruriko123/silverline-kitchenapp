@@ -31,7 +31,7 @@ __decorate([
         name: "username",
         nullable: true,
         length: 350,
-        default: null
+        default: ""
     }),
     __metadata("design:type", Object)
 ], Tbluser.prototype, "username", void 0);
@@ -40,7 +40,7 @@ __decorate([
         name: "displayname",
         nullable: true,
         length: 70,
-        default: null
+        default: ""
     }),
     __metadata("design:type", Object)
 ], Tbluser.prototype, "displayname", void 0);
@@ -49,7 +49,7 @@ __decorate([
         name: "email",
         nullable: true,
         length: 100,
-        default: null
+        default: ""
     }),
     __metadata("design:type", Object)
 ], Tbluser.prototype, "email", void 0);
@@ -58,10 +58,19 @@ __decorate([
         name: "phone",
         nullable: true,
         length: 50,
-        default: null
+        default: ""
     }),
     __metadata("design:type", Object)
 ], Tbluser.prototype, "phone", void 0);
+__decorate([
+    (0, typeorm_1.Column)("varchar", {
+        name: "altphone",
+        nullable: true,
+        length: 50,
+        default: ""
+    }),
+    __metadata("design:type", Object)
+], Tbluser.prototype, "altphone", void 0);
 __decorate([
     (0, typeorm_1.Column)("varchar", {
         name: "preferredlocation",

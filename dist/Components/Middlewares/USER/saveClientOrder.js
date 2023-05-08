@@ -55,6 +55,12 @@ const saveClientOrder = (orderObject) => __awaiter(void 0, void 0, void 0, funct
         returnObject["deliveryVia"] = order.deliveryVia;
         returnObject["Id"] = primarykey;
         returnObject["deliverycustomer"] = order.deliverycustomer;
+        returnObject["total"] = order.total;
+        returnObject["sub_total"] = order.sub_total;
+        returnObject["nontaxable"] = order.nontaxable;
+        returnObject["tax_amount"] = order.tax_amount;
+        returnObject["delivery_charge"] = order.delivery_charge;
+        returnObject["taxable"] = order.taxable;
         // returnObject["OrderItemDetailsList"]=[];
         let orderDetailsArr = [];
         let orderDetails = order["OrderItemDetailsList"];
@@ -72,8 +78,8 @@ const saveClientOrder = (orderObject) => __awaiter(void 0, void 0, void 0, funct
             orderTrackerDetails.itemPrice = e.itemPrice;
             orderTrackerDetails.category = e.category;
             orderTrackerDetails.description = e.description;
-            // orderTrackerDetails.productId = e.productId;
-            // orderTrackerDetails.unit = e.unit;
+            // orderTrackerDetails.productId = e.productId; orderTrackerDetails.unit =
+            // e.unit;
             orderTrackerDetails.isTaxable = e.isTaxable;
             yield app_data_source_1.default
                 .manager

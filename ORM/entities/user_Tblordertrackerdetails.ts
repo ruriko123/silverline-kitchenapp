@@ -27,21 +27,21 @@ export class user_Tblordertrackerdetails {
     @Column("varchar", {
         name: "orderedat",
         nullable: true,
-        length: 20
+        length: 120
     })
     orderedat : string | null;
 
     @Column("varchar", {
         name: "completedat",
         nullable: true,
-        length: 20
+        length: 120
     })
     completedat : string | null;
 
     @Column("varchar", {
         name: "totaltime",
         nullable: true,
-        length: 20
+        length: 120
     })
     totaltime : string | null;
 

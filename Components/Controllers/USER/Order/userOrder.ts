@@ -9,6 +9,8 @@ import {TblMenu} from '@model/TblMenu';
 import {TblCart} from '@base/ORM/entities/TblCart';
 import {TblCartItems} from '@base/ORM/entities/TblCartItems';
 import { checkOpenOrClosed } from "@utils/USER/restaurantdatafilters";
+import moment, {tz} from "moment-timezone";
+moment().format();
 
 
 
@@ -75,6 +77,63 @@ const userOrder : RequestHandler = async(req, res) => {
             .json({detail: "Delivery customer address missing."});
         return;
         }
+
+
+        let deliveryCharge:number=req?.body?.delivery_charge;
+        let Total:number = req?.body?.total;
+        let subTotal:number = req?.body?.sub_total;
+        let nontaxable:number = req?.body?.nontaxable;
+        let taxAmount:number = req?.body?.tax_amount;
+        let taxable:number = req?.body?.taxable;
+
+
+        if(!taxable && !(taxable===0)){
+            res
+            .status(400)
+            .json({detail: "Taxable amount missing."});
+        return;
+        };
+
+        if(!taxAmount && !(taxAmount===0)){
+            res
+            .status(400)
+            .json({detail: "Tax amount missing."});
+        return;
+        };
+
+
+        if(!nontaxable  && !(nontaxable===0)){
+            res
+            .status(400)
+            .json({detail: "Non-taxable amount missing."});
+        return;
+        };
+
+        if(!subTotal  && !(subTotal===0)){
+            res
+            .status(400)
+            .json({detail: "SubTotal amount missing."});
+        return;
+        };
+
+
+
+        if(!Total   && !(Total===0)){
+            res
+            .status(400)
+            .json({detail: "Total amount missing."});
+        return;
+        };
+
+
+
+        if(!deliveryCharge && !(deliveryCharge===0)){
+            res
+            .status(400)
+            .json({detail: "Delivery charge missing."});
+        return;
+        };
+
 
 
         let cartID = req
@@ -158,7 +217,6 @@ const userOrder : RequestHandler = async(req, res) => {
             let quantity = parseFloat(orderitem
                 ?.quantity || "0.00");
 
-            console.log(orderitem.quantity, quantity)
             let menuExists = await myDataSource
                 .getRepository(TblMenu)
                 .findOne({
@@ -167,7 +225,6 @@ const userOrder : RequestHandler = async(req, res) => {
                         restaurantID: restaurantID
                     }
                 });
-            console.log(menuExists)
             if (!quantity || quantity === 0) {
                 await myDataSource
                     .createQueryBuilder()
@@ -175,9 +232,7 @@ const userOrder : RequestHandler = async(req, res) => {
                     .set({isActive: false, isRemoved: true})
                     .where({itemID: itemid, cartID: cartID, isActive: true, isRemoved: false})
                     .execute();
-                console.log("here")
             } else if (menuExists && quantityint && quantityint > 0) {
-                console.log("here2")
                 let itemcategory = menuExists.Category || "";
                 let itemdescription = menuExists.description || "";
                 order["OrderItemDetailsList"][i]["category"] = itemcategory;
@@ -193,10 +248,21 @@ const userOrder : RequestHandler = async(req, res) => {
             };
 
         };
+
+
+
+    
+
+
+
+        let checkoutAt=req?.body?.orderedat||"00:00:00";
+
+        // checkoutAt=await moment(checkoutAt, "hh:mm:ss").format("hh:mm a");
+        
         await myDataSource
             .createQueryBuilder()
             .update(TblCart)
-            .set({isActive: false})
+            .set({checkoutAt:checkoutAt,taxable:taxable,taxAmount:taxAmount,isActive: false,deliveryCharge:deliveryCharge,Total:Total,subTotal:subTotal,nontaxable:nontaxable})
             .where({restaurantID: restaurantID, idCart: cartID, customerID: userid, isActive: true, isRemoved: false})
             .execute();
 

@@ -12,14 +12,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.customerCart = void 0;
+exports.customerDetails = void 0;
 const Tbluser_1 = require("../../../../ORM/entities/Tbluser");
 const app_data_source_1 = __importDefault(require("../../../../app-data-source"));
 const token_1 = require("../../../utils/USER/token");
-const TblCart_1 = require("../../../../ORM/entities/TblCart");
-const TblRestaurant_1 = require("../../../../ORM/entities/TblRestaurant");
-const customerCart = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    var _a, _b;
+const customerDetails = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    var _a;
     try {
         let token = (_a = req === null || req === void 0 ? void 0 : req.headers) === null || _a === void 0 ? void 0 : _a.token;
         if (!token) {
@@ -54,48 +52,28 @@ const customerCart = (req, res) => __awaiter(void 0, void 0, void 0, function* (
             return;
         }
         ;
-        let cart = yield app_data_source_1.default
-            .getRepository(TblCart_1.TblCart)
+        let userinfo = yield app_data_source_1.default
+            .getRepository(Tbluser_1.Tbluser)
             .createQueryBuilder("t")
             .select([
-            "t.idCart",
-            "t.restaurantID",
+            "t.displayname",
+            "t.email",
+            "t.phone",
+            "t.locationName",
+            "t.altphone",
         ])
-            .where({ customerID: userid, isRemoved: false, isActive: true })
-            .getMany();
-        if (!cart) {
+            .where({ id: userid })
+            .getOne();
+        if (!userinfo) {
             res
                 .status(400)
-                .json({ detail: "Cart is empty." });
+                .json({ detail: "Error while fetching user info." });
             return;
         }
         else {
-            let cartdata = cart;
-            for (let i in cart) {
-                let restaurantid = (_b = cart[i]) === null || _b === void 0 ? void 0 : _b.restaurantID;
-                let restaurant = yield app_data_source_1.default
-                    .getRepository(TblRestaurant_1.TblRestaurant)
-                    .createQueryBuilder("x")
-                    .select([
-                    "x.Name",
-                    "x.Address",
-                    "x.logo",
-                    "x.details"
-                ])
-                    .where({ id: restaurantid, isActive: true })
-                    .getOne();
-                if (restaurant) {
-                    cartdata[i]["restaurantDetails"] = restaurant;
-                }
-                else {
-                    delete cartdata[i];
-                }
-                ;
-            }
-            ;
             res
                 .status(200)
-                .json(cartdata);
+                .json(userinfo);
             return;
         }
     }
@@ -107,4 +85,4 @@ const customerCart = (req, res) => __awaiter(void 0, void 0, void 0, function* (
     }
     ;
 });
-exports.customerCart = customerCart;
+exports.customerDetails = customerDetails;

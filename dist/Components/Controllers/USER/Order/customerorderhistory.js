@@ -12,14 +12,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.customerCart = void 0;
+exports.customerorderhistory = void 0;
 const Tbluser_1 = require("../../../../ORM/entities/Tbluser");
 const app_data_source_1 = __importDefault(require("../../../../app-data-source"));
 const token_1 = require("../../../utils/USER/token");
 const TblCart_1 = require("../../../../ORM/entities/TblCart");
 const TblRestaurant_1 = require("../../../../ORM/entities/TblRestaurant");
-const customerCart = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    var _a, _b;
+const TblCartItems_1 = require("../../../../ORM/entities/TblCartItems");
+const customerorderhistory = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    var _a, _b, _c;
     try {
         let token = (_a = req === null || req === void 0 ? void 0 : req.headers) === null || _a === void 0 ? void 0 : _a.token;
         if (!token) {
@@ -60,13 +61,21 @@ const customerCart = (req, res) => __awaiter(void 0, void 0, void 0, function* (
             .select([
             "t.idCart",
             "t.restaurantID",
+            "t.taxable",
+            "t.taxAmount",
+            "t.nontaxable",
+            "t.subTotal",
+            "t.Total",
+            "t.deliveryCharge",
+            "t.checkoutAt"
         ])
-            .where({ customerID: userid, isRemoved: false, isActive: true })
+            .where({ customerID: userid, isRemoved: false, isActive: false })
+            .orderBy('t.idCart', 'DESC')
             .getMany();
         if (!cart) {
             res
                 .status(400)
-                .json({ detail: "Cart is empty." });
+                .json({ detail: "Order history is empty." });
             return;
         }
         else {
@@ -76,12 +85,7 @@ const customerCart = (req, res) => __awaiter(void 0, void 0, void 0, function* (
                 let restaurant = yield app_data_source_1.default
                     .getRepository(TblRestaurant_1.TblRestaurant)
                     .createQueryBuilder("x")
-                    .select([
-                    "x.Name",
-                    "x.Address",
-                    "x.logo",
-                    "x.details"
-                ])
+                    .select(["x.Name", "x.Address", "x.logo", "x.details"])
                     .where({ id: restaurantid, isActive: true })
                     .getOne();
                 if (restaurant) {
@@ -89,6 +93,25 @@ const customerCart = (req, res) => __awaiter(void 0, void 0, void 0, function* (
                 }
                 else {
                     delete cartdata[i];
+                }
+                ;
+                let cartid = (_c = cart[i]) === null || _c === void 0 ? void 0 : _c.idCart;
+                let cartitems = yield app_data_source_1.default
+                    .getRepository(TblCartItems_1.TblCartItems)
+                    .createQueryBuilder("x")
+                    .select([
+                    "x.idCartitem",
+                    "x.ItemName",
+                    "x.sellingPrice",
+                    "x.quantity",
+                ])
+                    .where({ cartID: cartid, isRemoved: false, isActive: false })
+                    .getMany();
+                if (cartitems) {
+                    cartdata[i]["cartitems"] = cartitems;
+                }
+                else {
+                    cartdata[i]["cartitems"] = [];
                 }
                 ;
             }
@@ -107,4 +130,4 @@ const customerCart = (req, res) => __awaiter(void 0, void 0, void 0, function* (
     }
     ;
 });
-exports.customerCart = customerCart;
+exports.customerorderhistory = customerorderhistory;

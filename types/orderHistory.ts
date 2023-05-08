@@ -14,6 +14,13 @@ export interface user_orderHistory {
     outletID:number|null;
     OrderItemDetailsList:Array<user_orderHistoryDetails>
     deliverycustomer:deliverycustomerobject
+    total:number|null;
+    sub_total:number|null;
+    nontaxable:number|null;
+    tax_amount:number|null;
+    delivery_charge:number|null;
+    taxable:number|null;
+
 
 };
 

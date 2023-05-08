@@ -2,10 +2,8 @@ import {RequestHandler} from "express";
 import {Tbluser} from "@model/Tbluser";
 import myDataSource from "@base/app-data-source";
 import {decodeToken} from '@utils/USER/token';
-import {TblCart} from '@base/ORM/entities/TblCart';
-import {TblRestaurant} from '@model/TblRestaurant';
 
-const customerCart : RequestHandler = async(req, res) => {
+const customerDetails : RequestHandler = async(req, res) => {
     try {
 
         let token = req
@@ -46,52 +44,31 @@ const customerCart : RequestHandler = async(req, res) => {
             return;
         };
 
-        let cart = await myDataSource
-        .getRepository(TblCart)
-        .createQueryBuilder("t")
-        .select([
-            "t.idCart",
-            "t.restaurantID",
-        ])
-        .where({customerID:userid, isRemoved: false, isActive: true})
-        .getMany();
+        let userinfo = await myDataSource
+            .getRepository(Tbluser)
+            .createQueryBuilder("t")
+            .select([
+                "t.displayname",
+                "t.email",
+                "t.phone",
+                "t.locationName",
+                "t.altphone",
+            ])
+            .where({id: userid})
+            .getOne();
 
-
-        if (!cart) {
+        if (!userinfo) {
             res
                 .status(400)
-                .json({detail: "Cart is empty."});
+                .json({detail: "Error while fetching user info."});
             return;
         } else {
-            let cartdata:any = cart;
-            for (let i in cart){
-                let restaurantid = cart[i]?.restaurantID;
-                let restaurant = await myDataSource
-                .getRepository(TblRestaurant)
-                .createQueryBuilder("x")
-                .select([
-                    "x.Name",
-                    "x.Address",
-                    "x.logo",
-                    "x.details"
-                ])
-                .where({id:restaurantid,isActive:true})
-                .getOne();
-                if(restaurant){
-                    cartdata[i]["restaurantDetails"]=restaurant;
-                } else {
-                    delete cartdata[i];
-                };
-            };
             res
                 .status(200)
-                .json(cartdata);
+                .json(userinfo);
             return;
         }
 
-
-
-        
     } catch (error) {
         res
             .status(500)
@@ -100,4 +77,4 @@ const customerCart : RequestHandler = async(req, res) => {
     };
 };
 
-export {customerCart};
+export {customerDetails};

@@ -35,6 +35,77 @@ __decorate([
     __metadata("design:type", Object)
 ], TblCart.prototype, "restaurantID", void 0);
 __decorate([
+    (0, typeorm_1.Column)("decimal", {
+        name: "taxable",
+        nullable: true,
+        precision: 10,
+        scale: 2
+    }),
+    __metadata("design:type", Object)
+], TblCart.prototype, "taxable", void 0);
+__decorate([
+    (0, typeorm_1.Column)("decimal", {
+        name: "taxAmount",
+        nullable: true,
+        precision: 10,
+        scale: 2
+    }),
+    __metadata("design:type", Object)
+], TblCart.prototype, "taxAmount", void 0);
+__decorate([
+    (0, typeorm_1.Column)("decimal", {
+        name: "nontaxable",
+        nullable: true,
+        precision: 10,
+        scale: 2
+    }),
+    __metadata("design:type", Object)
+], TblCart.prototype, "nontaxable", void 0);
+__decorate([
+    (0, typeorm_1.Column)("decimal", {
+        name: "subTotal",
+        nullable: true,
+        precision: 10,
+        scale: 2
+    }),
+    __metadata("design:type", Object)
+], TblCart.prototype, "subTotal", void 0);
+__decorate([
+    (0, typeorm_1.Column)("decimal", {
+        name: "Total",
+        nullable: true,
+        precision: 10,
+        scale: 2
+    }),
+    __metadata("design:type", Object)
+], TblCart.prototype, "Total", void 0);
+__decorate([
+    (0, typeorm_1.Column)("decimal", {
+        name: "deliveryCharge",
+        nullable: true,
+        precision: 10,
+        scale: 2
+    }),
+    __metadata("design:type", Object)
+], TblCart.prototype, "deliveryCharge", void 0);
+__decorate([
+    (0, typeorm_1.Column)("varchar", {
+        name: "checkoutAt",
+        nullable: true,
+        length: 120
+    }),
+    __metadata("design:type", Object)
+], TblCart.prototype, "checkoutAt", void 0);
+__decorate([
+    (0, typeorm_1.Column)("decimal", {
+        name: "quantity",
+        nullable: true,
+        precision: 10,
+        scale: 2
+    }),
+    __metadata("design:type", Object)
+], TblCart.prototype, "quantity", void 0);
+__decorate([
     (0, typeorm_1.Column)("boolean", {
         name: "isActive",
         default: true

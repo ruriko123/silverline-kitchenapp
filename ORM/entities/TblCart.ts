@@ -20,7 +20,7 @@ export class TblCart {
         name: "customerID",
         nullable: true
     })
-    customerID : number  | null;
+    customerID : number | null;
 
     @Column("int", {
         name: "restaurantID",
@@ -28,6 +28,74 @@ export class TblCart {
     })
     restaurantID : number | null;
 
+    @Column("decimal", {
+        name: "taxable",
+        nullable: true,
+        precision: 10,
+        scale: 2
+    })
+    taxable : number | null;
+
+    @Column("decimal", {
+        name: "taxAmount",
+        nullable: true,
+        precision: 10,
+        scale: 2
+    })
+    taxAmount : number | null;
+
+    @Column("decimal", {
+        name: "nontaxable",
+        nullable: true,
+        precision: 10,
+        scale: 2
+    })
+    nontaxable : number | null;
+
+
+    @Column("decimal", {
+        name: "subTotal",
+        nullable: true,
+        precision: 10,
+        scale: 2
+    })
+    subTotal : number | null;
+
+    @Column("decimal", {
+        name: "Total",
+        nullable: true,
+        precision: 10,
+        scale: 2
+    })
+    Total : number | null;
+
+
+    @Column("decimal", {
+        name: "deliveryCharge",
+        nullable: true,
+        precision: 10,
+        scale: 2
+    })
+    deliveryCharge : number | null;
+
+
+
+    @Column("varchar", {
+        name: "checkoutAt",
+        nullable: true,
+        length: 120
+    })
+    checkoutAt : string | null;
+
+
+
+    @Column("decimal", {
+        name: "quantity",
+        nullable: true,
+        precision: 10,
+        scale: 2
+    })
+    quantity : string | null;
 
     @Column("boolean", {
         name: "isActive",
@@ -35,14 +103,11 @@ export class TblCart {
     })
     isActive : boolean | string | null;
 
-
     @Column("boolean", {
         name: "isRemoved",
         default: false
     })
     isRemoved : boolean | string | null;
-
-
 
     @ManyToOne(() => Tbluser, (user) => user.id, {
         onDelete: "NO ACTION",

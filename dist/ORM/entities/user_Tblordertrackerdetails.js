@@ -31,7 +31,7 @@ __decorate([
     (0, typeorm_1.Column)("varchar", {
         name: "orderedat",
         nullable: true,
-        length: 20
+        length: 120
     }),
     __metadata("design:type", Object)
 ], user_Tblordertrackerdetails.prototype, "orderedat", void 0);
@@ -39,7 +39,7 @@ __decorate([
     (0, typeorm_1.Column)("varchar", {
         name: "completedat",
         nullable: true,
-        length: 20
+        length: 120
     }),
     __metadata("design:type", Object)
 ], user_Tblordertrackerdetails.prototype, "completedat", void 0);
@@ -47,7 +47,7 @@ __decorate([
     (0, typeorm_1.Column)("varchar", {
         name: "totaltime",
         nullable: true,
-        length: 20
+        length: 120
     }),
     __metadata("design:type", Object)
 ], user_Tblordertrackerdetails.prototype, "totaltime", void 0);
