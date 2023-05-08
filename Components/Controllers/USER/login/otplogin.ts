@@ -3,11 +3,8 @@ import {otpLogin} from "@reqtypes/orderHistory";
 import myDataSource from "@base/app-data-source";
 import {Tbluser} from '@model/Tbluser';
 import {generateToken} from "@utils/USER/token";
-import {userPasswordToken} from "@utils/USER/normalLogin/userPassword";
-import {getCurrentTime} from "@utils/time/getCurrentTime";
-import {createTransporter} from "@utils/email/transporter";
-import {generateOTP} from "@base/Components/utils/otp/generateotp";
-import {getTimeDiff, getTimeAfterTimeout} from "@base/Components/utils/time/timediff";
+import {getCurrentTime} from "@utils/time/getCurrentTime"
+import {getTimeDiff} from "@base/Components/utils/time/timediff";
 
 const otplogin : RequestHandler = async(req, res) => {
     try {
