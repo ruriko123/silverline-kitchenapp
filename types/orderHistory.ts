@@ -100,7 +100,10 @@ export interface normalUserRegister {
     firebasetoken:string|null;
 };
 
-
+export interface otpLogin {
+    id:number;
+    otp:string;
+};
 
 export interface normalLogin {
 

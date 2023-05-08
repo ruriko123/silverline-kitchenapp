@@ -23,4 +23,16 @@ const getTimeAfterTimeout = async(firstdate : Date) => {
     };
 };
 
-export {getTimeDiff, getTimeAfterTimeout};
+
+const resendgetTimeAfterTimeout = async(firstdate : Date) => {
+    try {
+        let result = await moment(firstdate, "YYYY-MM-DD HH:mm:ss Z")
+            .add(process.env.REGISTRATION_otpTimeout, 'minutes')
+            .format('hh:mm:ss A');
+        return result;
+    } catch (error) {
+        return `${process.env.OTP_RESEND_TIMEOUT} minutes`;
+    };
+};
+
+export {getTimeDiff, getTimeAfterTimeout,resendgetTimeAfterTimeout};

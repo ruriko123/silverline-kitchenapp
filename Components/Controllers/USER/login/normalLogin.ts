@@ -26,7 +26,8 @@ const normalLogin : RequestHandler = async(req, res) => {
             .findOne({
                 where: {
                     username: `${email}`,
-                    password: `${password}`
+                    password: `${password}`,
+                    socialflag:false
                 }
             });
 
