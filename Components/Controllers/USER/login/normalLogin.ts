@@ -30,19 +30,24 @@ const normalLogin : RequestHandler = async(req, res) => {
                 }
             });
 
-
-
         if (!userData) {
             res
                 .status(400)
                 .json({"detail": "Invalid login. Check email and password."});
         };
-        if(userData?.activeStatus===false){
+        
+        if (!(userData
+            ?.registrationStatus === "REGISTERED")) {
             res
-            .status(400)
-            .json({"detail": "User has been blocked."});
+                .status(400)
+                .json({"detail": "User has not completed registration."});
+        };
+        if (userData
+            ?.activeStatus === false) {
+            res
+                .status(400)
+                .json({"detail": "User has been blocked."});
         }
-
         else {
             let userid = userData
                 ?.id;

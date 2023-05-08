@@ -87,6 +87,20 @@ export interface socialLogin {
 };
 
 
+export interface normalUserRegister {
+    full_name:string;
+    password:string;
+    email:string;
+    phone:string;
+    long:string|null;
+    lat:string|null;
+    address:string|null;
+    deviceid:string|null;
+    devicetype:string|null;
+    firebasetoken:string|null;
+};
+
+
 
 export interface normalLogin {
 

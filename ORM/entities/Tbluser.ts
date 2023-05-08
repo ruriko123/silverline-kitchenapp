@@ -2,7 +2,7 @@ import {Column, Entity, PrimaryGeneratedColumn} from "typeorm";
 
 @Entity()
 export class Tbluser {
-    @PrimaryGeneratedColumn({type: "bigint", name: "id"})
+    @PrimaryGeneratedColumn({type: "int", name: "id"})
     id : number;
 
     @Column("varchar", {

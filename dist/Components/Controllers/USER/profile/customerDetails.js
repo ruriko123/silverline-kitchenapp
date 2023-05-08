@@ -56,6 +56,7 @@ const customerDetails = (req, res) => __awaiter(void 0, void 0, void 0, function
             .getRepository(Tbluser_1.Tbluser)
             .createQueryBuilder("t")
             .select([
+            "t.id",
             "t.displayname",
             "t.email",
             "t.phone",

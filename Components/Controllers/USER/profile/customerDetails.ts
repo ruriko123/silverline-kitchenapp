@@ -48,6 +48,7 @@ const customerDetails : RequestHandler = async(req, res) => {
             .getRepository(Tbluser)
             .createQueryBuilder("t")
             .select([
+                "t.id",
                 "t.displayname",
                 "t.email",
                 "t.phone",
