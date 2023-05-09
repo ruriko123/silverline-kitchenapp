@@ -14,7 +14,7 @@ const customerCart : RequestHandler = async(req, res) => {
 
         if (!token) {
             res
-                .status(400)
+                .status(303)
                 .json({detail: "Missing parameters."});
             return;
         };
@@ -23,7 +23,7 @@ const customerCart : RequestHandler = async(req, res) => {
         if (!tokendata || tokendata
             ?.error) {
             res
-                .status(400)
+                .status(303)
                 .json({detail: "error while reading token."});
             return;
         };

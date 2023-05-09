@@ -2,7 +2,6 @@ import { userRegistrationDetails } from '@base/Components/Controllers/USER/regis
 import { userTokenMiddleware } from '@base/Components/Middlewares/USER/tokenChecker';
 
 
-
 import express from 'express';
 const router = express.Router();
 var path = require('path');

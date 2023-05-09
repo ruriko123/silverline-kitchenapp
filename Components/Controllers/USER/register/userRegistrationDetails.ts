@@ -5,6 +5,7 @@ import {Tbluser} from '@model/Tbluser';
 import {userPasswordToken} from "@utils/USER/normalLogin/userPassword";
 var toonavatar = require('cartoon-avatar');
 import {decodeToken} from '@utils/USER/token';
+import {generateToken} from "@utils/USER/token";
 
 const userRegistrationDetails : RequestHandler = async(req, res) => {
     try {
@@ -40,13 +41,18 @@ const userRegistrationDetails : RequestHandler = async(req, res) => {
                 .json({"error": "Password is missing."});
             return;
         };
+        if(!(password.length>=8 && password.length<=15)){
+            res
+            .status(400)
+            .json({detail: "Password must be between 8 to 15 characters in length."});
+        return;
+        };
         if (!full_name) {
             res
                 .status(400)
                 .json({"error": "Full name is missing."});
             return;
         };
-
 
         let token = req
             ?.headers
@@ -55,7 +61,7 @@ const userRegistrationDetails : RequestHandler = async(req, res) => {
         if (!tokendata || tokendata
             ?.error) {
             res
-                .status(400)
+                .status(303)
                 .json({detail: "error while reading token."});
             return;
         };
@@ -67,37 +73,62 @@ const userRegistrationDetails : RequestHandler = async(req, res) => {
             .getRepository(Tbluser)
             .findOne({
                 where: {
-                    id:userid,
+                    id: userid,
                     socialflag: false
                 }
             });
-        if(!userData){
+        if (!userData) {
             res
-            .status(400)
-            .json({detail: "User does not exist."});
-        return;
+                .status(400)
+                .json({detail: "User does not exist."});
+            return;
         };
 
-        if(!(userData?.otpStep==="COMPLETED")){
+        if (!(userData
+            ?.otpStep === "COMPLETED")) {
             res
-            .status(400)
-            .json({detail: "OTP verification not completed."});
-        return;
-        }
-        else {
+                .status(400)
+                .json({detail: "OTP verification not completed."});
+            return;
+        } else {
             var url = await toonavatar.generate_avatar();
             await myDataSource
-            .createQueryBuilder()
-            .update(Tbluser)
-            .set({registrationStatus:"REGISTERED", profilepicture:url,firebaseToken:firebasetoken,deviceType:devicetype,deviceId:deviceid,locationName:address,lat:lat,long:long,phone:phone,socialflag:false,password:password,displayname: full_name})
-            .where("id = :id", {id: userid})
-            .execute();
-            res
-            .status(200)
-            .json({success: "User has been registered."});
-        return;
-        };
+                .createQueryBuilder()
+                .update(Tbluser)
+                .set({
+                    registrationStatus: "REGISTERED",
+                    profilepicture: url,
+                    firebaseToken: firebasetoken,
+                    deviceType: devicetype,
+                    deviceId: deviceid,
+                    locationName: address,
+                    lat: lat,
+                    long: long,
+                    phone: phone,
+                    socialflag: false,
+                    password: password,
+                    displayname: full_name
+                })
+                .where("id = :id", {id: userid})
+                .execute();
 
+            let tokenobject = {
+                id: userData
+                    ?.id,
+                displayname: full_name
+            };
+            let token = await generateToken(tokenobject);
+
+            res
+                .status(200)
+                .json({
+                    success: {
+                        message: "User has been registered.",
+                        token: token
+                    }
+                });
+            return;
+        };
 
     } catch (error) {
         res

@@ -96,7 +96,7 @@ const resendotp : RequestHandler = async(req, res) => {
                             .execute();
                         res
                             .status(200)
-                            .json({success: "Check email for the OTP.", userid: userid});
+                            .json({success: "Check email for the OTP.", userid: userid,otp:otp});
                         return;
                     };
                 });

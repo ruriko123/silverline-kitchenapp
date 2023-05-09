@@ -13,7 +13,8 @@ exports.generateOTP = void 0;
 const otpGenerator = require('otp-generator');
 const generateOTP = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        let generatedOtp = yield otpGenerator.generate(6, { upperCaseAlphabets: false, specialChars: false });
+        let otplength = parseInt(`${process.env.OTP_LENGTH}` || "4") || 4;
+        let generatedOtp = yield otpGenerator.generate(otplength, { upperCaseAlphabets: false, specialChars: false });
         return generatedOtp;
     }
     catch (error) {

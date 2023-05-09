@@ -78,7 +78,7 @@ const socialLogin = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
             let token = yield (0, token_1.generateToken)(tokenobject);
             if (!token) {
                 res
-                    .status(400)
+                    .status(303)
                     .json({ "detail": "Error while generating token." });
                 return;
             }

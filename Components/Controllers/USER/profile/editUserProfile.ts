@@ -4,6 +4,7 @@ import myDataSource from "@base/app-data-source";
 import {Tbluser} from '@model/Tbluser';
 import {decodeToken} from '@utils/USER/token';
 import {getCurrentTime} from "@utils/time/getCurrentTime";
+import {generateToken} from "@utils/USER/token";
 
 const editUserProfile : RequestHandler = async(req, res) => {
     try {
@@ -42,7 +43,7 @@ const editUserProfile : RequestHandler = async(req, res) => {
         if (!tokendata || tokendata
             ?.error) {
             res
-                .status(400)
+                .status(303)
                 .json({detail: "error while reading token."});
             return;
         };
@@ -86,17 +87,35 @@ const editUserProfile : RequestHandler = async(req, res) => {
                 .where("id = :id", {id: userid})
                 .execute();
 
-            let newuserData = await myDataSource
+                let newuserinfo = await myDataSource
                 .getRepository(Tbluser)
-                .findOne({
-                    where: {
-                        id: userid
-                    }
-                });
+                .createQueryBuilder("t")
+                .select([
+                    "t.id",
+                    "t.displayname",
+                    "t.email",
+                    "t.phone",
+                    "t.locationName",
+                    "t.altphone",
+                    "t.points",
+                    "t.profilepicture"
+                ])
+                .where({id: userid})
+                .getOne();
+
+
+                let tokenobject = {
+                    id: newuserinfo
+                        ?.id,
+                    displayname: newuserinfo
+                    ?.displayname
+                };
+                let token = await generateToken(tokenobject);
+
 
             res
                 .status(200)
-                .json(newuserData);
+                .json({newinfo:newuserinfo,token:token});
             return;
         };
 

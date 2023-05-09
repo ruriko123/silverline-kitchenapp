@@ -27,7 +27,7 @@ const saveUserPreferredLocation = (req, res) => __awaiter(void 0, void 0, void 0
         let tokendata = yield (0, token_1.decodeToken)(token);
         if (!tokendata || (tokendata === null || tokendata === void 0 ? void 0 : tokendata.error)) {
             res
-                .status(400)
+                .status(303)
                 .json({ detail: "error while reading token." });
             return;
         }

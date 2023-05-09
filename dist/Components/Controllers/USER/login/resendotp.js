@@ -111,7 +111,7 @@ const resendotp = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
                                 .execute();
                             res
                                 .status(200)
-                                .json({ success: "Check email for the OTP.", userid: userid });
+                                .json({ success: "Check email for the OTP.", userid: userid, otp: otp });
                             return;
                         }
                         ;

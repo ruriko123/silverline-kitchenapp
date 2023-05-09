@@ -13,12 +13,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.userRegistrationDetails = void 0;
-const app_data_source_1 = __importDefault(require("../../../../app-data-source"));
-const Tbluser_1 = require("../../../../ORM/entities/Tbluser");
-const userPassword_1 = require("../../../utils/USER/normalLogin/userPassword");
+const app_data_source_1 = __importDefault(require("../../../../../app-data-source"));
+const Tbluser_1 = require("../../../../../ORM/entities/Tbluser");
+const userPassword_1 = require("../../../../utils/USER/normalLogin/userPassword");
 var toonavatar = require('cartoon-avatar');
-const token_1 = require("../../../utils/USER/token");
-const token_2 = require("../../../utils/USER/token");
+const token_1 = require("../../../../utils/USER/token");
 const userRegistrationDetails = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     var _a;
     try {
@@ -47,13 +46,6 @@ const userRegistrationDetails = (req, res) => __awaiter(void 0, void 0, void 0, 
             return;
         }
         ;
-        if (!(password.length >= 8 && password.length <= 15)) {
-            res
-                .status(400)
-                .json({ detail: "Password must be between 8 to 15 characters in length." });
-            return;
-        }
-        ;
         if (!full_name) {
             res
                 .status(400)
@@ -65,7 +57,7 @@ const userRegistrationDetails = (req, res) => __awaiter(void 0, void 0, void 0, 
         let tokendata = yield (0, token_1.decodeToken)(token);
         if (!tokendata || (tokendata === null || tokendata === void 0 ? void 0 : tokendata.error)) {
             res
-                .status(303)
+                .status(400)
                 .json({ detail: "error while reading token." });
             return;
         }
@@ -98,35 +90,12 @@ const userRegistrationDetails = (req, res) => __awaiter(void 0, void 0, void 0, 
             yield app_data_source_1.default
                 .createQueryBuilder()
                 .update(Tbluser_1.Tbluser)
-                .set({
-                registrationStatus: "REGISTERED",
-                profilepicture: url,
-                firebaseToken: firebasetoken,
-                deviceType: devicetype,
-                deviceId: deviceid,
-                locationName: address,
-                lat: lat,
-                long: long,
-                phone: phone,
-                socialflag: false,
-                password: password,
-                displayname: full_name
-            })
+                .set({ registrationStatus: "REGISTERED", profilepicture: url, firebaseToken: firebasetoken, deviceType: devicetype, deviceId: deviceid, locationName: address, lat: lat, long: long, phone: phone, socialflag: false, password: password, displayname: full_name })
                 .where("id = :id", { id: userid })
                 .execute();
-            let tokenobject = {
-                id: userData === null || userData === void 0 ? void 0 : userData.id,
-                displayname: full_name
-            };
-            let token = yield (0, token_2.generateToken)(tokenobject);
             res
                 .status(200)
-                .json({
-                success: {
-                    message: "User has been registered.",
-                    token: token
-                }
-            });
+                .json({ success: "User has been registered." });
             return;
         }
         ;

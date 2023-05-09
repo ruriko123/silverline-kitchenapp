@@ -114,6 +114,23 @@ __decorate([
     __metadata("design:type", Object)
 ], Tbluser.prototype, "otp", void 0);
 __decorate([
+    (0, typeorm_1.Column)("varchar", {
+        name: "forgotPasswordotp",
+        nullable: true,
+        length: 10,
+        default: null
+    }),
+    __metadata("design:type", Object)
+], Tbluser.prototype, "forgotPasswordotp", void 0);
+__decorate([
+    (0, typeorm_1.Column)("datetime", {
+        name: "forgotPasswordotpGeneratedDatetime",
+        nullable: true,
+        default: null
+    }),
+    __metadata("design:type", Object)
+], Tbluser.prototype, "forgotPasswordotpGeneratedDatetime", void 0);
+__decorate([
     (0, typeorm_1.Column)("datetime", {
         name: "otpGeneratedDatetime",
         nullable: true,

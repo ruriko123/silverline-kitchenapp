@@ -12,7 +12,7 @@ const changerUserPfp : RequestHandler = async(req, res) => {
 
         if (!token) {
             res
-                .status(400)
+                .status(303)
                 .json({detail: "Missing parameters."});
             return;
         };
@@ -21,7 +21,7 @@ const changerUserPfp : RequestHandler = async(req, res) => {
         if (!tokendata || tokendata
             ?.error) {
             res
-                .status(400)
+                .status(303)
                 .json({detail: "error while reading token."});
             return;
         };
@@ -83,6 +83,9 @@ const changerUserPfp : RequestHandler = async(req, res) => {
             locationName:userData?.locationName,
             profilepicture:fullUrl,
         };
+
+
+        
         res
             .status(200)
             .json(responsejson);

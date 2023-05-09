@@ -32,7 +32,7 @@ const addItemstoCart : RequestHandler = async(req, res) => {
         if (!tokendata || tokendata
             ?.error) {
             res
-                .status(400)
+                .status(303)
                 .json({detail: "error while reading token."});
             return;
         };

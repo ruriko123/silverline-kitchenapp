@@ -18,13 +18,13 @@ const userTokenMiddleware = (req, res, next) => __awaiter(void 0, void 0, void 0
     }
     ;
     if (!((_a = req === null || req === void 0 ? void 0 : req.headers) === null || _a === void 0 ? void 0 : _a.token)) {
-        res.status(400).json({ detail: "No token provided." });
+        res.status(303).json({ detail: "No token provided." });
         return;
     }
     let token = (_b = req === null || req === void 0 ? void 0 : req.headers) === null || _b === void 0 ? void 0 : _b.token;
     let tokenresult = yield (0, token_1.decodeToken)(token);
     if (tokenresult === null || tokenresult === void 0 ? void 0 : tokenresult.error) {
-        res.status(401).json({ detail: "Invalid token." });
+        res.status(303).json({ detail: "Invalid token." });
         return;
     }
     else {

@@ -77,7 +77,7 @@ const socialLogin : RequestHandler = async(req, res) => {
             let token = await generateToken(tokenobject);
             if (!token) {
                 res
-                    .status(400)
+                    .status(303)
                     .json({"detail": "Error while generating token."});
                 return;
             } else {

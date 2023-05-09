@@ -22,7 +22,7 @@ const customerDetails = (req, res) => __awaiter(void 0, void 0, void 0, function
         let token = (_a = req === null || req === void 0 ? void 0 : req.headers) === null || _a === void 0 ? void 0 : _a.token;
         if (!token) {
             res
-                .status(400)
+                .status(303)
                 .json({ detail: "Missing parameters." });
             return;
         }
@@ -30,7 +30,7 @@ const customerDetails = (req, res) => __awaiter(void 0, void 0, void 0, function
         let tokendata = yield (0, token_1.decodeToken)(token);
         if (!tokendata || (tokendata === null || tokendata === void 0 ? void 0 : tokendata.error)) {
             res
-                .status(400)
+                .status(303)
                 .json({ detail: "error while reading token." });
             return;
         }
@@ -48,7 +48,7 @@ const customerDetails = (req, res) => __awaiter(void 0, void 0, void 0, function
         if (!userData) {
             res
                 .status(400)
-                .json({ detail: "User not found." });
+                .json({ detail: "User not found.", username: userdisplayname, userid: userid, token: token });
             return;
         }
         ;

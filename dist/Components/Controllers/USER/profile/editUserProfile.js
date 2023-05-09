@@ -12,18 +12,16 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.userRegistrationDetails = void 0;
+exports.editUserProfile = void 0;
 const app_data_source_1 = __importDefault(require("../../../../app-data-source"));
 const Tbluser_1 = require("../../../../ORM/entities/Tbluser");
-const userPassword_1 = require("../../../utils/USER/normalLogin/userPassword");
-var toonavatar = require('cartoon-avatar');
 const token_1 = require("../../../utils/USER/token");
+const getCurrentTime_1 = require("../../../utils/time/getCurrentTime");
 const token_2 = require("../../../utils/USER/token");
-const userRegistrationDetails = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const editUserProfile = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     var _a;
     try {
         let userdata = req === null || req === void 0 ? void 0 : req.body;
-        let password = userdata === null || userdata === void 0 ? void 0 : userdata.password;
         let full_name = userdata === null || userdata === void 0 ? void 0 : userdata.full_name;
         let phone = (userdata === null || userdata === void 0 ? void 0 : userdata.phone) || "";
         let long = (userdata === null || userdata === void 0 ? void 0 : userdata.long) || "";
@@ -37,23 +35,6 @@ const userRegistrationDetails = (req, res) => __awaiter(void 0, void 0, void 0, 
         }
         ;
         let address = (userdata === null || userdata === void 0 ? void 0 : userdata.address) || "";
-        let deviceid = (userdata === null || userdata === void 0 ? void 0 : userdata.deviceid) || "";
-        let devicetype = (userdata === null || userdata === void 0 ? void 0 : userdata.devicetype) || "";
-        let firebasetoken = (userdata === null || userdata === void 0 ? void 0 : userdata.firebasetoken) || "";
-        if (!password) {
-            res
-                .status(400)
-                .json({ "error": "Password is missing." });
-            return;
-        }
-        ;
-        if (!(password.length >= 8 && password.length <= 15)) {
-            res
-                .status(400)
-                .json({ detail: "Password must be between 8 to 15 characters in length." });
-            return;
-        }
-        ;
         if (!full_name) {
             res
                 .status(400)
@@ -61,6 +42,8 @@ const userRegistrationDetails = (req, res) => __awaiter(void 0, void 0, void 0, 
             return;
         }
         ;
+        let modifiedDate = yield (0, getCurrentTime_1.getCurrentTime)();
+        let modifiedby = "SELF";
         let token = (_a = req === null || req === void 0 ? void 0 : req.headers) === null || _a === void 0 ? void 0 : _a.token;
         let tokendata = yield (0, token_1.decodeToken)(token);
         if (!tokendata || (tokendata === null || tokendata === void 0 ? void 0 : tokendata.error)) {
@@ -71,13 +54,11 @@ const userRegistrationDetails = (req, res) => __awaiter(void 0, void 0, void 0, 
         }
         ;
         let userid = tokendata === null || tokendata === void 0 ? void 0 : tokendata.id;
-        password = (yield (0, userPassword_1.userPasswordToken)(password)) || "";
         let userData = yield app_data_source_1.default
             .getRepository(Tbluser_1.Tbluser)
             .findOne({
             where: {
-                id: userid,
-                socialflag: false
+                id: userid
             }
         });
         if (!userData) {
@@ -94,39 +75,43 @@ const userRegistrationDetails = (req, res) => __awaiter(void 0, void 0, void 0, 
             return;
         }
         else {
-            var url = yield toonavatar.generate_avatar();
             yield app_data_source_1.default
                 .createQueryBuilder()
                 .update(Tbluser_1.Tbluser)
                 .set({
-                registrationStatus: "REGISTERED",
-                profilepicture: url,
-                firebaseToken: firebasetoken,
-                deviceType: devicetype,
-                deviceId: deviceid,
+                modifiedby: modifiedby,
+                modifiedDate: modifiedDate,
                 locationName: address,
                 lat: lat,
                 long: long,
                 phone: phone,
-                socialflag: false,
-                password: password,
                 displayname: full_name
             })
                 .where("id = :id", { id: userid })
                 .execute();
+            let newuserinfo = yield app_data_source_1.default
+                .getRepository(Tbluser_1.Tbluser)
+                .createQueryBuilder("t")
+                .select([
+                "t.id",
+                "t.displayname",
+                "t.email",
+                "t.phone",
+                "t.locationName",
+                "t.altphone",
+                "t.points",
+                "t.profilepicture"
+            ])
+                .where({ id: userid })
+                .getOne();
             let tokenobject = {
-                id: userData === null || userData === void 0 ? void 0 : userData.id,
-                displayname: full_name
+                id: newuserinfo === null || newuserinfo === void 0 ? void 0 : newuserinfo.id,
+                displayname: newuserinfo === null || newuserinfo === void 0 ? void 0 : newuserinfo.displayname
             };
             let token = yield (0, token_2.generateToken)(tokenobject);
             res
                 .status(200)
-                .json({
-                success: {
-                    message: "User has been registered.",
-                    token: token
-                }
-            });
+                .json({ newinfo: newuserinfo, token: token });
             return;
         }
         ;
@@ -139,4 +124,4 @@ const userRegistrationDetails = (req, res) => __awaiter(void 0, void 0, void 0, 
     }
     ;
 });
-exports.userRegistrationDetails = userRegistrationDetails;
+exports.editUserProfile = editUserProfile;

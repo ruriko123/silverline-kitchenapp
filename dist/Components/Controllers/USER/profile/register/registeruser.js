@@ -13,12 +13,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.registeruser = void 0;
-const app_data_source_1 = __importDefault(require("../../../../app-data-source"));
-const Tbluser_1 = require("../../../../ORM/entities/Tbluser");
-const getCurrentTime_1 = require("../../../utils/time/getCurrentTime");
-const transporter_1 = require("../../../utils/email/transporter");
-const generateotp_1 = require("../../../../Components/utils/otp/generateotp");
-const timediff_1 = require("../../../../Components/utils/time/timediff");
+const app_data_source_1 = __importDefault(require("../../../../../app-data-source"));
+const Tbluser_1 = require("../../../../../ORM/entities/Tbluser");
+const getCurrentTime_1 = require("../../../../utils/time/getCurrentTime");
+const transporter_1 = require("../../../../utils/email/transporter");
+const generateotp_1 = require("../../../../../Components/utils/otp/generateotp");
+const timediff_1 = require("../../../../../Components/utils/time/timediff");
 const registeruser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         let userdata = req === null || req === void 0 ? void 0 : req.body;
@@ -153,7 +153,7 @@ const registeruser = (req, res) => __awaiter(void 0, void 0, void 0, function* (
                                                 .execute();
                                             res
                                                 .status(200)
-                                                .json({ success: "Check email for the OTP.", userid: userid, otp: otp });
+                                                .json({ success: "Check email for the OTP.", userid: userid });
                                             return;
                                         }
                                     });

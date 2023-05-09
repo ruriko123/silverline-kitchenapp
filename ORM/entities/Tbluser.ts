@@ -92,6 +92,21 @@ export class Tbluser {
     })
     otp : string | null;
 
+    @Column("varchar", {
+        name: "forgotPasswordotp",
+        nullable: true,
+        length:10,
+        default:null
+    })
+    forgotPasswordotp : string | null;
+
+    @Column("datetime", {
+        name: "forgotPasswordotpGeneratedDatetime",
+        nullable: true,
+        default:null
+    })
+    forgotPasswordotpGeneratedDatetime : Date | null;
+
     @Column("datetime", {
         name: "otpGeneratedDatetime",
         nullable: true,

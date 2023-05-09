@@ -22,7 +22,7 @@ const changerUserPfp = (req, res) => __awaiter(void 0, void 0, void 0, function*
         let token = (_a = req === null || req === void 0 ? void 0 : req.headers) === null || _a === void 0 ? void 0 : _a.token;
         if (!token) {
             res
-                .status(400)
+                .status(303)
                 .json({ detail: "Missing parameters." });
             return;
         }
@@ -30,7 +30,7 @@ const changerUserPfp = (req, res) => __awaiter(void 0, void 0, void 0, function*
         let tokendata = yield (0, token_1.decodeToken)(token);
         if (!tokendata || (tokendata === null || tokendata === void 0 ? void 0 : tokendata.error)) {
             res
-                .status(400)
+                .status(303)
                 .json({ detail: "error while reading token." });
             return;
         }
@@ -81,9 +81,19 @@ const changerUserPfp = (req, res) => __awaiter(void 0, void 0, void 0, function*
             .set({ profilepicture: fullUrl })
             .where("id = :id", { id: userid })
             .execute();
+        let responsejson = {
+            id: userData === null || userData === void 0 ? void 0 : userData.id,
+            displayname: userData === null || userData === void 0 ? void 0 : userData.displayname,
+            email: userData === null || userData === void 0 ? void 0 : userData.email,
+            phone: userData === null || userData === void 0 ? void 0 : userData.phone,
+            altphone: userData === null || userData === void 0 ? void 0 : userData.altphone,
+            points: userData === null || userData === void 0 ? void 0 : userData.points,
+            locationName: userData === null || userData === void 0 ? void 0 : userData.locationName,
+            profilepicture: fullUrl,
+        };
         res
             .status(200)
-            .json({ success: "Profile image updated.", url: fullUrl });
+            .json(responsejson);
         return;
     }
     catch (error) {
