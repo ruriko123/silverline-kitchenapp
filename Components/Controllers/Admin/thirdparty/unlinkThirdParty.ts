@@ -30,7 +30,7 @@ const unlinkThirdParty : RequestHandler = async(req, res) => {
         if (!ThirdPartyExists) {
             res
                 .status(400)
-                .json({"error": "Third party does not exist."});
+                .json({detail: "Third party does not exist."});
             return;
         };
         let restaurantExists = await myDataSource
@@ -43,7 +43,7 @@ const unlinkThirdParty : RequestHandler = async(req, res) => {
         if (!restaurantExists) {
             res
                 .status(400)
-                .json({"error": "Restaurant does not exist."});
+                .json({detail: "Restaurant does not exist."});
             return;
         };
         let restaurantLinkData = await myDataSource
@@ -57,7 +57,7 @@ const unlinkThirdParty : RequestHandler = async(req, res) => {
         if (!restaurantLinkData) {
             res
                 .status(400)
-                .json({"error": "Third party link to the restaurant does not exist."});
+                .json({detail: "Third party link to the restaurant does not exist."});
             return;
         } else {
             let thirdPartyInfo = {
@@ -87,7 +87,7 @@ const unlinkThirdParty : RequestHandler = async(req, res) => {
         console.log(error)
         res
             .status(500)
-            .json({"error": error});
+            .json({detail: error});
         return;
     };
 };

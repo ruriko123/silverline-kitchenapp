@@ -18,7 +18,7 @@ const registeruser : RequestHandler = async(req, res) => {
         if (!email) {
             res
                 .status(400)
-                .json({"error": "Email is missing."});
+                .json({detail: "Email is missing."});
             return;
         };
 
@@ -39,7 +39,7 @@ const registeruser : RequestHandler = async(req, res) => {
             tbluser.registrationStatus = "STARTED";
             let currentTime = await getCurrentTime();
             tbluser.registrationDatetime = new Date(currentTime);
-            let otp;
+            let otp:string;
             try {
                 otp = await generateOTP();
                 tbluser.otp = otp;
@@ -50,7 +50,7 @@ const registeruser : RequestHandler = async(req, res) => {
             } catch (error) {
                 res
                     .status(400)
-                    .json({"error": "Error while generating OTP."});
+                    .json({detail: "Error while generating OTP."});
                 return;
             };
             try {
@@ -76,7 +76,7 @@ const registeruser : RequestHandler = async(req, res) => {
                             ?.id;
                         res
                             .status(200)
-                            .json({success: "User has been registered. Check email for the OTP.", userid: userid});
+                            .json({success: "User has been registered. Check email for the OTP.", userid: userid ,otp:otp});
                         return;
                     };
                 });
@@ -149,7 +149,7 @@ const registeruser : RequestHandler = async(req, res) => {
                         } catch (error) {
                             res
                                 .status(400)
-                                .json({"error": "Error while generating OTP."});
+                                .json({detail: "Error while generating OTP."});
                             return;
                         };
                     } else if (result < parseInt(`${process.env.REGISTRATION_otpTimeout}`)) {
@@ -157,7 +157,7 @@ const registeruser : RequestHandler = async(req, res) => {
                         let timeouttime = await getTimeAfterTimeout(registrationtime);
                         res
                             .status(400)
-                            .json({"error": `Too many registration attempts. You have been timed out until ${timeouttime}.`});
+                            .json({detail: `Too many registration attempts. You have been timed out until ${timeouttime}.`});
                         return;
                     };
                 } catch (error) {
@@ -176,7 +176,7 @@ const registeruser : RequestHandler = async(req, res) => {
     } catch (error) {
         res
             .status(500)
-            .json({"error": error});
+            .json({detail: error});
         return;
     };
 };

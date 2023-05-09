@@ -26,7 +26,7 @@ const registeruser = (req, res) => __awaiter(void 0, void 0, void 0, function* (
         if (!email) {
             res
                 .status(400)
-                .json({ "error": "Email is missing." });
+                .json({ detail: "Email is missing." });
             return;
         }
         ;
@@ -59,7 +59,7 @@ const registeruser = (req, res) => __awaiter(void 0, void 0, void 0, function* (
             catch (error) {
                 res
                     .status(400)
-                    .json({ "error": "Error while generating OTP." });
+                    .json({ detail: "Error while generating OTP." });
                 return;
             }
             ;
@@ -87,7 +87,7 @@ const registeruser = (req, res) => __awaiter(void 0, void 0, void 0, function* (
                             let userid = a === null || a === void 0 ? void 0 : a.id;
                             res
                                 .status(200)
-                                .json({ success: "User has been registered. Check email for the OTP.", userid: userid });
+                                .json({ success: "User has been registered. Check email for the OTP.", userid: userid, otp: otp });
                             return;
                         }
                         ;
@@ -170,7 +170,7 @@ const registeruser = (req, res) => __awaiter(void 0, void 0, void 0, function* (
                         catch (error) {
                             res
                                 .status(400)
-                                .json({ "error": "Error while generating OTP." });
+                                .json({ detail: "Error while generating OTP." });
                             return;
                         }
                         ;
@@ -180,7 +180,7 @@ const registeruser = (req, res) => __awaiter(void 0, void 0, void 0, function* (
                         let timeouttime = yield (0, timediff_1.getTimeAfterTimeout)(registrationtime);
                         res
                             .status(400)
-                            .json({ "error": `Too many registration attempts. You have been timed out until ${timeouttime}.` });
+                            .json({ detail: `Too many registration attempts. You have been timed out until ${timeouttime}.` });
                         return;
                     }
                     ;
@@ -206,7 +206,7 @@ const registeruser = (req, res) => __awaiter(void 0, void 0, void 0, function* (
     catch (error) {
         res
             .status(500)
-            .json({ "error": error });
+            .json({ detail: error });
         return;
     }
     ;

@@ -14,7 +14,7 @@ const getInactiveRestaurant : RequestHandler = async(req, res) => {
         if (!userData|| userData.length<1) {
             res
                 .status(400)
-                .json({"error": "No data available."});
+                .json({detail: "No data available."});
             return;
         } else {
             res
@@ -25,7 +25,7 @@ const getInactiveRestaurant : RequestHandler = async(req, res) => {
     } catch (error) {
         res
             .status(500)
-            .json({"error": error});
+            .json({detail: error});
         return;
     };
 };

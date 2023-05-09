@@ -70,7 +70,7 @@ const saveUserPreferredLocation : RequestHandler = async(req, res) => {
     } catch (error) {
         res
             .status(500)
-            .json({"error": error});
+            .json({detail: error});
         return;
     };
 };

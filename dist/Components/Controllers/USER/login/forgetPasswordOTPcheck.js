@@ -78,7 +78,7 @@ const forgetPasswordOTPcheck = (req, res) => __awaiter(void 0, void 0, void 0, f
     catch (error) {
         res
             .status(500)
-            .json({ "error": error });
+            .json({ detail: error });
         return;
     }
     ;

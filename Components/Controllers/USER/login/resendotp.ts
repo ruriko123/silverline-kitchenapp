@@ -62,7 +62,7 @@ const resendotp : RequestHandler = async(req, res) => {
             let timeouttime = await resendgetTimeAfterTimeout(userData.otpGeneratedDatetime);
             res
                 .status(400)
-                .json({"error": `Too many otp generation attempts. You have been timed out until ${timeouttime}.`});
+                .json({detail: `Too many otp generation attempts. You have been timed out until ${timeouttime}.`});
             return;
         } else {
             let otp : string = await generateOTP();
@@ -110,7 +110,7 @@ const resendotp : RequestHandler = async(req, res) => {
     } catch (error) {
         res
             .status(500)
-            .json({"error": error});
+            .json({detail: error});
         return;
     };
 };

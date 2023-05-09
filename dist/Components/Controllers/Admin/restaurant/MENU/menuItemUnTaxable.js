@@ -22,7 +22,7 @@ const menuItemUnTaxable = (req, res) => __awaiter(void 0, void 0, void 0, functi
         if (!itemID) {
             res
                 .status(400)
-                .json({ "error": "Missing Parameters." });
+                .json({ detail: "Missing Parameters." });
             return;
         }
         ;
@@ -36,7 +36,7 @@ const menuItemUnTaxable = (req, res) => __awaiter(void 0, void 0, void 0, functi
         if (!(menuExists)) {
             res
                 .status(400)
-                .json({ "error": "Item does not exist." });
+                .json({ detail: "Item does not exist." });
             return;
         }
         else {
@@ -56,7 +56,7 @@ const menuItemUnTaxable = (req, res) => __awaiter(void 0, void 0, void 0, functi
     catch (error) {
         res
             .status(500)
-            .json({ "error": error });
+            .json({ detail: error });
         return;
     }
     ;

@@ -43,7 +43,7 @@ const userRegistrationDetails = (req, res) => __awaiter(void 0, void 0, void 0, 
         if (!password) {
             res
                 .status(400)
-                .json({ "error": "Password is missing." });
+                .json({ detail: "Password is missing." });
             return;
         }
         ;
@@ -57,7 +57,7 @@ const userRegistrationDetails = (req, res) => __awaiter(void 0, void 0, void 0, 
         if (!full_name) {
             res
                 .status(400)
-                .json({ "error": "Full name is missing." });
+                .json({ detail: "Full name is missing." });
             return;
         }
         ;
@@ -134,7 +134,7 @@ const userRegistrationDetails = (req, res) => __awaiter(void 0, void 0, void 0, 
     catch (error) {
         res
             .status(500)
-            .json({ "error": error });
+            .json({ detail: error });
         return;
     }
     ;

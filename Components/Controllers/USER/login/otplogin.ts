@@ -87,7 +87,6 @@ const otplogin : RequestHandler = async(req, res) => {
             let otpFailAttempts = 0;
             let emailverificationStatus = true;
             let otpStep = "COMPLETED";
-            
             await myDataSource
                 .createQueryBuilder()
                 .update(Tbluser)
@@ -115,7 +114,7 @@ const otplogin : RequestHandler = async(req, res) => {
     } catch (error) {
         res
             .status(500)
-            .json({"error": error});
+            .json({detail: error});
         return;
     };
 };

@@ -38,7 +38,7 @@ const addOperatingLocation = (req, res) => __awaiter(void 0, void 0, void 0, fun
         if (checkLocationExists) {
             res
                 .status(400)
-                .json({ "error": "Operating location already exists." });
+                .json({ detail: "Operating location already exists." });
             return;
         }
         else {
@@ -59,7 +59,7 @@ const addOperatingLocation = (req, res) => __awaiter(void 0, void 0, void 0, fun
     catch (error) {
         res
             .status(500)
-            .json({ "error": error });
+            .json({ detail: error });
         return;
     }
     ;

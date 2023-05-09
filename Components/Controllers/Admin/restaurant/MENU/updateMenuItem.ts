@@ -12,7 +12,7 @@ const updateMenuItem : RequestHandler = async(req, res) => {
         if (!itemid ) {
             res
                 .status(400)
-                .json({"error": "Item ID missing."});
+                .json({detail: "Item ID missing."});
             return;
         };
         let menuItemdata = await myDataSource
@@ -25,7 +25,7 @@ const updateMenuItem : RequestHandler = async(req, res) => {
         if (!(menuItemdata)) {
             res
                 .status(400)
-                .json({"error": "Item does not exist."});
+                .json({detail: "Item does not exist."});
             return;
         } else {
             delete updateditems["itemid"];
@@ -46,7 +46,7 @@ const updateMenuItem : RequestHandler = async(req, res) => {
     } catch (error) {
         res
             .status(500)
-            .json({"error": error});
+            .json({detail: error});
         return;
     };
 };

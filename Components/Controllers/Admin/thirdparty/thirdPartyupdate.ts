@@ -28,7 +28,7 @@ const thirdPartyupdate : RequestHandler = async(req, res) => {
         if (userData) {
             res
                 .status(400)
-                .json({"error": "Company name already registered. Try with another name."});
+                .json({detail: "Company name already registered. Try with another name."});
             return;
         } else {
             await myDataSource
@@ -46,7 +46,7 @@ const thirdPartyupdate : RequestHandler = async(req, res) => {
         console.log(error)
         res
             .status(500)
-            .json({"error": error});
+            .json({detail: error});
         return;
     };
 };

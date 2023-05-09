@@ -40,7 +40,7 @@ const socialLogin : RequestHandler = async(req, res) => {
         if (!social_token || !full_name) {
             res
                 .status(400)
-                .json({"error": "Missing parameters."});
+                .json({detail: "Missing parameters."});
                 return;
         };
         let userData = await myDataSource
@@ -114,7 +114,7 @@ const socialLogin : RequestHandler = async(req, res) => {
     } catch (error) {
         res
             .status(500)
-            .json({"error": error});
+            .json({detail: error});
         return;
     };
 };

@@ -23,7 +23,7 @@ const updateMenuItem = (req, res) => __awaiter(void 0, void 0, void 0, function*
         if (!itemid) {
             res
                 .status(400)
-                .json({ "error": "Item ID missing." });
+                .json({ detail: "Item ID missing." });
             return;
         }
         ;
@@ -37,7 +37,7 @@ const updateMenuItem = (req, res) => __awaiter(void 0, void 0, void 0, function*
         if (!(menuItemdata)) {
             res
                 .status(400)
-                .json({ "error": "Item does not exist." });
+                .json({ detail: "Item does not exist." });
             return;
         }
         else {
@@ -58,7 +58,7 @@ const updateMenuItem = (req, res) => __awaiter(void 0, void 0, void 0, function*
     catch (error) {
         res
             .status(500)
-            .json({ "error": error });
+            .json({ detail: error });
         return;
     }
     ;

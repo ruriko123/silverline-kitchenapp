@@ -23,6 +23,8 @@ const TblCart_1 = require("../../../../ORM/entities/TblCart");
 const TblCartItems_1 = require("../../../../ORM/entities/TblCartItems");
 const restaurantdatafilters_1 = require("../../../utils/USER/restaurantdatafilters");
 const moment_timezone_1 = __importDefault(require("moment-timezone"));
+const sendNotification_1 = require("../../../../Components/utils/firebase/sendNotification");
+const getCurrentTime_1 = require("../../../../Components/utils/time/getCurrentTime");
 (0, moment_timezone_1.default)().format();
 const userOrder = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l;
@@ -231,9 +233,10 @@ const userOrder = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         returnobject["userid"] = userid;
         let result = yield (0, saveClientOrder_1.saveClientOrder)(returnobject);
         if ("error" in result) {
+            let returnresult = { detail: result.error };
             res
                 .status(500)
-                .json(result);
+                .json(returnresult);
             return;
         }
         else {
@@ -247,6 +250,14 @@ const userOrder = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
                 .set({ points: userpoints })
                 .where("id = :id", { id: userid })
                 .execute();
+            let firebasetoken = userData.firebaseToken || "";
+            let currenttime = yield (0, getCurrentTime_1.getCurrentTime)();
+            let title = `Order at ${currenttime}`;
+            let messagebody = `Your order has been placed.\nTotal: ${subTotal}\nDeliverycharge: ${deliveryCharge}`;
+            if (firebasetoken && firebasetoken.length > 0) {
+                (0, sendNotification_1.sendnotification)(firebasetoken, title, messagebody);
+            }
+            ;
             /* After
         the middleware emits the data to the device through socket connection, the
         same data is sent back to the user who post it  */

@@ -70,7 +70,7 @@ const gethomepage = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
         if (!restaurantData || restaurantData.length < 1) {
             res
                 .status(400)
-                .json({ "error": "No data available." });
+                .json({ detail: "No data available." });
             return;
         }
         ;
@@ -92,7 +92,7 @@ const gethomepage = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
         catch (error) {
             res
                 .status(400)
-                .json({ "error": error });
+                .json({ detail: error });
             return;
         }
         ;
@@ -100,7 +100,7 @@ const gethomepage = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
     catch (error) {
         res
             .status(500)
-            .json({ "error": error });
+            .json({ detail: error });
         return;
     }
     ;

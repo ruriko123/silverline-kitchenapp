@@ -15,7 +15,7 @@ const uploadMenu : RequestHandler = async(req, res) => {
         if (!restaurantName || !restaurantID || !menudata) {
             res
                 .status(400)
-                .json({"error": "Missing Parameters."});
+                .json({detail: "Missing Parameters."});
             return;
         };
         let userData = await myDataSource
@@ -29,7 +29,7 @@ const uploadMenu : RequestHandler = async(req, res) => {
         if (!(userData)) {
             res
                 .status(400)
-                .json({"error": "Restaurant does not exist."});
+                .json({detail: "Restaurant does not exist."});
             return;
         } else {
             menudata.map(async(e : any, index : any) => {
@@ -104,7 +104,7 @@ const uploadMenu : RequestHandler = async(req, res) => {
     } catch (error) {
         res
             .status(500)
-            .json({"error": error});
+            .json({detail: error});
         return;
     };
 };

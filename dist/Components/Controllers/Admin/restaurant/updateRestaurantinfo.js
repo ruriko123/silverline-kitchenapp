@@ -26,7 +26,7 @@ const updateRestaurantinfo = (req, res) => __awaiter(void 0, void 0, void 0, fun
         if (!Outlet_Name || !id) {
             res
                 .status(400)
-                .json({ "error": "Outlet Name or ID not supplied." });
+                .json({ detail: "Outlet Name or ID not supplied." });
             return;
         }
         ;
@@ -41,7 +41,7 @@ const updateRestaurantinfo = (req, res) => __awaiter(void 0, void 0, void 0, fun
         if (userData) {
             res
                 .status(400)
-                .json({ "error": "Restaurant Name already exists. Try another name." });
+                .json({ detail: "Restaurant Name already exists. Try another name." });
             return;
         }
         else {
@@ -62,7 +62,7 @@ const updateRestaurantinfo = (req, res) => __awaiter(void 0, void 0, void 0, fun
     catch (error) {
         res
             .status(500)
-            .json({ "error": error });
+            .json({ detail: error });
         return;
     }
     ;

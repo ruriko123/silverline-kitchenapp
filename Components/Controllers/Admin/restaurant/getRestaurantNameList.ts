@@ -14,7 +14,7 @@ const getRestaurantNameList : RequestHandler = async(req, res) => {
         if (!restaurantNameList|| restaurantNameList.length<1) {
             res
                 .status(400)
-                .json({"error": "Error while requesting restaurant name list."});
+                .json({detail: "Error while requesting restaurant name list."});
             return;
         } else {
 
@@ -38,7 +38,7 @@ const getRestaurantNameList : RequestHandler = async(req, res) => {
     } catch (error) {
         res
             .status(500)
-            .json({"error": error});
+            .json({detail: error});
         return;
     };
 };

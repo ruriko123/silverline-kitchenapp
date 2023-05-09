@@ -35,7 +35,7 @@ const getOperatingLocations = (req, res) => __awaiter(void 0, void 0, void 0, fu
     catch (error) {
         res
             .status(500)
-            .json({ "error": error });
+            .json({ detail: error });
         return;
     }
     ;

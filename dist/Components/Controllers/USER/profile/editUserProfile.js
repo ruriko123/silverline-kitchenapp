@@ -38,7 +38,7 @@ const editUserProfile = (req, res) => __awaiter(void 0, void 0, void 0, function
         if (!full_name) {
             res
                 .status(400)
-                .json({ "error": "Full name is missing." });
+                .json({ detail: "Full name is missing." });
             return;
         }
         ;
@@ -119,7 +119,7 @@ const editUserProfile = (req, res) => __awaiter(void 0, void 0, void 0, function
     catch (error) {
         res
             .status(500)
-            .json({ "error": error });
+            .json({ detail: error });
         return;
     }
     ;

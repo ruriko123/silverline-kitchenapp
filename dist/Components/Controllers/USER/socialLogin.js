@@ -41,7 +41,7 @@ const socialLogin = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
         if (!social_token || !full_name) {
             res
                 .status(400)
-                .json({ "error": "Missing parameters." });
+                .json({ detail: "Missing parameters." });
             return;
         }
         ;
@@ -118,7 +118,7 @@ const socialLogin = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
     catch (error) {
         res
             .status(500)
-            .json({ "error": error });
+            .json({ detail: error });
         return;
     }
     ;

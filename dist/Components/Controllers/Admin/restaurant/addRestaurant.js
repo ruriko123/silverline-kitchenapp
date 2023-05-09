@@ -28,7 +28,7 @@ const addRestaurant = (req, res) => __awaiter(void 0, void 0, void 0, function* 
         if (!Outlet_Name || !Address || !Email || !Phone || !baseURL) {
             res
                 .status(400)
-                .json({ "error": "Missing Parameters." });
+                .json({ detail: "Missing Parameters." });
             return;
         }
         ;
@@ -42,7 +42,7 @@ const addRestaurant = (req, res) => __awaiter(void 0, void 0, void 0, function* 
         if (userData) {
             res
                 .status(400)
-                .json({ "error": "Outlet is already registered." });
+                .json({ detail: "Outlet is already registered." });
             return;
         }
         else {
@@ -67,7 +67,7 @@ const addRestaurant = (req, res) => __awaiter(void 0, void 0, void 0, function* 
     catch (error) {
         res
             .status(500)
-            .json({ "error": error });
+            .json({ detail: error });
         return;
     }
     ;

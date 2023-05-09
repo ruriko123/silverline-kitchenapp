@@ -58,7 +58,7 @@ const LinkedThirdParties : RequestHandler = async(req, res) => {
         console.log(error);
         res
             .status(500)
-            .json({"error": error});
+            .json({detail: error});
         return;
     };
 };

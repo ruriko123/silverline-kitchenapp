@@ -27,7 +27,7 @@ const getRestaurantNameList = (req, res) => __awaiter(void 0, void 0, void 0, fu
         if (!restaurantNameList || restaurantNameList.length < 1) {
             res
                 .status(400)
-                .json({ "error": "Error while requesting restaurant name list." });
+                .json({ detail: "Error while requesting restaurant name list." });
             return;
         }
         else {
@@ -53,7 +53,7 @@ const getRestaurantNameList = (req, res) => __awaiter(void 0, void 0, void 0, fu
     catch (error) {
         res
             .status(500)
-            .json({ "error": error });
+            .json({ detail: error });
         return;
     }
     ;

@@ -75,7 +75,7 @@ const resendotp = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             let timeouttime = yield (0, timediff_1.resendgetTimeAfterTimeout)(userData.otpGeneratedDatetime);
             res
                 .status(400)
-                .json({ "error": `Too many otp generation attempts. You have been timed out until ${timeouttime}.` });
+                .json({ detail: `Too many otp generation attempts. You have been timed out until ${timeouttime}.` });
             return;
         }
         else {
@@ -131,7 +131,7 @@ const resendotp = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     catch (error) {
         res
             .status(500)
-            .json({ "error": error });
+            .json({ detail: error });
         return;
     }
     ;

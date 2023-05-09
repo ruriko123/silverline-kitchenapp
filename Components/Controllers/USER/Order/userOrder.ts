@@ -10,6 +10,8 @@ import {TblCart} from '@base/ORM/entities/TblCart';
 import {TblCartItems} from '@base/ORM/entities/TblCartItems';
 import { checkOpenOrClosed } from "@utils/USER/restaurantdatafilters";
 import moment, {tz} from "moment-timezone";
+import { sendnotification } from "@base/Components/utils/firebase/sendNotification";
+import { getCurrentTime } from "@base/Components/utils/time/getCurrentTime";
 moment().format();
 
 
@@ -86,7 +88,7 @@ const userOrder : RequestHandler = async(req, res) => {
         let taxAmount:number = req?.body?.tax_amount;
         let taxable:number = req?.body?.taxable;
 
-
+        
         if(!taxable && !(taxable===0)){
             res
             .status(400)
@@ -270,9 +272,10 @@ const userOrder : RequestHandler = async(req, res) => {
         returnobject["userid"]=userid;
         let result = await saveClientOrder(returnobject);
         if ("error" in result) {
+            let returnresult  ={detail:result.error}
             res
                 .status(500)
-                .json(result);
+                .json(returnresult);
             return;
         } else {
             let loyalitypricepercent:number = parseInt(`${process.env.LoyalityPointPC}`)||1;
@@ -286,7 +289,13 @@ const userOrder : RequestHandler = async(req, res) => {
             .set({points:userpoints})
             .where("id = :id", {id: userid})
             .execute();
-
+            let firebasetoken:string = userData.firebaseToken||"";
+            let currenttime = await getCurrentTime();
+            let title = `Order at ${currenttime}`;
+            let messagebody:string=`Your order has been placed.\nTotal: ${subTotal}\nDeliverycharge: ${deliveryCharge}`;
+            if(firebasetoken && firebasetoken.length>0){
+                sendnotification(firebasetoken,title,messagebody);
+            };
             /* After
         the middleware emits the data to the device through socket connection, the
         same data is sent back to the user who post it  */

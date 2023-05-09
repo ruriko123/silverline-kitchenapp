@@ -38,7 +38,7 @@ const userRegistrationDetails : RequestHandler = async(req, res) => {
         if (!password) {
             res
                 .status(400)
-                .json({"error": "Password is missing."});
+                .json({detail: "Password is missing."});
             return;
         };
         if(!(password.length>=8 && password.length<=15)){
@@ -50,7 +50,7 @@ const userRegistrationDetails : RequestHandler = async(req, res) => {
         if (!full_name) {
             res
                 .status(400)
-                .json({"error": "Full name is missing."});
+                .json({detail: "Full name is missing."});
             return;
         };
 
@@ -133,7 +133,7 @@ const userRegistrationDetails : RequestHandler = async(req, res) => {
     } catch (error) {
         res
             .status(500)
-            .json({"error": error});
+            .json({detail: error});
         return;
     };
 };

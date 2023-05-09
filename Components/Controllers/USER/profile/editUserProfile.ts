@@ -30,7 +30,7 @@ const editUserProfile : RequestHandler = async(req, res) => {
         if (!full_name) {
             res
                 .status(400)
-                .json({"error": "Full name is missing."});
+                .json({detail: "Full name is missing."});
             return;
         };
         let modifiedDate = await getCurrentTime();
@@ -122,7 +122,7 @@ const editUserProfile : RequestHandler = async(req, res) => {
     } catch (error) {
         res
             .status(500)
-            .json({"error": error});
+            .json({detail: error});
         return;
     };
 };
