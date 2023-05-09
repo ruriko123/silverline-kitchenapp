@@ -15,7 +15,6 @@ const sendnotification = (token : any, title : string, body : string) => {
         .messaging()
         .sendToDevice(token, message_notification, notification_options)
         .then((response : any) => {
-
             console.log(`Notification sent to ${token}`)
         })
         .catch((error:any) => {
