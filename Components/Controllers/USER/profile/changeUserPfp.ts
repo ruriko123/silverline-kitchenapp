@@ -73,10 +73,19 @@ const changerUserPfp : RequestHandler = async(req, res) => {
             .set({profilepicture:fullUrl})
             .where("id = :id", {id: userid})
             .execute();
-
+        let responsejson = {
+            id:userData?.id,
+            displayname:userData?.displayname,
+            email:userData?.email,
+            phone:userData?.phone,
+            altphone:userData?.altphone,
+            points:userData?.points,
+            locationName:userData?.locationName,
+            profilepicture:fullUrl,
+        };
         res
             .status(200)
-            .json({success: "Profile image updated.", url: fullUrl});
+            .json(responsejson);
         return;
 
     } catch (error) {
