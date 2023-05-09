@@ -22,10 +22,38 @@ const normalLogin = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
         let userdata = req === null || req === void 0 ? void 0 : req.body;
         let email = userdata === null || userdata === void 0 ? void 0 : userdata.email;
         let password = userdata === null || userdata === void 0 ? void 0 : userdata.password;
-        if (!email || !password) {
+        if (!email) {
             res
-                .status(500)
-                .json({ "detail": "Email or password not supplied." });
+                .status(400)
+                .json({ "detail": "Email not supplied." });
+            return;
+        }
+        ;
+        let long = (userdata === null || userdata === void 0 ? void 0 : userdata.long) || "";
+        let lat = (userdata === null || userdata === void 0 ? void 0 : userdata.lat) || "";
+        if (!long || long === "") {
+            long = "85.3240";
+        }
+        ;
+        if (!lat || lat === "") {
+            lat = "27.7172";
+        }
+        ;
+        let address = (userdata === null || userdata === void 0 ? void 0 : userdata.address) || "";
+        let deviceid = (userdata === null || userdata === void 0 ? void 0 : userdata.deviceid) || "";
+        let devicetype = (userdata === null || userdata === void 0 ? void 0 : userdata.devicetype) || "";
+        let firebasetoken = (userdata === null || userdata === void 0 ? void 0 : userdata.firebasetoken) || "";
+        if (!password) {
+            res
+                .status(400)
+                .json({ detail: "Password is missing." });
+            return;
+        }
+        ;
+        if (!(password.length >= 8 && password.length <= 15)) {
+            res
+                .status(400)
+                .json({ detail: "Password must be between 8 to 15 characters in length." });
             return;
         }
         ;
@@ -63,6 +91,20 @@ const normalLogin = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
                 id: userid,
                 displayname: full_name
             };
+            yield app_data_source_1.default
+                .createQueryBuilder()
+                .update(Tbluser_1.Tbluser)
+                .set({
+                firebaseToken: firebasetoken,
+                deviceType: devicetype,
+                deviceId: deviceid,
+                locationName: address,
+                lat: lat,
+                long: long,
+                socialflag: false
+            })
+                .where("id = :id", { id: userid })
+                .execute();
             let token = yield (0, token_1.generateToken)(tokenobject);
             res
                 .status(200)

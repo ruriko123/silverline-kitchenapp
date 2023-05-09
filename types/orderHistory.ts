@@ -113,6 +113,13 @@ export interface normalLogin {
 
     email:string;
     password:string;
+    long:string|null;
+    lat:string|null;
+    address:string|null;
+    deviceid:string|null;
+    devicetype:string|null;
+    firebasetoken:string|null;
+
 };
 
 
