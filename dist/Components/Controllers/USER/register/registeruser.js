@@ -19,7 +19,6 @@ const getCurrentTime_1 = require("../../../utils/time/getCurrentTime");
 const transporter_1 = require("../../../utils/email/transporter");
 const generateotp_1 = require("../../../../Components/utils/otp/generateotp");
 const timediff_1 = require("../../../../Components/utils/time/timediff");
-var toonavatar = require('cartoon-avatar');
 const registeruser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         let userdata = req === null || req === void 0 ? void 0 : req.body;
