@@ -37,7 +37,7 @@ const addThirdParty : RequestHandler = async(req, res) => {
         if (userData) {
             res
                 .status(400)
-                .json({detail: "Company name already registered. Try with another name."});
+                .json({error: "Company name already registered. Try with another name."});
             return;
         } else {
             let Token = await thirdPartyToken();
@@ -63,7 +63,7 @@ const addThirdParty : RequestHandler = async(req, res) => {
     } catch (error) {
         res
             .status(500)
-            .json({detail: error});
+            .json({error: error});
         return;
     };
 };

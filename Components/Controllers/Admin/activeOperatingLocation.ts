@@ -23,7 +23,7 @@ const activeOperatingLocation : RequestHandler = async(req, res) => {
         if (!locationexists) {
             res
                 .status(400)
-                .json({detail: "Wrong ID supplied."});
+                .json({error: "Wrong ID supplied."});
             return;
         } else {
             await myDataSource
@@ -40,7 +40,7 @@ const activeOperatingLocation : RequestHandler = async(req, res) => {
     } catch (error) {
         res
             .status(500)
-            .json({detail: error});
+            .json({error: error});
         return;
     };
 };

@@ -40,7 +40,7 @@ const unlinkThirdParty = (req, res) => __awaiter(void 0, void 0, void 0, functio
         if (!ThirdPartyExists) {
             res
                 .status(400)
-                .json({ detail: "Third party does not exist." });
+                .json({ error: "Third party does not exist." });
             return;
         }
         ;
@@ -54,7 +54,7 @@ const unlinkThirdParty = (req, res) => __awaiter(void 0, void 0, void 0, functio
         if (!restaurantExists) {
             res
                 .status(400)
-                .json({ detail: "Restaurant does not exist." });
+                .json({ error: "Restaurant does not exist." });
             return;
         }
         ;
@@ -69,7 +69,7 @@ const unlinkThirdParty = (req, res) => __awaiter(void 0, void 0, void 0, functio
         if (!restaurantLinkData) {
             res
                 .status(400)
-                .json({ detail: "Third party link to the restaurant does not exist." });
+                .json({ error: "Third party link to the restaurant does not exist." });
             return;
         }
         else {
@@ -102,7 +102,7 @@ const unlinkThirdParty = (req, res) => __awaiter(void 0, void 0, void 0, functio
         console.log(error);
         res
             .status(500)
-            .json({ detail: error });
+            .json({ error: error });
         return;
     }
     ;

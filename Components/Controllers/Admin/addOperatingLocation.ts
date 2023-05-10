@@ -33,7 +33,7 @@ const addOperatingLocation : RequestHandler = async(req, res) => {
         if (checkLocationExists) {
             res
                 .status(400)
-                .json({detail: "Operating location already exists."});
+                .json({error: "Operating location already exists."});
             return;
         } else {
             const operatingLocations = new TbloperatingLocations();
@@ -51,7 +51,7 @@ const addOperatingLocation : RequestHandler = async(req, res) => {
     } catch (error) {
         res
             .status(500)
-            .json({detail: error});
+            .json({error: error});
         return;
     };
 };

@@ -17,7 +17,7 @@ const updateRestaurantinfo : RequestHandler = async(req, res) => {
         if(!Outlet_Name||!id){
             res
                 .status(400)
-                .json({detail: "Outlet Name or ID not supplied."});
+                .json({error: "Outlet Name or ID not supplied."});
             return;
         };
         let userData = await myDataSource
@@ -31,7 +31,7 @@ const updateRestaurantinfo : RequestHandler = async(req, res) => {
         if (userData) {
             res
                 .status(400)
-                .json({detail: "Restaurant Name already exists. Try another name."});
+                .json({error: "Restaurant Name already exists. Try another name."});
             return;
         } else {
             restaurantData.lastModifiedBy=modifiedby;
@@ -49,7 +49,7 @@ const updateRestaurantinfo : RequestHandler = async(req, res) => {
     } catch (error) {
         res
             .status(500)
-            .json({detail: error});
+            .json({error: error});
         return;
     };
 };

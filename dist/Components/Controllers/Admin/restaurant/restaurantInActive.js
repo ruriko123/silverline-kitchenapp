@@ -36,7 +36,7 @@ const restaurantInActive = (req, res) => __awaiter(void 0, void 0, void 0, funct
         if (!userData) {
             res
                 .status(400)
-                .json({ detail: "Restaurant with this ID does not exist." });
+                .json({ error: "Restaurant with this ID does not exist." });
             return;
         }
         else {
@@ -56,7 +56,7 @@ const restaurantInActive = (req, res) => __awaiter(void 0, void 0, void 0, funct
     catch (error) {
         res
             .status(500)
-            .json({ detail: error });
+            .json({ error: error });
         return;
     }
     ;

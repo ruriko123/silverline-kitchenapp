@@ -37,7 +37,7 @@ const AdminInActive = (req, res) => __awaiter(void 0, void 0, void 0, function* 
         if (!userData) {
             res
                 .status(400)
-                .json({ detail: "Admin with this ID does not exist or cannot be made inactive." });
+                .json({ error: "Admin with this ID does not exist or cannot be made inactive." });
             return;
         }
         else {
@@ -57,7 +57,7 @@ const AdminInActive = (req, res) => __awaiter(void 0, void 0, void 0, function* 
     catch (error) {
         res
             .status(500)
-            .json({ detail: error });
+            .json({ error: error });
         return;
     }
     ;

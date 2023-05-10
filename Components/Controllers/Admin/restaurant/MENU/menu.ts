@@ -12,7 +12,7 @@ const getMenu : RequestHandler = async(req, res) => {
         if (!restaurantID) {
             res
                 .status(400)
-                .json({detail: "Missing Parameters."});
+                .json({error: "Missing Parameters."});
             return;
         };
         let userData = await myDataSource
@@ -25,7 +25,7 @@ const getMenu : RequestHandler = async(req, res) => {
         if (!(userData)) {
             res
                 .status(400)
-                .json({detail: "Restaurant does not exist."});
+                .json({error: "Restaurant does not exist."});
             return;
         } else {
 
@@ -55,7 +55,7 @@ const getMenu : RequestHandler = async(req, res) => {
     } catch (error) {
         res
             .status(500)
-            .json({detail: error});
+            .json({error: error});
         return;
     };
 };

@@ -23,7 +23,7 @@ const getMenu = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         if (!restaurantID) {
             res
                 .status(400)
-                .json({ detail: "Missing Parameters." });
+                .json({ error: "Missing Parameters." });
             return;
         }
         ;
@@ -37,7 +37,7 @@ const getMenu = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         if (!(userData)) {
             res
                 .status(400)
-                .json({ detail: "Restaurant does not exist." });
+                .json({ error: "Restaurant does not exist." });
             return;
         }
         else {
@@ -68,7 +68,7 @@ const getMenu = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     catch (error) {
         res
             .status(500)
-            .json({ detail: error });
+            .json({ error: error });
         return;
     }
     ;

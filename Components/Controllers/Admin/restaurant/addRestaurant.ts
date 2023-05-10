@@ -20,7 +20,7 @@ const addRestaurant : RequestHandler = async(req, res) => {
         if (!Outlet_Name || !Address || !Email || !Phone || !baseURL) {
             res
                 .status(400)
-                .json({detail: "Missing Parameters."});
+                .json({error: "Missing Parameters."});
             return;
         };
         let userData = await myDataSource
@@ -33,7 +33,7 @@ const addRestaurant : RequestHandler = async(req, res) => {
         if (userData) {
             res
                 .status(400)
-                .json({detail: "Outlet is already registered."});
+                .json({error: "Outlet is already registered."});
             return;
         } else {
             const restaurantTable = new TblRestaurant();
@@ -55,7 +55,7 @@ const addRestaurant : RequestHandler = async(req, res) => {
     } catch (error) {
         res
             .status(500)
-            .json({detail: error});
+            .json({error: error});
         return;
     };
 };

@@ -36,7 +36,7 @@ const activeOperatingLocation = (req, res) => __awaiter(void 0, void 0, void 0, 
         if (!locationexists) {
             res
                 .status(400)
-                .json({ detail: "Wrong ID supplied." });
+                .json({ error: "Wrong ID supplied." });
             return;
         }
         else {
@@ -56,7 +56,7 @@ const activeOperatingLocation = (req, res) => __awaiter(void 0, void 0, void 0, 
     catch (error) {
         res
             .status(500)
-            .json({ detail: error });
+            .json({ error: error });
         return;
     }
     ;

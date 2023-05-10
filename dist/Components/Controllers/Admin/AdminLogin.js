@@ -73,7 +73,7 @@ const adminLogin = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     catch (error) {
         res
             .status(500)
-            .json({ detail: error });
+            .json({ error: error });
         return;
     }
     ;

@@ -52,6 +52,7 @@
     "express-rate-limit": "^6.7.0",
     "express-session": "^1.17.3",
     "firebase": "^9.21.0",
+    "firebase-admin": "^11.8.0",
     "got": "^12.6.0",
     "hat": "^0.0.3",
     "haversine-distance": "^1.2.1",

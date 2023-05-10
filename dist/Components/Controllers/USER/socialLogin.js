@@ -67,6 +67,7 @@ const socialLogin = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
             tbluser.deviceType = devicetype;
             tbluser.firebaseToken = firebasetoken;
             tbluser.profilepicture = url;
+            tbluser.registrationStatus = "REGISTERED";
             let a = yield app_data_source_1.default
                 .manager
                 .save(tbluser);

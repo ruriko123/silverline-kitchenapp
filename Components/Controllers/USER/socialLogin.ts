@@ -65,6 +65,7 @@ const socialLogin : RequestHandler = async(req, res) => {
             tbluser.deviceType = devicetype;
             tbluser.firebaseToken = firebasetoken;
             tbluser.profilepicture = url;
+            tbluser.registrationStatus="REGISTERED";
             let a = await myDataSource
                 .manager
                 .save(tbluser);

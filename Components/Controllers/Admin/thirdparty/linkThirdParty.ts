@@ -29,7 +29,7 @@ const linkThirdParty : RequestHandler = async(req, res) => {
         if (!ThirdPartyExists) {
             res
                 .status(400)
-                .json({detail: "Third party does not exist."});
+                .json({error: "Third party does not exist."});
             return;
         };
 
@@ -44,7 +44,7 @@ const linkThirdParty : RequestHandler = async(req, res) => {
         if (!restaurantExists) {
             res
                 .status(400)
-                .json({detail: "Restaurant does not exist."});
+                .json({error: "Restaurant does not exist."});
             return;
         };
 
@@ -59,7 +59,7 @@ const linkThirdParty : RequestHandler = async(req, res) => {
         if (restaurantLinkData) {
             res
                 .status(400)
-                .json({detail: "Third party link to the restaurant already exists."});
+                .json({error: "Third party link to the restaurant already exists."});
             return;
         } else {
             let thirdPartyInfo = {
@@ -88,7 +88,7 @@ const linkThirdParty : RequestHandler = async(req, res) => {
     } catch (error) {
         res
             .status(500)
-            .json({detail: error});
+            .json({error: error});
         return;
     };
 };

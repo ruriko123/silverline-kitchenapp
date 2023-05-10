@@ -11,7 +11,7 @@ const menuItemActive : RequestHandler = async(req, res) => {
         if (!itemID) {
             res
                 .status(400)
-                .json({detail: "Missing Parameters."});
+                .json({error: "Missing Parameters."});
             return;
         };
         let menuExists = await myDataSource
@@ -24,7 +24,7 @@ const menuItemActive : RequestHandler = async(req, res) => {
         if (!(menuExists)) {
             res
                 .status(400)
-                .json({detail: "Item does not exist."});
+                .json({error: "Item does not exist."});
             return;
         } else {
 
@@ -43,7 +43,7 @@ const menuItemActive : RequestHandler = async(req, res) => {
     } catch (error) {
         res
             .status(500)
-            .json({detail: error});
+            .json({error: error});
         return;
     };
 };

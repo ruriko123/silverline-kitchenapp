@@ -36,7 +36,7 @@ const thirdPartyInactive = (req, res) => __awaiter(void 0, void 0, void 0, funct
         if (!userData) {
             res
                 .status(400)
-                .json({ detail: "Third party with this ID does not exist." });
+                .json({ error: "Third party with this ID does not exist." });
             return;
         }
         else {
@@ -56,7 +56,7 @@ const thirdPartyInactive = (req, res) => __awaiter(void 0, void 0, void 0, funct
     catch (error) {
         res
             .status(500)
-            .json({ detail: error });
+            .json({ error: error });
         return;
     }
     ;
